@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar pedido</title>
+</head>
+<body>
+    <header></header>
+    <main>
+        <section>
+            <h1>Registro de ventas</h1>
+        </section>
+        <section>
+            <h2>Información cliente</h2>
+            <form action="">
+                <label for="nombre">Nombre:</label>
+                <input type="text" placeholder="Nombre del cliente" id="nombre">
+                <label for="apellido">Apellido:</label>
+                <input type="text" placeholder="Apellido del cliente" id="apellido">
+                <label for="documento">Documento:</label>
+                <input type="number" placeholder="Documento del cliente" id="documento">
+                <label for="direccion">Dirección de entrega:</label>
+                <input type="text" placeholder="Dirección de entrega pedido" id="direccion">
+            </form>
+            <h2>Información del vendedor</h2>
+            <form action="">
+                <label for="codigo">Código del vendedor:</label>
+                <input type="text" placeholder="Código del vendedor" id="codigo">
+            </form>
+            <button>Finalizar venta</button>
+        </section>
+        <section>
+            <h2>Información de compra:</h2>
+            <div>
+                <label>Items:
+                    <input list="items" name="item" /></label>
+                    <datalist>
+                      <option value="item 1">
+                      <option value="item 2">
+                      <option value="item 3">
+                      <option value="item 4">
+                      <option value="item 5">
+                      <option value="item 6">
+                    </datalist>
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+</body>
+</html>
