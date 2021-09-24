@@ -4,16 +4,18 @@
     box-sizing: border-box;
     font-family: 'Roboto Mono', monospace;
 }
+.guiGestionU{
+    max-width: 800px;
+    width: 90%;
+    margin: auto;
+    padding: 40px;
+}
 .guititle{
     text-align: center;
     font-size: 2rem;
     text-transform: up;
 }
-.busquedaUsuario{
-    display: flex;
-}
  .guiClass{
     justify-content: center;
     margin-left: 50px ;
-
  }
