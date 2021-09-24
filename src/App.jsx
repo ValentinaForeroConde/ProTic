@@ -1,5 +1,6 @@
 import Index from 'pages';
 import GestionUsuarios from 'pages/GestionUsuarios';
+import GestionVentas from 'pages/GestionVentas';
 import 'styles/styles.css';
 import {
   BrowserRouter as Router,
@@ -14,6 +15,9 @@ function App() {
         <Switch>
           <Route path='/gestionUsuarios'>
             <GestionUsuarios />
+          </Route>
+          <Route path='/gestionVentas'>
+            <GestionVentas />
           </Route>
           <Route path=''>
             <Index />
