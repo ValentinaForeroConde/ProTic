@@ -4,18 +4,11 @@
     box-sizing: border-box;
     font-family: 'Roboto Mono', monospace;
 }
-.guiGestionU{
+.guiGestionUsuarios{
     max-width: 800px;
     width: 90%;
     margin: auto;
     padding: 40px;
+    background-color: whitesmoke;
 }
-.guititle{
-    text-align: center;
-    font-size: 2rem;
-    text-transform: up;
-}
- .guiClass{
-    justify-content: center;
-    margin-left: 50px ;
- }
+
