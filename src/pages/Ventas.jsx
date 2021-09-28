@@ -58,16 +58,15 @@ const ventasBackend = [
       }
     }, [mostrarTabla]);
     return (
-      <div className='flex h-full w-full flex-col items-center justify-start p-8'>
-        <div className='flex flex-col'>
-          <h2 className='text-3xl font-extrabold text-gray-900'>
+      <div>
+        <div>
+          <h2>
             Página de administración de ventas
           </h2>
           <button
             onClick={() => {
               setMostrarTabla(!mostrarTabla);
             }}
-            className='text-white bg-indigo-500 p-5 rounded-full m-6 w-28 self-end'
           >
             {textoBoton}
           </button>
@@ -86,8 +85,8 @@ const ventasBackend = [
       console.log('este es el listado de ventas en el componente de tabla', listaVentas);
     }, [listaVentas]);
     return (
-      <div className='flex flex-col items-center justify-center'>
-        <h2 className='text-2xl font-extrabold text-gray-800'>Todos las ventas</h2>
+      <div>
+        <h2>Todos las ventas</h2>
         <table>
           <thead>
             <tr>
