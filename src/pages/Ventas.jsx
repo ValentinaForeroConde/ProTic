@@ -5,6 +5,7 @@ import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError'
 import Select from 'react-select';
+import {Table, TableHead, TableData, TableDataGrey, Boton, ContenedorBotonCentrado} from 'elements/Listas';
 
 const ventasBackend = [
     {
@@ -52,7 +53,7 @@ const ventasBackend = [
   
     useEffect(() => {
       if (mostrarTabla) {
-        setTextoBoton('Crear Nueva Venta');
+        setTextoBoton('Nueva Venta');
       } else {
         setTextoBoton('Mostrar Todas las ventas');
       }
@@ -63,13 +64,15 @@ const ventasBackend = [
           <h2>
             Página de administración de ventas
           </h2>
-          <button
-            onClick={() => {
-              setMostrarTabla(!mostrarTabla);
-            }}
-          >
-            {textoBoton}
-          </button>
+          <ContenedorBotonCentrado>
+            <Boton
+              onClick={() => {
+                setMostrarTabla(!mostrarTabla);
+              }}
+            >
+              {textoBoton}
+            </Boton>
+          </ContenedorBotonCentrado>
         </div>
         {mostrarTabla ? (
           <TablaVentas listaVentas={ventas} />
@@ -85,28 +88,28 @@ const ventasBackend = [
       console.log('este es el listado de ventas en el componente de tabla', listaVentas);
     }, [listaVentas]);
     return (
-      <div>
-        <h2>Todos las ventas</h2>
-        <table>
-          <thead>
+      <div className="mainContainerTable">
+        <h2 className="tituloGestionVentas">Todas las ventas</h2>
+        <Table>
+          <TableHead>
             <tr>
-              <th>Nombre del cliente</th>
-              <th>Documento del cliente</th>
-              <th>Id compra</th>
+              <TableData>Nombre del cliente</TableData>
+              <TableData>Documento del cliente</TableData>
+              <TableData>Id compra</TableData>
             </tr>
-          </thead>
+          </TableHead>
           <tbody>
-            {listaVentas.map((ventas) => {
+            {listaVentas.map((ventas, key) => {
               return (
-                <tr>
-                  <td>{ventas.nombreCliente}</td>
-                  <a href="./gestionUsuarios"><td>{ventas.documento}</td></a>
-                  <td>{ventas.idVenta}</td>
+                <tr key={key}>
+                  <TableDataGrey>{ventas.nombreCliente}</TableDataGrey>
+                  <TableDataGrey><a href="./gestionUsuarios">{ventas.documento}</a></TableDataGrey>
+                  <TableDataGrey>{ventas.idVenta}</TableDataGrey>
                 </tr>
               );
             })}
           </tbody>
-        </table>
+        </Table>
       </div>
     );
   };

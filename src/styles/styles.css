@@ -25,3 +25,8 @@ input[type=number] { -moz-appearance:textfield; }
   display: block;
   text-align: center;
 }
+
+.mainContainerTable{
+  width: 50%;
+  margin: auto;
+}
