@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from 'components/Input';
 import {Formulario} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
@@ -6,7 +6,113 @@ import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError'
 import Select from 'react-select';
 
-const GestionVentas = () => {
+const ventasBackend = [
+    {
+        nombreCliente: 'Valentina',
+        ApellidoCliente: 'Forero',
+        documento: 102325246,
+        fecha: '2021/09/28',
+        idVenta: 123456,
+        idVendedor: 1053867832,
+        cantidadProducto: 1,
+        idProducto: 12342
+    },
+    {
+        nombreCliente: 'Carlos',
+        ApellidoCliente: 'Espinosa',
+        documento: 124256311,
+        fecha: '2021/09/28',
+        idVenta: 123467,
+        idVendedor: 1053867832,
+        cantidadProducto: 1,
+        idProducto: 12342
+    },
+    {
+        nombreCliente: 'Camila',
+        ApellidoCliente: 'Dossman',
+        documento: 124554675,
+        fecha: '2021/09/28',
+        idVenta: 1234512,
+        idVendedor: 1053867832,
+        cantidadProducto: 1,
+        idProducto: 12342
+    },
+    
+  ];
+
+  const Ventas = () => {
+    const [mostrarTabla, setMostrarTabla] = useState(true);
+    const [ventas, setVehiculos] = useState([]);
+    const [textoBoton, setTextoBoton] = useState('Crear Nuevo Venta');
+  
+    useEffect(() => {
+      //obtener lista de vehículos desde el backend
+      setVehiculos(ventasBackend);
+    }, []);
+  
+    useEffect(() => {
+      if (mostrarTabla) {
+        setTextoBoton('Crear Nueva Venta');
+      } else {
+        setTextoBoton('Mostrar Todas las ventas');
+      }
+    }, [mostrarTabla]);
+    return (
+      <div className='flex h-full w-full flex-col items-center justify-start p-8'>
+        <div className='flex flex-col'>
+          <h2 className='text-3xl font-extrabold text-gray-900'>
+            Página de administración de ventas
+          </h2>
+          <button
+            onClick={() => {
+              setMostrarTabla(!mostrarTabla);
+            }}
+            className='text-white bg-indigo-500 p-5 rounded-full m-6 w-28 self-end'
+          >
+            {textoBoton}
+          </button>
+        </div>
+        {mostrarTabla ? (
+          <TablaVentas listaVentas={ventas} />
+        ) : (
+          <GestionVentas />
+        )}
+      </div>
+    );
+  };
+
+  const TablaVentas = ({ listaVentas }) => {
+    useEffect(() => {
+      console.log('este es el listado de ventas en el componente de tabla', listaVentas);
+    }, [listaVentas]);
+    return (
+      <div className='flex flex-col items-center justify-center'>
+        <h2 className='text-2xl font-extrabold text-gray-800'>Todos las ventas</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre del cliente</th>
+              <th>Documento del cliente</th>
+              <th>Id compra</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listaVentas.map((ventas) => {
+              return (
+                <tr>
+                  <td>{ventas.nombreCliente}</td>
+                  <a href="./gestionUsuarios"><td>{ventas.documento}</td></a>
+                  <td>{ventas.idVenta}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
+  };
+  
+  const GestionVentas = () => {
     const [nombre, cambiarNombre] = useState({campo:'', valido: null});
     const [apellido, cambiarApellido] = useState({campo:'', valido: null});
     const [documento, cambiarDocumento] = useState({campo:'', valido: null});
@@ -126,4 +232,4 @@ const GestionVentas = () => {
     )
 }
 
-export default GestionVentas
+export default Ventas;
