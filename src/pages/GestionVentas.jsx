@@ -30,12 +30,12 @@ const GestionVentas = () => {
                 <form action="">
                     <label for="">Items:</label>
                     <select>
-                      <option value="item 1">Item 1</option>
-                      <option value="item 2">Item 2</option>
-                      <option value="item 3">Item 3</option>
-                      <option value="item 4">Item 4</option>
-                      <option value="item 5">Item 5</option>
-                      <option value="item 6">Item 6</option>
+                        <option value="item 1">Item 1</option>
+                        <option value="item 2">Item 2</option>
+                        <option value="item 3">Item 3</option>
+                        <option value="item 4">Item 4</option>
+                        <option value="item 5">Item 5</option>
+                        <option value="item 6">Item 6</option>
                     </select>
                     <label for=""> #: </label>
                     <input type="number" placeholder="Cantidad"/>

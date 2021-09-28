@@ -5,3 +5,13 @@
     font-family: 'Roboto Mono', monospace;
 }
 
+.registrar-producto, .consultar-producto {
+    display: flex;
+    margin: 10px;
+    padding: auto;
+    box-sizing: content-box;
+    border-radius: 5px;
+    background-color: blue;
+
+}
+

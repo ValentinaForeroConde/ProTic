@@ -1,7 +1,10 @@
 import Index from 'pages';
 import GestionUsuarios from 'pages/GestionUsuarios';
 import GestionVentas from 'pages/GestionVentas';
+import GestionProductos from 'pages/GestionProductos';
+import ConsultarProductos from 'pages/ConsultarProductos';
 import 'styles/styles.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,6 +21,12 @@ function App() {
           </Route>
           <Route path='/gestionVentas'>
             <GestionVentas />
+          </Route>
+          <Route path='/gestionProductos'>
+            <GestionProductos />
+          </Route>
+          <Route path='/ConsultarProductos'>
+            <ConsultarProductos />
           </Route>
           <Route path=''>
             <Index />
