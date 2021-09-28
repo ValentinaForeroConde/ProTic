@@ -5,13 +5,23 @@
     font-family: 'Roboto Mono', monospace;
 }
 
-.registrar-producto, .consultar-producto {
-    display: flex;
-    margin: 10px;
-    padding: auto;
-    box-sizing: content-box;
-    border-radius: 5px;
-    background-color: blue;
-
+.guiGestionUsuarios{
+    max-width: 800px;
+    width: 90%;
+    margin: auto;
+    padding: 40px;
+    background-color: whitesmoke;
 }
 
+/* Sirve para quitar las flechas al tipo number*/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] { -moz-appearance:textfield; }
+
+.tituloGestionVentas{
+  display: block;
+  text-align: center;
+}
