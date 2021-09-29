@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Input from 'components/Input';
-import {Formulario} from 'elements/Formularios';
+import {Formulario, Etiqueta, ContCarrito, Carrito} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
-import AlertaError from 'components/AlertaError'
-import Select from 'react-select';
+import AlertaError from 'components/AlertaError';
+import Selects from 'components/Selects';
 import {Table, TableHead, TableData, TableDataGrey, Boton, ContenedorBotonCentrado} from 'elements/Listas';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faCartPlus} from '@fortawesome/free-solid-svg-icons';
 
 const ventasBackend = [
     {
@@ -120,14 +122,18 @@ const ventasBackend = [
     const [documento, cambiarDocumento] = useState({campo:'', valido: null});
     const [idVendedor, cambiarIdVendedor] = useState({campo:'', valido: null});
     const [fecha, cambiarFecha] = useState({campo:'', valido: null});
+    const [tipoProducto, cambiarTipoProducto] = useState({campo:'', valido: null});
     const [cantidadProducto, cambiarCantidadProducto] = useState({campo:'', valido: null});
     const [formularioValido, cambiarFormularioValido] = useState(null);
-    const foodOptions = [
-        {value: 'comida-perros-adultos', label: "Comida perros adultos"},
-        {value: 'comida-perros-cachorros', label: "Comida perros cachorros"},
-        {value: 'comida-perros-pelo-delgado', label: "Comida perros pelo delgado"}
 
-    ]
+    const productoOpciones = [
+      {value:'comida-cachorros', label: 'Comida cachorros'},
+      {value:'comida-adultos', label: 'Comida adultos'},
+      {value:'comida-seca', label: 'Comida seca'},
+      {value:'comida-humeda', label: 'Comida humeda'},
+      {value:'comida-razasGrandes', label: 'Comida razas grandes'}
+    ];
+
     const onSubmitForm = (e) =>{
         e.preventDefault();
         if (
@@ -135,7 +141,8 @@ const ventasBackend = [
             apellido.valido === 'true' &&
             documento.valido === 'true' &&
             idVendedor.valido === 'true' &&
-            fecha.valido === 'true' && 
+            fecha.valido === 'true' &&
+            tipoProducto.valido === 'true' && 
             cantidadProducto.valido === 'true' 
             ){
                 cambiarFormularioValido(true);
@@ -144,6 +151,7 @@ const ventasBackend = [
                 cambiarDocumento({campo: '', valido:''});
                 cambiarIdVendedor({campo: '', valido:''});
                 cambiarFecha({campo: '', valido:''});
+                cambiarTipoProducto({campo: '', valido:''})
                 cambiarCantidadProducto({campo: '', valido:''});
                 // hacer envios a apis base de datos
             }else{
@@ -204,25 +212,32 @@ const ventasBackend = [
                     estado = {idVendedor}
                     cambiarEstado = {cambiarIdVendedor}
                  />
-                 <div>
-                    <Select
-                        options={foodOptions}
-                        placeholder = "Seleccione el producto"
-                        isSearchable                     
+                 <Etiqueta>Información de compra: </Etiqueta>
+                  <Selects
+                    user = "Producto"
+                    placeholdercont = "Seleccione el producto"
+                    tipo = "text"
+                    lenyenda = "Seleccione un producto"
+                    expresionRegular = {Expresiones.nombre}
+                    name = "tipoProducto"
+                    estado = {tipoProducto}
+                    cambiarEstado = {cambiarTipoProducto}
+                    opciones = {productoOpciones}
+                  />
+                  <ContCarrito>
+                    <Input 
+                      user = "cantidad"
+                      placeholdercont = "cantidad producto"
+                      tipo = "number"
+                      lenyenda = "Solo ingrese numeros para asignar una cantidad al producto"
+                      expresionRegular = {Expresiones.cantidad}
+                      name = "cantidadProducto"
+                      estado = {cantidadProducto}
+                      cambiarEstado = {cambiarCantidadProducto}
                     />
-                     <button>+</button>
-                 </div>
-                 <Input 
-                    user = "cantidadProducto"
-                    placeholdercont = "cantidadProducto"
-                    tipo = "number"
-                    lenyenda = "Solo ingrese numeros para asignar una cantidad al producto"
-                    expresionRegular = {Expresiones.telefono}
-                    name = "cantidadProducto"
-                    estado = {cantidadProducto}
-                    cambiarEstado = {cambiarCantidadProducto}
-                 />
-                 {formularioValido === false  && <AlertaError/>}
+                    <Carrito><FontAwesomeIcon icon={faCartPlus}/></Carrito>
+                  </ContCarrito>
+                {formularioValido === false  && <AlertaError/>}
                 <BotonCentrado 
                     nombreBoton = "Finalizar venta"
                     mensajeBoton = "Venta registrada exitosamente"

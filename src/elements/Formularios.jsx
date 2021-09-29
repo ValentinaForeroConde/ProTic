@@ -145,8 +145,24 @@ const MensajeError = styled.div `
         grid-column: span 1;
     }
 `;
-
-
+const Etiqueta = styled.h3 `
+    font-size: 15px;
+    line-height: 15px;
+    padding: 0px 15px;
+    border-radius: 3px;
+    grid-column: span 2;
+    text-align: center;
+    @media(max-width: 800px){
+        grid-column: span 1;
+    }
+`;
+const ContCarrito = styled.div `
+    display: flex;
+`;
+const Carrito = styled.button`
+    height: 30px;
+    margin: 50px 0px 0px 30px  ;
+`;
 export {Formulario,
     Label,
     GrupoInput,
@@ -158,4 +174,7 @@ export {Formulario,
     Boton,
     MensajeExito,
     MensajeError,
+    Etiqueta,
+    ContCarrito,
+    Carrito,
 };
