@@ -2,6 +2,7 @@ import Index from 'pages';
 import GestionUsuarios from 'pages/GestionUsuarios';
 import GestionVentas from 'pages/GestionVentas';
 import GestionProductos from 'pages/GestionProductos';
+import Ventas from 'pages/Ventas';
 import 'styles/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
@@ -18,8 +19,8 @@ function App() {
           <Route path='/gestionUsuarios'>
             <GestionUsuarios />
           </Route>
-          <Route path='/gestionVentas'>
-            <GestionVentas />
+          <Route path='/ventas'>
+            <Ventas />
           </Route>
           <Route path='/gestionProductos'>
             <GestionProductos />
