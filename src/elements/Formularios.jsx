@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+
 const colores ={
     borde : "#0075FF",
     error : "#bb2929",
@@ -145,6 +146,7 @@ const MensajeError = styled.div `
     }
 `;
 
+
 export {Formulario,
     Label,
     GrupoInput,
@@ -155,4 +157,5 @@ export {Formulario,
     ContenedorBotonCentrado,
     Boton,
     MensajeExito,
-    MensajeError};
+    MensajeError,
+};

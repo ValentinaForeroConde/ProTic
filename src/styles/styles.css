@@ -30,3 +30,8 @@ input[type=number] { -moz-appearance:textfield; }
   width: 50%;
   margin: auto;
 }
+.selectlist{
+  height: 45px;
+  line-height: 30px;
+  font-size: 14px;
+}

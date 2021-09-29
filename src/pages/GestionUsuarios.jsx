@@ -1,51 +1,88 @@
 import React, {useState} from 'react'
-import { Formulario, Label, ContenedorTerminos, ContenedorBotonCentrado, Boton, MensajeExito, MensajeError} from 'elements/Formularios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+import { Formulario} from 'elements/Formularios';
 import Input from 'components/Input';
+import Expresiones from 'components/Expresiones';
+import BotonCentrado from 'components/BotonCentrado';
+import AlertaError from 'components/AlertaError'
+import Selects from 'components/Selects';
+
+const ventasBackend = [
+    {
+        nombreCliente: 'Valentina',
+        ApellidoCliente: 'Forero',
+        documento: 102325246,
+        fecha: '2021/09/28',
+        idVenta: 123456,
+        idVendedor: 1053867832,
+        cantidadProducto: 1,
+        idProducto: 12342
+    },
+    {
+        nombreCliente: 'Carlos',
+        ApellidoCliente: 'Espinosa',
+        documento: 124256311,
+        fecha: '2021/09/28',
+        idVenta: 123467,
+        idVendedor: 1053867832,
+        cantidadProducto: 1,
+        idProducto: 12342
+    },
+    {
+        nombreCliente: 'Camila',
+        ApellidoCliente: 'Dossman',
+        documento: 124554675,
+        fecha: '2021/09/28',
+        idVenta: 1234512,
+        idVendedor: 1053867832,
+        cantidadProducto: 1,
+        idProducto: 12342
+    },
+
+  ];
+
+
+
+
 
 function GestionUsuarios() {
 
     const [nombre, cambiarNombre] = useState({campo:'', valido: null});
     const [apellido, cambiarApellido] = useState({campo:'', valido: null});
     const [documento, cambiarDocumento] = useState({campo:'', valido: null});
-    const [idCompra, cambiarIdCompra] = useState({campo:'', valido: null});
-    const [fecha, cambiarFecha] = useState({campo:'', valido: null});
-    const [vendedor, cambiarVendedor] = useState({campo:'', valido: null});
+    const [Rol, cambiarRol] = useState({campo:'', valido: null});
+    const [Estado, cambiarEstado] = useState({campo:'', valido: null});
     const [formularioValido, cambiarFormularioValido] = useState(null);
 
-    const expresiones = {
-        usuario: /^[a-zA-Z0-9_-]{4,16}$/, // Letras, numeros, guion y guion_bajo
-        nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
-        password: /^.{4,12}$/, // 4 a 12 digitos.
-        correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-        telefono: /^\d{7,14}$/, // 7 a 14 numeros.
-        valores: /^\d{4,10}$/,
-        fechas: /^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$/
-    }
     const onSubmitForm = (e) =>{
         e.preventDefault();
         if (
             nombre.valido === 'true' &&
             apellido.valido === 'true' &&
             documento.valido === 'true' &&
-            idCompra.valido === 'true' &&
-            fecha.valido === 'true' &&
-            vendedor.valido === 'true'
+            Rol.valido === 'true' &&
+            Estado.valido === 'true'
             ){
                 cambiarFormularioValido(true);
                 cambiarNombre({campo: '', valido:''});
                 cambiarApellido({campo: '', valido:''});
                 cambiarDocumento({campo: '', valido:''});
-                cambiarIdCompra({campo: '', valido:''});
-                cambiarFecha({campo: '', valido:''});
-                cambiarVendedor({campo: '', valido:''});
+                cambiarRol({campo: '', valido:''});
+                cambiarEstado({campo: '', valido:''});
 
                 // hacer envios a apis base de datos
             }else{
                 cambiarFormularioValido(false);
             }
         }
+        const opcion1  = [
+            {value:'administrador', label: 'Administrador'},
+            {value:'vendedor', label: 'Vendedor'}
+        ]
+        const opcion2  = [
+            {value:'pendiente', label: 'Pendiente'},
+            {value:'autorizado', label: 'Autorizado'},
+            {value:'no-autorizado', label: 'No Autorizado'}
+        ]
 
     return (
         <main className="guiGestionUsuarios">
@@ -58,7 +95,7 @@ function GestionUsuarios() {
                     placeholdercont="Nombre de usuario"
                     name="nombre"
                     lenyenda= "El nombre solo admite letras"
-                    expresionRegular={expresiones.nombre}
+                    expresionRegular={Expresiones.nombre}
                 />
                 <Input
                     estado={apellido}
@@ -68,67 +105,49 @@ function GestionUsuarios() {
                     placeholdercont="Apellido de usuario"
                     name="apellido"
                     lenyenda= "El apellido solo admite letras"
-                    expresionRegular={expresiones.nombre}
+                    expresionRegular={Expresiones.nombre}
                 />
                  <Input
                     estado={documento}
                     cambiarEstado={cambiarDocumento}
                     tipo="number"
-                    user="Documento"
+                    user="Id Usuario"
                     placeholdercont="N° ID del usuario"
-                    name="documento"
+                    name="idUsuario"
                     lenyenda= "El Documento solo admite numeros, minimo 7 - maximo 14"
-                    expresionRegular={expresiones.telefono}
+                    expresionRegular={Expresiones.telefono}
                 />
-                <Input
-                    estado={idCompra}
-                    cambiarEstado={cambiarIdCompra}
-                    tipo="number"
-                    user="Id Compra"
-                    placeholdercont="15468"
-                    name="idCompra"
-                    lenyenda= "No se puede modificar"
-                    expresionRegular={expresiones.valores}
-                />
-                 <Input
-                    estado={fecha}
-                    cambiarEstado={cambiarFecha}
-                    tipo="date"
-                    user="Fecha"
-                    name="fecha"
-                    lenyenda= "Indique una fecha"
-                    expresionRegular={expresiones.fechas}
-
-                />
-                <Input
-                    estado={vendedor}
-                    cambiarEstado={cambiarVendedor}
-                    tipo="number"
-                    user="Id Vendedor"
-                    placeholdercont="N° ID del vendedor"
-                    name="vendedor"
-                    lenyenda= "El Documento solo admite numeros, minimo 7 - maximo 14"
-                    expresionRegular={expresiones.telefono}
+                <Selects
+                    estado={Rol}
+                    cambiarEstado={cambiarRol}
+                    tipo="text"
+                    user="Rol"
+                    placeholdercont="No Asignado"
+                    name="rol"
+                    lenyenda= "Administrador/ Vendedor / No Asignado"
+                    expresionRegular={Expresiones.nombre}
+                    opciones={opcion1}
                 />
 
-                <ContenedorTerminos>
-                    <Label>
-                        <input type="checkbox" name="terminos" id="terminos"/>
-                        Acepto los Terminos y Condiciones
-                    </Label>
-                </ContenedorTerminos>
+               <Selects
+                    estado={Estado}
+                    cambiarEstado={cambiarEstado}
+                    tipo="text"
+                    user="Estado"
+                    placeholdercont="Pendiente"
+                    name="estado"
+                    lenyenda= "Pendiente / Autorizado / No Autorizado"
+                    expresionRegular={Expresiones.nombre}
+                    opciones={opcion2}
+                />
 
-                {formularioValido === false  && <MensajeError>
-                    <p>
-                        <FontAwesomeIcon icon={faExclamationTriangle}/>
-                        <b>Error:</b> Por favor rellene el formulario correctamente.
-                    </p>
-                </MensajeError>}
 
-                <ContenedorBotonCentrado>
-                    <Boton type="submit">Enviar</Boton>
-                    {formularioValido && <MensajeExito>Formulario enviado exitosamente!</MensajeExito>}
-                </ContenedorBotonCentrado>
+                {formularioValido === false  && <AlertaError/> }
+                <BotonCentrado
+                    nombreBoton = "Actualizar"
+                    mensajeBoton = "Actualización exitosa"
+                    formularioValido = {formularioValido}
+                />
            </Formulario>
         </main>
     );
