@@ -1,6 +1,7 @@
-import Index from 'pages';
+import Index from 'pages/Index';
 import GestionUsuarios from 'pages/GestionUsuarios';
 import Ventas from 'pages/Ventas';
+import PublicLayout from 'layouts/PublicLayout';
 import 'styles/styles.css';
 import {
   BrowserRouter as Router,
@@ -20,7 +21,9 @@ function App() {
             <Ventas />
           </Route>
           <Route path=''>
-            <Index />
+            <PublicLayout>
+              <Index />
+            </PublicLayout>
           </Route>
         </Switch>
       </Router>
