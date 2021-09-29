@@ -56,8 +56,8 @@ const GestionProductos = () => {
                     name = "nombre"
                     estado = {nombre}
                     cambiarEstado = {cambiarNombre}
-                 />
-                 <Input 
+                    />
+                    <Input 
                     user = "Descripcion"
                     placeholdercont = "Descripción producto"
                     tipo = "text"
@@ -66,8 +66,8 @@ const GestionProductos = () => {
                     name = "descripcion"
                     estado = {descripcion}
                     cambiarEstado = {cambiarDescripcion}
-                 />
-                 <Input 
+                    />
+                    <Input 
                     user = "valor"
                     placeholdercont = "valor producto"
                     tipo = "number"
@@ -76,8 +76,8 @@ const GestionProductos = () => {
                     name = "valor"
                     estado = {valor}
                     cambiarEstado = {cambiarvalor}
-                 />
-                 <Input
+                    />
+                    <Input
                     estado={fecha}
                     cambiarEstado={cambiarFecha}
                     tipo="date"
@@ -86,9 +86,9 @@ const GestionProductos = () => {
                     lenyenda= "Indique una fecha"
                     expresionRegular={Expresiones.fechas}
 
-                />
-                 <Input 
-                    user = "Id-vendedor"
+                    />
+                    <Input 
+                    user = "Id-Producto"
                     placeholdercont = "Id-Producto"
                     tipo = "number"
                     lenyenda = "El Id solo admite números"
@@ -96,16 +96,16 @@ const GestionProductos = () => {
                     name = "idVendedor"
                     estado = {idVendedor}
                     cambiarEstado = {cambiarIdVendedor}
-                 />
-                 <div>
+                    />
+                    <div>
                     <Select
                         options={foodOptions}
                         placeholder = "Seleccione el producto"
                         isSearchable                     
                     />
-                     <button>+</button>
-                 </div>
-                 <Input 
+                        <button>+</button>
+                    </div>
+                    <Input 
                     user = "Cantidad Producto"
                     placeholdercont = "Cantidad Producto"
                     tipo = "number"
@@ -114,13 +114,25 @@ const GestionProductos = () => {
                     name = "cantidadProducto"
                     estado = {cantidadProducto}
                     cambiarEstado = {cambiarCantidadProducto}
-                 />
-                 {formularioValido === false  && <AlertaError/>}
+                    max = {3}
+                    />
+                    {formularioValido === false  && <AlertaError/>}
                 <BotonCentrado 
-                    nombreBoton = "Finalizar venta"
-                    mensajeBoton = "Venta registrada exitosamente"
+                    nombreBoton = "Agregar producto"
+                    mensajeBoton = "Producto agregado exitosamente"
                     formularioValido = {formularioValido}
                 />
+                <BotonCentrado 
+                    nombreBoton = "Actualizar producto"
+                    mensajeBoton = "Producto actualizado exitosamente"
+                    formularioValido = {formularioValido}
+                />
+                <BotonCentrado 
+                    nombreBoton = "Eliminar producto"
+                    mensajeBoton = "Producto eliminado exitosamente"
+                    formularioValido = {formularioValido}
+                />
+
             </Formulario>
             
         </main>
