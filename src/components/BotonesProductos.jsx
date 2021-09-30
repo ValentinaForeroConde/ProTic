@@ -1,7 +1,7 @@
 import React from 'react';
 import {ContenedorBotonCentrado, Boton, MensajeExito} from 'elements/Formularios';
 
-const BotonEliminar = ({nombreBoton, mensajeBoton, formularioValido}) => {
+const BotonesProductos = ({nombreBoton, mensajeBoton, formularioValido}) => {
     return (
         <ContenedorBotonCentrado>
             <Boton type="submit">{nombreBoton}</Boton>
@@ -11,4 +11,4 @@ const BotonEliminar = ({nombreBoton, mensajeBoton, formularioValido}) => {
     )
 }
 
-export default BotonEliminar
+export default BotonesProductos

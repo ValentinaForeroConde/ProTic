@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Input from 'components/Input';
 import {Formulario} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
-import BotonCentrado from 'components/BotonCentrado';
+import BotonesProductos from 'components/BotonesProductos';
 import AlertaError from 'components/AlertaError'
 import Select from 'react-select';
 
@@ -72,7 +72,7 @@ const GestionProductos = () => {
                     placeholdercont = "valor producto"
                     tipo = "number"
                     lenyenda = "El valor solo admite números"
-                    expresionRegular = {Expresiones.telefono}
+                    expresionRegular = {Expresiones.valores}
                     name = "valor"
                     estado = {valor}
                     cambiarEstado = {cambiarvalor}
@@ -103,38 +103,27 @@ const GestionProductos = () => {
                         placeholder = "Seleccione el producto"
                         isSearchable                     
                     />
-                        <button>+</button>
+                    
                     </div>
                     <Input 
                     user = "Cantidad Producto"
                     placeholdercont = "Cantidad Producto"
                     tipo = "number"
                     lenyenda = "Solo ingrese números para asignar una cantidad al producto"
-                    expresionRegular = {Expresiones.telefono}
+                    expresionRegular = {Expresiones.cantidades}
                     name = "cantidadProducto"
                     estado = {cantidadProducto}
                     cambiarEstado = {cambiarCantidadProducto}
                     max = {3}
                     />
                     {formularioValido === false  && <AlertaError/>}
-                <BotonCentrado 
-                    nombreBoton = "Agregar producto"
+                
+                <BotonesProductos 
+                    nombreBoton = "Agregar"
                     mensajeBoton = "Producto agregado exitosamente"
                     formularioValido = {formularioValido}
                 />
-                <BotonCentrado 
-                    nombreBoton = "Actualizar producto"
-                    mensajeBoton = "Producto actualizado exitosamente"
-                    formularioValido = {formularioValido}
-                />
-                <BotonCentrado 
-                    nombreBoton = "Eliminar producto"
-                    mensajeBoton = "Producto eliminado exitosamente"
-                    formularioValido = {formularioValido}
-                />
-
-            </Formulario>
-            
+                </Formulario>
         </main>
     )
 };

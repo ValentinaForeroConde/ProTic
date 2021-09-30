@@ -38,6 +38,7 @@ const ContenedorBotonCentrado = styled.div`
     text-align: right;
 
 `;
+
 const Boton = styled.button`
     height: 45px;
     line-height: 45px;

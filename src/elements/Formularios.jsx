@@ -108,7 +108,8 @@ const ContenedorBotonCentrado = styled.div`
 const Boton = styled.button`
     height: 45px;
     line-height: 45px;
-    width: 30%;
+    width: min-content;
+    padding: 0 .5rem;
     background: #000;
     color: #fff;
     font-weight: bold;
