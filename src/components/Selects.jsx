@@ -4,12 +4,12 @@ import { faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import Select from 'react-select';
 
 const Selects = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, estado, cambiarEstado, opciones}) => {
-    const onChange = ({selectedOption})=>{
-        cambiarEstado({...estado, campo: selectedOption});
+    const onChange = (e)=>{
+        cambiarEstado({campo: e});
     }
     const validacion = () =>{
         if(expresionRegular){
-            if(expresionRegular.test(estado.campo)){
+            if(expresionRegular.test(estado.campo.value)){
                 cambiarEstado({...estado, valido: "true"});
             } else{
                 cambiarEstado({...estado, valido: "false"});
