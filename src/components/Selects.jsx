@@ -1,15 +1,16 @@
 import React from 'react'
-import {Label, GrupoInput, Inputs, LeyendaError, IconoValidacion,} from 'elements/Formularios';
+import {Label, GrupoInput, LeyendaError, IconoValidacion,} from 'elements/Formularios';
 import { faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
+import Select from 'react-select';
 
-const Input = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, estado, cambiarEstado}) => {
-    const onChange = (e) =>{
-        cambiarEstado({...estado, campo: e.target.value});
+const Selects = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, estado, cambiarEstado, opciones}) => {
+    const onChange = (e)=>{
+        cambiarEstado({campo: e});
     }
     const validacion = () =>{
+        console.log(estado.campo.value);
         if(expresionRegular){
-            console.log(estado.campo)
-            if(expresionRegular.test(estado.campo)){
+            if(expresionRegular.test(estado.campo.value)){
                 cambiarEstado({...estado, valido: "true"});
             } else{
                 cambiarEstado({...estado, valido: "false"});
@@ -20,7 +21,7 @@ const Input = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, e
         <div>
             <Label htmlFor={name} valido={estado.valido}>{user}</Label>
             <GrupoInput>
-                <Inputs
+                <Select
                     type={tipo}
                     placeholder={placeholdercont}
                     id={name}
@@ -29,6 +30,8 @@ const Input = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, e
                     onKeyUp={validacion}
                     onBlur={validacion}
                     valido={estado.valido}
+                    options={opciones}
+                    className="selectlist"
                 />
                 <IconoValidacion
                 icon={estado.valido === 'true' ? faCheckCircle : faTimesCircle}
@@ -39,4 +42,4 @@ const Input = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, e
     )
 }
 
-export default Input;
+export default Selects

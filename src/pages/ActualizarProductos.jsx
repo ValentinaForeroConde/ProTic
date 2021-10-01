@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import Input from 'components/Input';
 import {Formulario} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
-import BotonesProductos from 'components/BotonesProductos';
+import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError'
 import Select from 'react-select';
 
-const GestionProductos = () => {
+const ActualizarProductos = () => {
     
     const [nombre, cambiarNombre] = useState({campo:'', valido: null});
     const [descripcion, cambiarDescripcion] = useState({campo:'', valido: null});
@@ -22,6 +22,7 @@ const GestionProductos = () => {
         {value:'comida humeda', label: 'Comida humeda'},
         {value:'comida razasGrandes', label: 'Comida razas grandes'}
         ];
+        
     const onSubmitForm = (e) =>{
         e.preventDefault();
         if (
@@ -119,9 +120,9 @@ const GestionProductos = () => {
                     />
                     {formularioValido === false  && <AlertaError/>}
                 
-                <BotonesProductos 
-                    nombreBoton = "Agregar"
-                    mensajeBoton = "Producto agregado exitosamente"
+                    <BotonCentrado 
+                    nombreBoton = "Actualizar"
+                    mensajeBoton = "Venta actualizada exitosamente"
                     formularioValido = {formularioValido}
                 />
                 </Formulario>
@@ -129,4 +130,4 @@ const GestionProductos = () => {
     )
 };
 
-export default GestionProductos;
+export default ActualizarProductos;

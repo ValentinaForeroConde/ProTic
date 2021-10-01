@@ -1,129 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Input from 'components/Input';
-import {Formulario, Etiqueta, ContCarrito, Carrito, Label} from 'elements/Formularios';
+import {Formulario, Etiqueta, ContCarrito, Carrito, Label, LabelVenta, RadioButton, ContentRButton} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError';
 import Selects from 'components/Selects';
-import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado} from 'elements/Listas';
+import {Table, TableHead, TableData,} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faCartPlus, faPenAlt} from '@fortawesome/free-solid-svg-icons';
+import {faCartPlus, faArrowLeft, faTruckLoading, faTimes, faCheck} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 
-const ventasBackend = [
-    {
-        nombreCliente: 'Valentina',
-        ApellidoCliente: 'Forero',
-        documento: 1053867832,
-        fecha: '2021/09/28',
-        idVenta: 123098,
-        idVendedor: 12345678,
-        cantidadProducto: 1,
-        idProducto: 12342
-    },
-    {
-        nombreCliente: 'Carlos',
-        ApellidoCliente: 'Espinosa',
-        documento: 124256311,
-        fecha: '2021/09/28',
-        idVenta: 123467,
-        idVendedor: 1053867832,
-        cantidadProducto: 1,
-        idProducto: 12342
-    },
-    {
-        nombreCliente: 'Maria Camila',
-        ApellidoCliente: 'Dossman',
-        documento: 124554675,
-        fecha: '2021/09/28',
-        idVenta: 1234512,
-        idVendedor: 1053867832,
-        cantidadProducto: 1,
-        idProducto: 12342
-    },
-    
-  ];
-
-  const Ventas = () => {
-    const [mostrarTabla, setMostrarTabla] = useState(true);
-    const [ventas, setVentas] = useState([]);
-    const [textoBoton, setTextoBoton] = useState('Crear Nuevo Venta');
-  
-    useEffect(() => {
-      //obtener lista de vehículos desde el backend
-      setVentas(ventasBackend);
-    }, []);
-  
-    useEffect(() => {
-      if (mostrarTabla) {
-        setTextoBoton('Nueva Venta');
-      } else {
-        setTextoBoton('Mostrar Todas las ventas');
-      }
-    }, [mostrarTabla]);
-    return (
-      <div>
-        <div>
-          <ContenedorBotonCentrado>
-            <Boton
-              onClick={() => {
-                setMostrarTabla(!mostrarTabla);
-              }}
-            >
-              {textoBoton}
-            </Boton>
-          </ContenedorBotonCentrado>
-        </div>
-        {mostrarTabla ? (
-          <TablaVentas listaVentas={ventas} />
-        ) : (
-          <GestionVentas />
-        )}
-      </div>
-    );
-  };
-
-  const TablaVentas = ({ listaVentas }) => {
-    useEffect(() => {
-      console.log('este es el listado de ventas en el componente de tabla', listaVentas);
-    }, [listaVentas]);
-    return (
-      <div className="mainContainerTable">
-        <h2 className="tituloGestionVentas">Todas las ventas</h2>
-        <Table>
-          <TableHead>
-            <tr>
-              <TableData>Nombre del cliente</TableData>
-              <TableData>Documento del cliente</TableData>
-              <TableData>Id compra</TableData>
-              <TableData>Actualizar</TableData>
-            </tr>
-          </TableHead>
-          <tbody>
-            {listaVentas.map((ventas, key) => {
-              return (
-                <tr key={key}>
-                  <TableData>{ventas.nombreCliente}</TableData>
-                  <TableData>{ventas.documento}</TableData>
-                  <TableData>{ventas.idVenta}</TableData>
-                  <TableData>
-                    <button>
-                      <Link to='/actualizarVentas'>
-                        <FontAwesomeIcon icon={faPenAlt}/>
-                      </Link>
-                    </button>
-                  </TableData>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      </div>
-    );
-  };
-  
-  const GestionVentas = () => {
+const ActualizarVentas = () => {
     const [nombre, cambiarNombre] = useState({campo:'', valido: null});
     const [apellido, cambiarApellido] = useState({campo:'', valido: null});
     const [documento, cambiarDocumento] = useState({campo:'', valido: null});
@@ -171,11 +59,16 @@ const ventasBackend = [
         }
     return (
         <main>
+            <button className="botonVolver">
+                <Link to='/ventas'>
+                    <FontAwesomeIcon icon={faArrowLeft}/>
+                </Link>
+            </button>
             <h2 className="tituloGestionVentas">Infomación de venta</h2>
             <Formulario className = "guiGestionUsuarios" onSubmit = {onSubmitForm}>
                 <Input 
                     user = "Nombre"
-                    placeholdercont = "Nombre cliente"
+                    placeholdercont = "Valentina"
                     tipo = "text"
                     lenyenda = "El nombre solo admite letras"
                     expresionRegular = {Expresiones.nombre}
@@ -185,7 +78,7 @@ const ventasBackend = [
                  />
                  <Input 
                     user = "Apellido"
-                    placeholdercont = "Apellido cliente"
+                    placeholdercont = "Forero"
                     tipo = "text"
                     lenyenda = "El apellido solo admite letras"
                     expresionRegular = {Expresiones.nombre}
@@ -195,7 +88,7 @@ const ventasBackend = [
                  />
                  <Input 
                     user = "Documento"
-                    placeholdercont = "Documento cliente"
+                    placeholdercont = "1053867832"
                     tipo = "number"
                     lenyenda = "El Documento solo admite numeros"
                     expresionRegular = {Expresiones.telefono}
@@ -215,7 +108,7 @@ const ventasBackend = [
                 />
                  <Input 
                     user = "Id-vendedor"
-                    placeholdercont = "Id-vendedor"
+                    placeholdercont = "12345678"
                     tipo = "number"
                     lenyenda = "El Id solo admite numeros"
                     expresionRegular = {Expresiones.telefono}
@@ -223,6 +116,7 @@ const ventasBackend = [
                     estado = {idVendedor}
                     cambiarEstado = {cambiarIdVendedor}
                  />
+                 <LabelVenta> Id-Venta: 123098 </LabelVenta>
                  <Etiqueta>Información de compra: </Etiqueta>
                   <Selects
                     user = "Producto"
@@ -267,10 +161,40 @@ const ventasBackend = [
                       </tbody>
                 </Table>
                 <Label>Total: $$$</Label>
+                <Etiqueta>Estado de la venta: </Etiqueta>
+                <RadioButton>
+                    <ContentRButton>
+                      <input type="radio" value="En proceso" name="estado"/>
+                      <span>
+                        <FontAwesomeIcon icon={faTruckLoading}/>
+                      </span>
+                      <span>
+                      En proceso 
+                      </span>
+                    </ContentRButton>
+                    <ContentRButton>
+                      <input type="radio" value="Cancelado" name="estado"/>
+                      <span>
+                        <FontAwesomeIcon icon={faTimes}/>
+                      </span>
+                      <span>
+                        Cancelado
+                      </span>
+                    </ContentRButton>
+                    <ContentRButton>
+                      <input type="radio" value="Entregado" name="estado"/>
+                      <span>
+                        <FontAwesomeIcon icon={faCheck}/>
+                      </span>
+                      <span>
+                        Entregado
+                      </span>
+                    </ContentRButton>
+                </RadioButton>
                 {formularioValido === false  && <AlertaError/>}
                 <BotonCentrado 
-                    nombreBoton = "Finalizar venta"
-                    mensajeBoton = "Venta registrada exitosamente"
+                    nombreBoton = "Actualizar"
+                    mensajeBoton = "Venta actualizada exitosamente"
                     formularioValido = {formularioValido}
                 />
             </Formulario>
@@ -278,5 +202,4 @@ const ventasBackend = [
         </main>
     )
 }
-
-export default Ventas;
+export default ActualizarVentas

@@ -107,12 +107,22 @@ const productosBackend = [
     const [fecha, cambiarFecha] = useState({campo:'', valido: null});
     const [cantidadProducto, cambiarCantidadProducto] = useState({campo:'', valido: null});
     const [formularioValido, cambiarFormularioValido] = useState(null);
+<<<<<<< HEAD
     const foodOptions = [
         {value: 'comida-perros-adultos', label: "Comida perros adultos"},
         {value: 'comida-perros-cachorros', label: "Comida perros cachorros"},
         {value: 'comida-perros-pelo-delgado', label: "Comida perros pelo delgado"}
 
     ]
+=======
+    const productoOpciones = [
+      {value:'comida cachorros', label: 'Comida cachorros'},
+      {value:'comida adultos', label: 'Comida adultos'},
+      {value:'comida seca', label: 'Comida seca'},
+      {value:'comida humeda', label: 'Comida humeda'},
+      {value:'comida razasGrandes', label: 'Comida razas grandes'}
+    ];
+>>>>>>> dev-valefo-spr2
     const onSubmitForm = (e) =>{
         e.preventDefault();
         if (
@@ -191,7 +201,11 @@ const productosBackend = [
                     />
                     <div>
                     <Select
+<<<<<<< HEAD
                         options={foodOptions}
+=======
+                        options={productoOpciones}
+>>>>>>> dev-valefo-spr2
                         placeholder = "Seleccione el producto"
                         isSearchable                     
                     />

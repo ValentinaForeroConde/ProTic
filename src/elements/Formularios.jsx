@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+
 const colores ={
     borde : "#0075FF",
     error : "#bb2929",
@@ -145,6 +146,49 @@ const MensajeError = styled.div `
         grid-column: span 1;
     }
 `;
+const Etiqueta = styled.h3 `
+    font-size: 15px;
+    line-height: 15px;
+    padding: 0px 15px;
+    border-radius: 3px;
+    grid-column: span 2;
+    text-align: center;
+    @media(max-width: 800px){
+        grid-column: span 1;
+    }
+`;
+const ContCarrito = styled.div `
+    display: flex;
+`;
+const Carrito = styled.button`
+    height: 30px;
+    margin: 50px 0px 0px 30px  ;
+`;
+
+const LabelVenta = styled.label`
+    font-size: 20px;    
+    margin: 50px 0px 0px 25px;    
+`;
+const RadioButton = styled.div`
+    font-size: 15px;
+    display: flex;
+    width: 100%;
+    line-height: 15px;
+    padding: 0px 15px;
+    border-radius: 3px;
+    grid-column: span 2;
+    justify-content: space-between;
+    @media(max-width: 800px){
+        grid-column: span 1;
+    }
+`;
+const ContentRButton = styled.div`
+    margin-right: 20px;  
+    span {
+        margin-left: 10px;
+    }
+`;
+
 
 export {Formulario,
     Label,
@@ -156,4 +200,11 @@ export {Formulario,
     ContenedorBotonCentrado,
     Boton,
     MensajeExito,
-    MensajeError};
+    MensajeError,
+    Etiqueta,
+    ContCarrito,
+    Carrito,
+    LabelVenta,
+    RadioButton,
+    ContentRButton
+};

@@ -7,7 +7,7 @@ const Expresiones = {
         correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
         telefono: /^\d{7,14}$/, // 7 a 14 numeros.
         valores: /^\d{4,10}$/,
-        cantidades: /^\d{1,3}$/,
+        cantidad: /^\d{1,4}$/,
         fechas: /^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$/
 }
 

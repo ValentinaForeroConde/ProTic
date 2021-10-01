@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const Table = styled.table`
 width: 100%;
@@ -8,7 +8,7 @@ border-collapse: collapse;
 `;
 
 const TableHead = styled.thead`
-font-size: 4vh;
+font-size: 3.5vh;
 font-weight: bold;
 text-align: left;
 padding 2;
@@ -16,7 +16,7 @@ padding 2;
 `;
 
 const TableData = styled.td`
-font-size: 3vh;
+font-size: 2vh;
 border: 1px solid LightGrey;
 height: 100%;
 text-align: center;
@@ -25,14 +25,6 @@ vertical-align: middle;
 
 `;
 
-const TableDataGrey = styled.td`
-font-size: 3vh;
-color: LightGrey;
-border: 1px solid LightGrey;
-text-align: center;
-vertical-align: middle;
-}
-`;
 const ContenedorBotonCentrado = styled.div`
     display: block;
     text-align: right;
@@ -63,7 +55,6 @@ export{
     Table,
     TableHead,
     TableData,
-    TableDataGrey,
     ContenedorBotonCentrado,
     Boton,
 }
