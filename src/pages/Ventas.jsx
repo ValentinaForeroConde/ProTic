@@ -15,10 +15,10 @@ const ventasBackend = [
     {
         nombreCliente: 'Valentina',
         ApellidoCliente: 'Forero',
-        documento: 102325246,
+        documento: 1053867832,
         fecha: '2021/09/28',
-        idVenta: 123456,
-        idVendedor: 1053867832,
+        idVenta: 123098,
+        idVendedor: 12345678,
         cantidadProducto: 1,
         idProducto: 12342
     },

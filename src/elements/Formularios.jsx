@@ -163,6 +163,12 @@ const Carrito = styled.button`
     height: 30px;
     margin: 50px 0px 0px 30px  ;
 `;
+
+const LabelVenta = styled.label`
+    font-size: 20px;    
+    margin: 50px 0px 0px 25px;    
+`;
+
 export {Formulario,
     Label,
     GrupoInput,
@@ -177,4 +183,5 @@ export {Formulario,
     Etiqueta,
     ContCarrito,
     Carrito,
+    LabelVenta
 };
