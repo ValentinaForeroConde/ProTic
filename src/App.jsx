@@ -1,7 +1,8 @@
 import Index from 'pages';
 import GestionUsuarios from 'pages/GestionUsuarios';
 import Ventas from 'pages/Ventas';
-import ActualizarVentas from 'pages/ActualizarVentas'
+import ActualizarVentas from 'pages/ActualizarVentas';
+import TablaGestionUsuarios from 'pages/TablaGestionUsuarios';
 import 'styles/styles.css';
 import {
   BrowserRouter as Router,
@@ -16,6 +17,9 @@ function App() {
         <Switch>
           <Route path='/gestionUsuarios'>
             <GestionUsuarios />
+          </Route>
+          <Route path='/tablaGestionUsuarios'>
+            <TablaGestionUsuarios />
           </Route>
           <Route path='/ventas'>
             <Ventas />

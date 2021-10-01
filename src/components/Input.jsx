@@ -8,7 +8,6 @@ const Input = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, e
     }
     const validacion = () =>{
         if(expresionRegular){
-            console.log(estado.campo)
             if(expresionRegular.test(estado.campo)){
                 cambiarEstado({...estado, valido: "true"});
             } else{

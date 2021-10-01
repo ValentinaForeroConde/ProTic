@@ -5,7 +5,9 @@ import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError'
 import Selects from 'components/Selects';
-
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 function GestionUsuarios() {
@@ -50,6 +52,12 @@ function GestionUsuarios() {
 
     return (
         <main className="guiGestionUsuarios">
+             <h2 className="tituloGestionVentas">Gestion Usuarios</h2>
+            <button >
+                <Link to='/TablaGestionUsuarios'>
+                    <FontAwesomeIcon icon={faArrowLeft}/>
+                </Link>
+            </button>
            <Formulario action="" onSubmit={onSubmitForm}>
                 <Input
                     estado={nombre}
