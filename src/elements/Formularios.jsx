@@ -168,6 +168,26 @@ const LabelVenta = styled.label`
     font-size: 20px;    
     margin: 50px 0px 0px 25px;    
 `;
+const RadioButton = styled.div`
+    font-size: 15px;
+    display: flex;
+    width: 100%;
+    line-height: 15px;
+    padding: 0px 15px;
+    border-radius: 3px;
+    grid-column: span 2;
+    justify-content: space-between;
+    @media(max-width: 800px){
+        grid-column: span 1;
+    }
+`;
+const ContentRButton = styled.div`
+    margin-right: 20px;  
+    span {
+        margin-left: 10px;
+    }
+`;
+
 
 export {Formulario,
     Label,
@@ -183,5 +203,7 @@ export {Formulario,
     Etiqueta,
     ContCarrito,
     Carrito,
-    LabelVenta
+    LabelVenta,
+    RadioButton,
+    ContentRButton
 };
