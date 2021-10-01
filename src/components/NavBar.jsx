@@ -1,5 +1,8 @@
 import React from 'react'
 import {Bar,Boton} from 'elements/Layouts'
+import { Link } from 'react-router-dom'
+import Googlein from './Googlein'
+
 
 
 
@@ -9,7 +12,8 @@ const Navbar = () => {
             <Bar>
                 <Boton>INICIO</Boton>
                 
-             <Boton><a href="/">LOG</a></Boton>           
+             <Boton><Link to='/Ventas'>LOG</Link></Boton>
+             <Googlein/>           
             </Bar>
             
         </div>

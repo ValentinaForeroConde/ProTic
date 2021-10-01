@@ -23,7 +23,7 @@ position: fixed;
 const Boton = styled.button`
     height: 45px;
     line-height: 45px;
-    width: 10%;
+    width: 150px;
     background: #ffb703;    
     font-weight: bold;
     color:023047;
@@ -36,4 +36,36 @@ const Boton = styled.button`
     }
 `;
 
-export {Bar,Foot,Boton};
+ const Side = styled.aside`
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color:#023047;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+  }`
+;  
+  
+  /* Sidebar links */
+  const Fila = styled.a`
+    display: block;
+    color: #FB8500;
+    padding: 16px;
+    text-decoration: none;
+    border-style: solid;
+
+    &.active{
+        background-color: blue;
+        color: red;
+    }
+    &:hover{
+      background-color: #219EBC;
+      color: white;
+  }
+  }`
+ ; 
+
+
+ 
+export {Bar,Foot,Boton,Side,Fila};
