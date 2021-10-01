@@ -1,6 +1,7 @@
 import Index from 'pages';
 import GestionUsuarios from 'pages/GestionUsuarios';
 import Ventas from 'pages/Ventas';
+import ActualizarVentas from 'pages/ActualizarVentas'
 import 'styles/styles.css';
 import {
   BrowserRouter as Router,
@@ -18,6 +19,9 @@ function App() {
           </Route>
           <Route path='/ventas'>
             <Ventas />
+          </Route>
+          <Route path='/actualizarVentas'>
+            <ActualizarVentas />
           </Route>
           <Route path=''>
             <Index />

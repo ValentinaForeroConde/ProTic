@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Input from 'components/Input';
-import {Formulario, Etiqueta, ContCarrito, Carrito} from 'elements/Formularios';
+import {Formulario, Etiqueta, ContCarrito, Carrito, Label} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError';
@@ -8,6 +8,8 @@ import Selects from 'components/Selects';
 import {Table, TableHead, TableData, TableDataGrey, Boton, ContenedorBotonCentrado} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCartPlus} from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+
 
 const ventasBackend = [
     {
@@ -45,12 +47,12 @@ const ventasBackend = [
 
   const Ventas = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
-    const [ventas, setVehiculos] = useState([]);
+    const [ventas, setVentas] = useState([]);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Venta');
   
     useEffect(() => {
       //obtener lista de vehículos desde el backend
-      setVehiculos(ventasBackend);
+      setVentas(ventasBackend);
     }, []);
   
     useEffect(() => {
@@ -98,15 +100,21 @@ const ventasBackend = [
               <TableData>Nombre del cliente</TableData>
               <TableData>Documento del cliente</TableData>
               <TableData>Id compra</TableData>
+              <TableData>Actualizar</TableData>
             </tr>
           </TableHead>
           <tbody>
             {listaVentas.map((ventas, key) => {
               return (
                 <tr key={key}>
-                  <TableDataGrey>{ventas.nombreCliente}</TableDataGrey>
-                  <TableDataGrey><a href="./gestionUsuarios">{ventas.documento}</a></TableDataGrey>
-                  <TableDataGrey>{ventas.idVenta}</TableDataGrey>
+                  <TableData>{ventas.nombreCliente}</TableData>
+                  <TableData>{ventas.documento}</TableData>
+                  <TableData>{ventas.idVenta}</TableData>
+                  <TableData>
+                    <button>
+                      <Link to='/actualizarVentas'>Editar</Link>
+                    </button>
+                  </TableData>
                 </tr>
               );
             })}
@@ -125,15 +133,19 @@ const ventasBackend = [
     const [tipoProducto, cambiarTipoProducto] = useState({campo:'', valido: null});
     const [cantidadProducto, cambiarCantidadProducto] = useState({campo:'', valido: null});
     const [formularioValido, cambiarFormularioValido] = useState(null);
+    const [listaProdutos, cambiarListaProducto] = useState([]);
 
     const productoOpciones = [
-      {value:'comida-cachorros', label: 'Comida cachorros'},
-      {value:'comida-adultos', label: 'Comida adultos'},
-      {value:'comida-seca', label: 'Comida seca'},
-      {value:'comida-humeda', label: 'Comida humeda'},
-      {value:'comida-razasGrandes', label: 'Comida razas grandes'}
+      {value:'comida cachorros', label: 'Comida cachorros'},
+      {value:'comida adultos', label: 'Comida adultos'},
+      {value:'comida seca', label: 'Comida seca'},
+      {value:'comida humeda', label: 'Comida humeda'},
+      {value:'comida razasGrandes', label: 'Comida razas grandes'}
     ];
-
+    const agregarProducto = ()=>{
+        cambiarListaProducto([...listaProdutos, tipoProducto]);
+        console.log(tipoProducto);
+    }
     const onSubmitForm = (e) =>{
         e.preventDefault();
         if (
@@ -235,8 +247,27 @@ const ventasBackend = [
                       estado = {cantidadProducto}
                       cambiarEstado = {cambiarCantidadProducto}
                     />
-                    <Carrito><FontAwesomeIcon icon={faCartPlus}/></Carrito>
+                    <Carrito type="button" onClick={()=>{agregarProducto();}}><FontAwesomeIcon icon={faCartPlus}/></Carrito>
                   </ContCarrito>
+                  <Table>
+                      <TableHead>
+                        <tr>
+                          <TableData>Producto</TableData>
+                          <TableData>Cantidad</TableData>
+                        </tr>
+                      </TableHead>
+                      <tbody>
+                        {listaProdutos.map((tipoProducto) => {
+                          return (
+                            <tr >
+                              <TableData>{tipoProducto.campo.value}</TableData>
+                              <TableData>2</TableData>                            
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                </Table>
+                <Label>Total: $$$</Label>
                 {formularioValido === false  && <AlertaError/>}
                 <BotonCentrado 
                     nombreBoton = "Finalizar venta"
