@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPenAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
-    const ventasBackend = [
+    const UsuariosBackend = [
         {
             nombreCliente: 'Valentina',
             ApellidoCliente: 'Forero',
             documento: 1053867832,
             idUsuario: 123467,
-            estado: 'Autorizado'
+            estado: 'Autorizado',
+            rol:'Administrador'
         },
         {
             nombreCliente: 'Carlos',
@@ -86,7 +87,7 @@ const TablaGestionUsuarios = () => {
                   </tr>
                 </TableHead>
                 <tbody>
-                  {ventasBackend.map((ventas, key) => {
+                  {UsuariosBackend.map((ventas, key) => {
                     return (
                       <tr key={key}>
                         <TableData>{ventas.nombreCliente}</TableData>
