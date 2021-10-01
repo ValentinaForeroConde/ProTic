@@ -5,9 +5,9 @@ import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError';
 import Selects from 'components/Selects';
-import {Table, TableHead, TableData, TableDataGrey, Boton, ContenedorBotonCentrado} from 'elements/Listas';
+import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faCartPlus} from '@fortawesome/free-solid-svg-icons';
+import {faCartPlus, faPenAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 
@@ -33,7 +33,7 @@ const ventasBackend = [
         idProducto: 12342
     },
     {
-        nombreCliente: 'Camila',
+        nombreCliente: 'Maria Camila',
         ApellidoCliente: 'Dossman',
         documento: 124554675,
         fecha: '2021/09/28',
@@ -65,9 +65,6 @@ const ventasBackend = [
     return (
       <div>
         <div>
-          <h2>
-            Página de administración de ventas
-          </h2>
           <ContenedorBotonCentrado>
             <Boton
               onClick={() => {
@@ -112,7 +109,9 @@ const ventasBackend = [
                   <TableData>{ventas.idVenta}</TableData>
                   <TableData>
                     <button>
-                      <Link to='/actualizarVentas'>Editar</Link>
+                      <Link to='/actualizarVentas'>
+                        <FontAwesomeIcon icon={faPenAlt}/>
+                      </Link>
                     </button>
                   </TableData>
                 </tr>

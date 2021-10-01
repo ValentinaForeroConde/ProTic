@@ -24,14 +24,20 @@ input[type=number] { -moz-appearance:textfield; }
 .tituloGestionVentas{
   display: block;
   text-align: center;
+  padding: 30px 0px 30px 0px;
 }
 
 .mainContainerTable{
-  width: 50%;
+  width: 70%;
   margin: auto;
+
+
 }
 .selectlist{
   height: 45px;
   line-height: 30px;
   font-size: 14px;
+}
+.botonVolver{
+  margin: 50px 0px 0px 200px;
 }

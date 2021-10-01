@@ -5,9 +5,10 @@ import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError';
 import Selects from 'components/Selects';
-import {Table, TableHead, TableData, TableDataGrey, Boton, ContenedorBotonCentrado} from 'elements/Listas';
+import {Table, TableHead, TableData,} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faCartPlus} from '@fortawesome/free-solid-svg-icons';
+import {faCartPlus, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 
 const ActualizarVentas = () => {
@@ -58,6 +59,11 @@ const ActualizarVentas = () => {
         }
     return (
         <main>
+            <button className="botonVolver">
+                <Link to='/ventas'>
+                    <FontAwesomeIcon icon={faArrowLeft}/>
+                </Link>
+            </button>
             <h2 className="tituloGestionVentas">Infomación de venta</h2>
             <Formulario className = "guiGestionUsuarios" onSubmit = {onSubmitForm}>
                 <Input 
@@ -155,9 +161,11 @@ const ActualizarVentas = () => {
                       </tbody>
                 </Table>
                 <Label>Total: $$$</Label>
+                <Etiqueta>Estado de la venta: </Etiqueta>
+                
                 {formularioValido === false  && <AlertaError/>}
                 <BotonCentrado 
-                    nombreBoton = "Actualizar venta"
+                    nombreBoton = "Actualizar"
                     mensajeBoton = "Venta actualizada exitosamente"
                     formularioValido = {formularioValido}
                 />
