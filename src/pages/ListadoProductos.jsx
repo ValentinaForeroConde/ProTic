@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Input from 'components/Input';
 import {Formulario} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
-import BotonCentrado from 'components/BotonCentrado';
-import AlertaError from 'components/AlertaError'
+import BotonesProductos from 'components/BotonesProductos';import AlertaError from 'components/AlertaError'
 import Select from 'react-select';
-import {Table, TableHead, TableData, TableDataGrey, Boton, ContenedorBotonCentrado} from 'elements/Listas';
+import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado} from 'elements/Listas';
 
 const productosBackend = [
     {
@@ -26,28 +25,28 @@ const productosBackend = [
     
   ];
 
-  const Lista = () => {
+  const Ventas = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
-    const [ventas, setProductos] = useState([]);
-    const [textoBoton, setTextoBoton] = useState('Crear Nuevo Venta');
+    const [ventas, setVehiculos] = useState([]);
+    const [textoBoton, setTextoBoton] = useState('Crear Nueva Venta');
   
     useEffect(() => {
       //obtener lista de vehículos desde el backend
-      setProductos(productosBackend);
+      setVehiculos(productosBackend);
     }, []);
   
     useEffect(() => {
       if (mostrarTabla) {
-        setTextoBoton('Nueva Venta');
+        setTextoBoton('Agregar producto');
       } else {
-        setTextoBoton('Mostrar Todas las ventas');
+        setTextoBoton('Mostrar productos');
       }
     }, [mostrarTabla]);
     return (
       <div>
         <div>
           <h2>
-            Página de administración de ventas
+            Página de administración de productos
           </h2>
           <ContenedorBotonCentrado>
             <Boton
@@ -60,21 +59,21 @@ const productosBackend = [
           </ContenedorBotonCentrado>
         </div>
         {mostrarTabla ? (
-          <TablaVentas listaVentas={ventas} />
+          <TablaVentas listaProductos={ventas} />
         ) : (
-          <GestionVentas />
+          <GestionProductos />
         )}
       </div>
     );
   };
 
-  const TablaVentas = ({ listaVentas }) => {
+  const TablaVentas = ({ listaProductos }) => {
     useEffect(() => {
-      console.log('este es el listado de ventas en el componente de tabla', listaVentas);
-    }, [listaVentas]);
+      console.log('este es el listado de ventas en el componente de tabla', listaProductos);
+    }, [listaProductos]);
     return (
       <div className="mainContainerTable">
-        <h2 className="tituloGestionVentas">Todas las ventas</h2>
+        <h2 className="tituloGestionVentas">Todas las productos</h2>
         <Table>
           <TableHead>
             <tr>
@@ -84,12 +83,12 @@ const productosBackend = [
             </tr>
           </TableHead>
           <tbody>
-            {listaVentas.map((listas, key) => {
+            {listaProductos.map((ventas, key) => {
               return (
                 <tr key={key}>
-                  <TableDataGrey>{listas.nombreCliente}</TableDataGrey>
-                  <TableDataGrey><a href="./gestionUsuarios">{listas.documento}</a></TableDataGrey>
-                  <TableDataGrey>{listas.idVenta}</TableDataGrey>
+                  <TableData>{ventas.nombreProducto}</TableData>
+                  <TableData>{ventas.estado}</TableData>
+                  <TableData>{ventas.idProducto}</TableData>
                 </tr>
               );
             })}
@@ -99,13 +98,14 @@ const productosBackend = [
     );
   };
   
-  const GestionVentas = () => {
+  const GestionProductos = () => {
+    
     const [nombre, cambiarNombre] = useState({campo:'', valido: null});
-    const [apellido, cambiarApellido] = useState({campo:'', valido: null});
-    const [documento, cambiarDocumento] = useState({campo:'', valido: null});
+    const [descripcion, cambiarDescripcion] = useState({campo:'', valido: null});
+    const [valor, cambiarvalor] = useState({campo:'', valido: null});
     const [idVendedor, cambiarIdVendedor] = useState({campo:'', valido: null});
     const [fecha, cambiarFecha] = useState({campo:'', valido: null});
-    const [estadoProducto, cambiarEstadoProducto] = useState({campo:'', valido: null});
+    const [cantidadProducto, cambiarCantidadProducto] = useState({campo:'', valido: null});
     const [formularioValido, cambiarFormularioValido] = useState(null);
     const foodOptions = [
         {value: 'comida-perros-adultos', label: "Comida perros adultos"},
@@ -117,19 +117,19 @@ const productosBackend = [
         e.preventDefault();
         if (
             nombre.valido === 'true' &&
-            apellido.valido === 'true' &&
-            documento.valido === 'true' &&
+            descripcion.valido === 'true' &&
+            valor.valido === 'true' &&
             idVendedor.valido === 'true' &&
             fecha.valido === 'true' && 
-            estadoProducto.valido === 'true' 
+            cantidadProducto.valido === 'true' 
             ){
                 cambiarFormularioValido(true);
                 cambiarNombre({campo: '', valido:''});
-                cambiarApellido({campo: '', valido:''});
-                cambiarDocumento({campo: '', valido:''});
+                cambiarDescripcion({campo: '', valido:''});
+                cambiarvalor({campo: '', valido:''});
                 cambiarIdVendedor({campo: '', valido:''});
                 cambiarFecha({campo: '', valido:''});
-                cambiarEstadoProducto({campo: '', valido:''});
+                cambiarCantidadProducto({campo: '', valido:''});
                 // hacer envios a apis base de datos
             }else{
                 cambiarFormularioValido(false);
@@ -137,39 +137,39 @@ const productosBackend = [
         }
     return (
         <main>
-            <h2 className="tituloGestionVentas">Infomación de venta</h2>
+            <h2 className="tituloGestionVentas">Registro de productos</h2>
             <Formulario className = "guiGestionUsuarios" onSubmit = {onSubmitForm}>
                 <Input 
                     user = "Nombre"
-                    placeholdercont = "Nombre cliente"
+                    placeholdercont = "Nombre producto"
                     tipo = "text"
                     lenyenda = "El nombre solo admite letras"
                     expresionRegular = {Expresiones.nombre}
                     name = "nombre"
                     estado = {nombre}
                     cambiarEstado = {cambiarNombre}
-                 />
-                 <Input 
-                    user = "Apellido"
-                    placeholdercont = "Apellido cliente"
+                    />
+                    <Input 
+                    user = "Descripcion"
+                    placeholdercont = "Descripción producto"
                     tipo = "text"
-                    lenyenda = "El apellido solo admite letras"
+                    lenyenda = "El descripción solo admite letras"
                     expresionRegular = {Expresiones.nombre}
-                    name = "apellido"
-                    estado = {apellido}
-                    cambiarEstado = {cambiarApellido}
-                 />
-                 <Input 
-                    user = "Documento"
-                    placeholdercont = "Documento cliente"
+                    name = "descripcion"
+                    estado = {descripcion}
+                    cambiarEstado = {cambiarDescripcion}
+                    />
+                    <Input 
+                    user = "valor"
+                    placeholdercont = "valor producto"
                     tipo = "number"
-                    lenyenda = "El Documento solo admite numeros"
-                    expresionRegular = {Expresiones.telefono}
-                    name = "documento"
-                    estado = {documento}
-                    cambiarEstado = {cambiarDocumento}
-                 />
-                 <Input
+                    lenyenda = "El valor solo admite números"
+                    expresionRegular = {Expresiones.valores}
+                    name = "valor"
+                    estado = {valor}
+                    cambiarEstado = {cambiarvalor}
+                    />
+                    <Input
                     estado={fecha}
                     cambiarEstado={cambiarFecha}
                     tipo="date"
@@ -178,45 +178,46 @@ const productosBackend = [
                     lenyenda= "Indique una fecha"
                     expresionRegular={Expresiones.fechas}
 
-                />
-                 <Input 
-                    user = "Id-vendedor"
-                    placeholdercont = "Id-vendedor"
+                    />
+                    <Input 
+                    user = "Id-Producto"
+                    placeholdercont = "Id-Producto"
                     tipo = "number"
-                    lenyenda = "El Id solo admite numeros"
+                    lenyenda = "El Id solo admite números"
                     expresionRegular = {Expresiones.telefono}
                     name = "idVendedor"
                     estado = {idVendedor}
                     cambiarEstado = {cambiarIdVendedor}
-                 />
-                 <div>
+                    />
+                    <div>
                     <Select
                         options={foodOptions}
                         placeholder = "Seleccione el producto"
                         isSearchable                     
                     />
-                     <button>+</button>
-                 </div>
-                 <Input 
-                    user = "estadoProducto"
-                    placeholdercont = "estadoProducto"
+                    
+                    </div>
+                    <Input 
+                    user = "Cantidad Producto"
+                    placeholdercont = "Cantidad Producto"
                     tipo = "number"
-                    lenyenda = "Solo ingrese numeros para asignar una cantidad al producto"
-                    expresionRegular = {Expresiones.telefono}
-                    name = "estadoProducto"
-                    estado = {estadoProducto}
-                    cambiarEstado = {cambiarEstadoProducto}
-                 />
-                 {formularioValido === false  && <AlertaError/>}
-                <BotonCentrado 
-                    nombreBoton = "Finalizar venta"
-                    mensajeBoton = "Venta registrada exitosamente"
+                    lenyenda = "Solo ingrese números para asignar una cantidad al producto"
+                    expresionRegular = {Expresiones.cantidades}
+                    name = "cantidadProducto"
+                    estado = {cantidadProducto}
+                    cambiarEstado = {cambiarCantidadProducto}
+                    max = {3}
+                    />
+                    {formularioValido === false  && <AlertaError/>}
+                
+                <BotonesProductos 
+                    nombreBoton = "Agregar"
+                    mensajeBoton = "Producto agregado exitosamente"
                     formularioValido = {formularioValido}
                 />
-            </Formulario>
-            
+                </Formulario>
         </main>
     )
-}
+};
 
-export default Lista;
+export default Ventas;

@@ -1,6 +1,6 @@
 import Index from 'pages';
 import GestionUsuarios from 'pages/GestionUsuarios';
-import GestionVentas from 'pages/GestionVentas';
+import ListadoProductos from 'pages/ListadoProductos';
 import GestionProductos from 'pages/GestionProductos';
 import Ventas from 'pages/Ventas';
 import 'styles/styles.css';
@@ -24,6 +24,9 @@ function App() {
           </Route>
           <Route path='/gestionProductos'>
             <GestionProductos />
+          </Route>
+          <Route path='/listadoProductos'>
+            <ListadoProductos />
           </Route>
           <Route path=''>
             <Index />
