@@ -1,6 +1,8 @@
 import Index from 'pages';
 import GestionUsuarios from 'pages/GestionUsuarios';
-import GestionVentas from 'pages/GestionVentas';
+import Ventas from 'pages/Ventas';
+import ActualizarVentas from 'pages/ActualizarVentas';
+import TablaGestionUsuarios from 'pages/TablaGestionUsuarios';
 import 'styles/styles.css';
 import {
   BrowserRouter as Router,
@@ -16,8 +18,14 @@ function App() {
           <Route path='/gestionUsuarios'>
             <GestionUsuarios />
           </Route>
-          <Route path='/gestionVentas'>
-            <GestionVentas />
+          <Route path='/tablaGestionUsuarios'>
+            <TablaGestionUsuarios />
+          </Route>
+          <Route path='/ventas'>
+            <Ventas />
+          </Route>
+          <Route path='/actualizarVentas'>
+            <ActualizarVentas />
           </Route>
           <Route path=''>
             <Index />
