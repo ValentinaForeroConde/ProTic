@@ -48,7 +48,7 @@ const ventasBackend = [
   const Ventas = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [ventas, setVentas] = useState([]);
-    const [textoBoton, setTextoBoton] = useState('Crear Nuevo Venta');
+    const [textoBoton, setTextoBoton] = useState('Nueva Venta');
   
     useEffect(() => {
       //obtener lista de vehículos desde el backend
@@ -59,7 +59,7 @@ const ventasBackend = [
       if (mostrarTabla) {
         setTextoBoton('Nueva Venta');
       } else {
-        setTextoBoton('Mostrar Todas las ventas');
+        setTextoBoton('Mostrar ventas');
       }
     }, [mostrarTabla]);
     return (
@@ -269,7 +269,7 @@ const ventasBackend = [
                 <Label>Total: $$$</Label>
                 {formularioValido === false  && <AlertaError/>}
                 <BotonCentrado 
-                    nombreBoton = "Finalizar venta"
+                    nombreBoton = "Finalizar"
                     mensajeBoton = "Venta registrada exitosamente"
                     formularioValido = {formularioValido}
                 />
