@@ -1,6 +1,5 @@
 import Index from 'pages';
 import GestionUsuarios from 'pages/GestionUsuarios';
-import ListadoProductos from 'pages/ListadoProductos';
 import GestionProductos from 'pages/GestionProductos';
 import Ventas from 'pages/Ventas';
 import ActualizarVentas from 'pages/ActualizarVentas'
@@ -11,6 +10,8 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import ActualizarProductos from 'pages/ActualizarProductos';
+import ListadoProductos from 'pages/ListadoProductos'
 
 function App() {
   return (
@@ -25,6 +26,15 @@ function App() {
           </Route>
           <Route path='/actualizarVentas'>
             <ActualizarVentas />
+          </Route>
+          <Route path='/actualizarProductos'>
+            <ActualizarProductos />
+          </Route>
+            <Route path='/gestionProductos'>
+            <GestionProductos />
+          </Route>
+          <Route path='/listadoProductos'>
+            <ListadoProductos />
           </Route>
           <Route path=''>
             <Index />

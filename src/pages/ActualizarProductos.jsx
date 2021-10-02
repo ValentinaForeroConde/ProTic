@@ -4,7 +4,11 @@ import {Formulario} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError'
-import Select from 'react-select';
+import Selects from 'components/Selects';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+
 
 const ActualizarProductos = () => {
     
@@ -12,15 +16,12 @@ const ActualizarProductos = () => {
     const [descripcion, cambiarDescripcion] = useState({campo:'', valido: null});
     const [valor, cambiarvalor] = useState({campo:'', valido: null});
     const [idVendedor, cambiarIdVendedor] = useState({campo:'', valido: null});
-    const [fecha, cambiarFecha] = useState({campo:'', valido: null});
-    const [cantidadProducto, cambiarCantidadProducto] = useState({campo:'', valido: null});
     const [formularioValido, cambiarFormularioValido] = useState(null);
-    const productoOpciones = [
-        {value:'comida cachorros', label: 'Comida cachorros'},
-        {value:'comida adultos', label: 'Comida adultos'},
-        {value:'comida seca', label: 'Comida seca'},
-        {value:'comida humeda', label: 'Comida humeda'},
-        {value:'comida razasGrandes', label: 'Comida razas grandes'}
+    const [estado, cambiarEstado] = useState({campo:'', valido: null});
+
+    const productoDisponible = [
+        {value:'Disponible', label: 'Disponible'},
+        {value:'No disponible', label: 'No disponible'},
         ];
         
     const onSubmitForm = (e) =>{
@@ -30,16 +31,14 @@ const ActualizarProductos = () => {
             descripcion.valido === 'true' &&
             valor.valido === 'true' &&
             idVendedor.valido === 'true' &&
-            fecha.valido === 'true' && 
-            cantidadProducto.valido === 'true' 
+            estado.valido === 'true'  
             ){
                 cambiarFormularioValido(true);
                 cambiarNombre({campo: '', valido:''});
                 cambiarDescripcion({campo: '', valido:''});
                 cambiarvalor({campo: '', valido:''});
                 cambiarIdVendedor({campo: '', valido:''});
-                cambiarFecha({campo: '', valido:''});
-                cambiarCantidadProducto({campo: '', valido:''});
+                cambiarEstado({campo: '', valido:''});
                 // hacer envios a apis base de datos
             }else{
                 cambiarFormularioValido(false);
@@ -47,6 +46,11 @@ const ActualizarProductos = () => {
         }
     return (
         <main>
+        <button className="botonVolver">
+                <Link to='/listadoProductos'>
+                    <FontAwesomeIcon icon={faArrowLeft}/>
+                </Link>
+            </button>
             <h2 className="tituloGestionVentas">Registro de productos</h2>
             <Formulario className = "guiGestionUsuarios" onSubmit = {onSubmitForm}>
                 <Input 
@@ -79,16 +83,7 @@ const ActualizarProductos = () => {
                     estado = {valor}
                     cambiarEstado = {cambiarvalor}
                     />
-                    <Input
-                    estado={fecha}
-                    cambiarEstado={cambiarFecha}
-                    tipo="date"
-                    user="Fecha"
-                    name="fecha"
-                    lenyenda= "Indique una fecha"
-                    expresionRegular={Expresiones.fechas}
-
-                    />
+                    
                     <Input 
                     user = "Id-Producto"
                     placeholdercont = "Id-Producto"
@@ -99,25 +94,19 @@ const ActualizarProductos = () => {
                     estado = {idVendedor}
                     cambiarEstado = {cambiarIdVendedor}
                     />
-                    <div>
-                    <Select
-                        options={productoOpciones}
-                        placeholder = "Seleccione el producto"
-                        isSearchable                     
+                    
+                    <Selects 
+                    user = "Estado"
+                    placeholdercont = "Selecciona el estado"
+                    tipo = "text"
+                    lenyenda = "Solo ingrese disponible o no disponible"
+                    expresionRegular = {Expresiones.nombre}
+                    name = "estado"
+                    estado = {estado}
+                    cambiarEstado = {cambiarEstado}
+                    opciones={productoDisponible}
                     />
                     
-                    </div>
-                    <Input 
-                    user = "Cantidad Producto"
-                    placeholdercont = "Cantidad Producto"
-                    tipo = "number"
-                    lenyenda = "Solo ingrese números para asignar una cantidad al producto"
-                    expresionRegular = {Expresiones.cantidades}
-                    name = "cantidadProducto"
-                    estado = {cantidadProducto}
-                    cambiarEstado = {cambiarCantidadProducto}
-                    max = {3}
-                    />
                     {formularioValido === false  && <AlertaError/>}
                 
                     <BotonCentrado 

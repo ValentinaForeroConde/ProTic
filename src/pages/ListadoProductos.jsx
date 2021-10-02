@@ -3,8 +3,12 @@ import Input from 'components/Input';
 import {Formulario} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
 import BotonesProductos from 'components/BotonesProductos';import AlertaError from 'components/AlertaError'
-import Select from 'react-select';
+import Selects from 'components/Selects';
 import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado} from 'elements/Listas';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faPenAlt} from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+
 
 const productosBackend = [
     {
@@ -45,9 +49,7 @@ const productosBackend = [
     return (
       <div>
         <div>
-          <h2>
-            Página de administración de productos
-          </h2>
+          
           <ContenedorBotonCentrado>
             <Boton
               onClick={() => {
@@ -73,13 +75,14 @@ const productosBackend = [
     }, [listaProductos]);
     return (
       <div className="mainContainerTable">
-        <h2 className="tituloGestionVentas">Todas las productos</h2>
+        <h2 className="tituloGestionVentas">Todos las productos</h2>
         <Table>
           <TableHead>
             <tr>
               <TableData>Nombre del cliente</TableData>
               <TableData>Documento del cliente</TableData>
               <TableData>Id compra</TableData>
+              <TableData>Actualizar</TableData>
             </tr>
           </TableHead>
           <tbody>
@@ -89,6 +92,13 @@ const productosBackend = [
                   <TableData>{ventas.nombreProducto}</TableData>
                   <TableData>{ventas.estado}</TableData>
                   <TableData>{ventas.idProducto}</TableData>
+                  <TableData>
+                  <button>
+                      <Link to='/actualizarProductos'>
+                        <FontAwesomeIcon icon={faPenAlt}/>
+                      </Link>
+                    </button>
+                  </TableData>
                 </tr>
               );
             })}
@@ -104,25 +114,15 @@ const productosBackend = [
     const [descripcion, cambiarDescripcion] = useState({campo:'', valido: null});
     const [valor, cambiarvalor] = useState({campo:'', valido: null});
     const [idVendedor, cambiarIdVendedor] = useState({campo:'', valido: null});
-    const [fecha, cambiarFecha] = useState({campo:'', valido: null});
-    const [cantidadProducto, cambiarCantidadProducto] = useState({campo:'', valido: null});
     const [formularioValido, cambiarFormularioValido] = useState(null);
-<<<<<<< HEAD
-    const foodOptions = [
-        {value: 'comida-perros-adultos', label: "Comida perros adultos"},
-        {value: 'comida-perros-cachorros', label: "Comida perros cachorros"},
-        {value: 'comida-perros-pelo-delgado', label: "Comida perros pelo delgado"}
+    const [estado, cambiarEstado] = useState({campo:'', valido: null});
 
-    ]
-=======
-    const productoOpciones = [
-      {value:'comida cachorros', label: 'Comida cachorros'},
-      {value:'comida adultos', label: 'Comida adultos'},
-      {value:'comida seca', label: 'Comida seca'},
-      {value:'comida humeda', label: 'Comida humeda'},
-      {value:'comida razasGrandes', label: 'Comida razas grandes'}
-    ];
->>>>>>> dev-valefo-spr2
+    const productoDisponible = [
+        {value:'Disponible', label: 'Disponible'},
+        {value:'No disponible', label: 'No disponible'},
+        ];
+        
+
     const onSubmitForm = (e) =>{
         e.preventDefault();
         if (
@@ -130,16 +130,14 @@ const productosBackend = [
             descripcion.valido === 'true' &&
             valor.valido === 'true' &&
             idVendedor.valido === 'true' &&
-            fecha.valido === 'true' && 
-            cantidadProducto.valido === 'true' 
+            estado.valido === 'true'  
             ){
                 cambiarFormularioValido(true);
                 cambiarNombre({campo: '', valido:''});
                 cambiarDescripcion({campo: '', valido:''});
                 cambiarvalor({campo: '', valido:''});
                 cambiarIdVendedor({campo: '', valido:''});
-                cambiarFecha({campo: '', valido:''});
-                cambiarCantidadProducto({campo: '', valido:''});
+                cambiarEstado({campo: '', valido:''});
                 // hacer envios a apis base de datos
             }else{
                 cambiarFormularioValido(false);
@@ -179,16 +177,7 @@ const productosBackend = [
                     estado = {valor}
                     cambiarEstado = {cambiarvalor}
                     />
-                    <Input
-                    estado={fecha}
-                    cambiarEstado={cambiarFecha}
-                    tipo="date"
-                    user="Fecha"
-                    name="fecha"
-                    lenyenda= "Indique una fecha"
-                    expresionRegular={Expresiones.fechas}
-
-                    />
+                    
                     <Input 
                     user = "Id-Producto"
                     placeholdercont = "Id-Producto"
@@ -199,29 +188,19 @@ const productosBackend = [
                     estado = {idVendedor}
                     cambiarEstado = {cambiarIdVendedor}
                     />
-                    <div>
-                    <Select
-<<<<<<< HEAD
-                        options={foodOptions}
-=======
-                        options={productoOpciones}
->>>>>>> dev-valefo-spr2
-                        placeholder = "Seleccione el producto"
-                        isSearchable                     
-                    />
                     
-                    </div>
-                    <Input 
-                    user = "Cantidad Producto"
-                    placeholdercont = "Cantidad Producto"
-                    tipo = "number"
-                    lenyenda = "Solo ingrese números para asignar una cantidad al producto"
-                    expresionRegular = {Expresiones.cantidades}
-                    name = "cantidadProducto"
-                    estado = {cantidadProducto}
-                    cambiarEstado = {cambiarCantidadProducto}
-                    max = {3}
+                    <Selects 
+                    user = "Estado"
+                    placeholdercont = "Selecciona el estado"
+                    tipo = "text"
+                    lenyenda = "Solo ingrese disponible o no disponible"
+                    expresionRegular = {Expresiones.nombre}
+                    name = "estado"
+                    estado = {estado}
+                    cambiarEstado = {cambiarEstado}
+                    opciones={productoDisponible}
                     />
+
                     {formularioValido === false  && <AlertaError/>}
                 
                 <BotonesProductos 

@@ -4,7 +4,7 @@ import {Formulario} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
 import BotonesProductos from 'components/BotonesProductos';
 import AlertaError from 'components/AlertaError'
-import Select from 'react-select';
+import Selects from 'components/Selects';
 
 const GestionProductos = () => {
     
@@ -12,15 +12,11 @@ const GestionProductos = () => {
     const [descripcion, cambiarDescripcion] = useState({campo:'', valido: null});
     const [valor, cambiarvalor] = useState({campo:'', valido: null});
     const [idVendedor, cambiarIdVendedor] = useState({campo:'', valido: null});
-    const [fecha, cambiarFecha] = useState({campo:'', valido: null});
-    const [cantidadProducto, cambiarCantidadProducto] = useState({campo:'', valido: null});
+    const [estado, cambiarEstado] = useState({campo:'', valido: null});
     const [formularioValido, cambiarFormularioValido] = useState(null);
-    const productoOpciones = [
-        {value:'comida cachorros', label: 'Comida cachorros'},
-        {value:'comida adultos', label: 'Comida adultos'},
-        {value:'comida seca', label: 'Comida seca'},
-        {value:'comida humeda', label: 'Comida humeda'},
-        {value:'comida razasGrandes', label: 'Comida razas grandes'}
+    const productoDisponible = [
+        {value:'Disponible', label: 'Disponible'},
+        {value:'No disponible', label: 'No disponible'},
         ];
     const onSubmitForm = (e) =>{
         e.preventDefault();
@@ -29,16 +25,14 @@ const GestionProductos = () => {
             descripcion.valido === 'true' &&
             valor.valido === 'true' &&
             idVendedor.valido === 'true' &&
-            fecha.valido === 'true' && 
-            cantidadProducto.valido === 'true' 
+            estado.valido === 'true' 
             ){
                 cambiarFormularioValido(true);
                 cambiarNombre({campo: '', valido:''});
                 cambiarDescripcion({campo: '', valido:''});
                 cambiarvalor({campo: '', valido:''});
                 cambiarIdVendedor({campo: '', valido:''});
-                cambiarFecha({campo: '', valido:''});
-                cambiarCantidadProducto({campo: '', valido:''});
+                cambiarEstado({campo: '', valido:''});
                 // hacer envios a apis base de datos
             }else{
                 cambiarFormularioValido(false);
@@ -78,44 +72,28 @@ const GestionProductos = () => {
                     estado = {valor}
                     cambiarEstado = {cambiarvalor}
                     />
-                    <Input
-                    estado={fecha}
-                    cambiarEstado={cambiarFecha}
-                    tipo="date"
-                    user="Fecha"
-                    name="fecha"
-                    lenyenda= "Indique una fecha"
-                    expresionRegular={Expresiones.fechas}
-
-                    />
+                    
                     <Input 
                     user = "Id-Producto"
                     placeholdercont = "Id-Producto"
                     tipo = "number"
                     lenyenda = "El Id solo admite números"
-                    expresionRegular = {Expresiones.telefono}
+                    expresionRegular = {Expresiones.valores}
                     name = "idVendedor"
                     estado = {idVendedor}
                     cambiarEstado = {cambiarIdVendedor}
                     />
-                    <div>
-                    <Select
-                        options={productoOpciones}
-                        placeholder = "Seleccione el producto"
-                        isSearchable                     
-                    />
-                    
-                    </div>
-                    <Input 
-                    user = "Cantidad Producto"
-                    placeholdercont = "Cantidad Producto"
-                    tipo = "number"
-                    lenyenda = "Solo ingrese números para asignar una cantidad al producto"
-                    expresionRegular = {Expresiones.cantidades}
-                    name = "cantidadProducto"
-                    estado = {cantidadProducto}
-                    cambiarEstado = {cambiarCantidadProducto}
-                    max = {3}
+                   
+                    <Selects 
+                    user = "Estado"
+                    placeholdercont = "Selecciona el estado"
+                    tipo = "text"
+                    lenyenda = "Solo ingrese disponible o no disponible"
+                    expresionRegular = {Expresiones.nombre}
+                    name = "estado"
+                    estado = {estado}
+                    cambiarEstado = {cambiarEstado}
+                    opciones={productoDisponible}
                     />
                     {formularioValido === false  && <AlertaError/>}
                 
