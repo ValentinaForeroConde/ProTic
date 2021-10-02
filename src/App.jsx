@@ -5,13 +5,14 @@ import PublicLayout from "layouts/PublicLayout";
 import PrivateLayout from "layouts/PrivateLayout";
 import "styles/styles.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Dashboard from "pages/Dashboard";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path={["/gestionUsuarios", "/ventas"]}>
+          <Route path={["/gestionUsuarios", "/ventas","/Dashboard"]}>
             <PrivateLayout>
               <Switch>
                 <Route path="/gestionUsuarios">
@@ -19,6 +20,9 @@ function App() {
                 </Route>
                 <Route path="/ventas">
                   <Ventas />
+                </Route>
+                <Route path="/Dashboard">
+                  <Dashboard />
                 </Route>
               </Switch>
             </PrivateLayout>

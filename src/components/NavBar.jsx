@@ -2,6 +2,7 @@ import React from 'react'
 import {Bar,Boton} from 'elements/Layouts'
 import { Link } from 'react-router-dom'
 import Googlein from './Googlein'
+import PrivateLayout from 'layouts/PrivateLayout'
 
 
 
@@ -9,10 +10,9 @@ import Googlein from './Googlein'
 const Navbar = () => {
     return (
         <div>
-            <Bar>
-                <Boton>INICIO</Boton>
+            <Bar>         
                 
-             <Boton><Link to='/Ventas'>LOG</Link></Boton>
+             <Boton><Link to='/Dashboard'>LOG</Link></Boton>
              <Googlein/>           
             </Bar>
             
