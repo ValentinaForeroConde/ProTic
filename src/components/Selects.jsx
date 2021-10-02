@@ -8,8 +8,9 @@ const Selects = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name,
         cambiarEstado({campo: e});
     }
     const validacion = () =>{
+        console.log(estado.campo.value);
         if(expresionRegular){
-            if(expresionRegular.test(estado.campo.value)){
+            if(estado.campo.value!== undefined){
                 cambiarEstado({...estado, valido: "true"});
             } else{
                 cambiarEstado({...estado, valido: "false"});
