@@ -42,7 +42,8 @@ function GestionUsuarios() {
         }
         const opcion1  = [
             {value:'administrador', label: 'Administrador'},
-            {value:'vendedor', label: 'Vendedor'}
+            {value:'vendedor', label: 'Vendedor'},
+            {value:'pendiente', label: 'Pendiente'}
         ]
         const opcion2  = [
             {value:'pendiente', label: 'Pendiente'},
