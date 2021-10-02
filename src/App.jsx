@@ -1,46 +1,55 @@
-import Index from 'pages';
-import GestionUsuarios from 'pages/GestionUsuarios';
-import GestionProductos from 'pages/GestionProductos';
-import Ventas from 'pages/Ventas';
-import ActualizarVentas from 'pages/ActualizarVentas';
-import TablaGestionUsuarios from 'pages/TablaGestionUsuarios';
-import 'styles/styles.css';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-import ActualizarProductos from 'pages/ActualizarProductos';
-import ListadoProductos from 'pages/ListadoProductos'
+import Index from "pages/Index";
+import GestionUsuarios from "pages/GestionUsuarios";
+import Ventas from "pages/Ventas";
+import PublicLayout from "layouts/PublicLayout";
+import PrivateLayout from "layouts/PrivateLayout";
+import "styles/styles.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Dashboard from "pages/Dashboard";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path='/gestionUsuarios'>
-            <GestionUsuarios />
+          <Route path={["/gestionUsuarios", "/ventas","/Dashboard",
+          "/ActualizarProductos","/ActualizarVentas","/GestionProductos","/GestionVentas","/ListadoProductos","/TablaGestionUsuarios"]}>
+            <PrivateLayout>
+              <Switch>
+                <Route path="/gestionUsuarios">
+                  <GestionUsuarios />
+                </Route>
+                <Route path="/ventas">
+                  <Ventas />
+                </Route>
+                <Route path="/ActualizarProductos">
+                  <ActualizarProductos />
+                </Route>
+                <Route path="/ActualizarVentas">
+                  <ActualizarVentas />
+                </Route>
+                <Route path="/GestionProductos">
+                  <GestionProductos />
+                </Route>
+                <Route path="/GestionVentas">
+                  <Dashboard />
+                </Route>
+                <Route path="/ListadoProductos">
+                  <ListadoProductos />
+                </Route>
+                <Route path="/TablaGestionUsuarios">
+                  <TablaGestionUsuarios />
+                </Route>
+                <Route path="/Dashboard">
+                  <Dashboard />
+                </Route>
+              </Switch>
+            </PrivateLayout>
           </Route>
-          <Route path='/tablaGestionUsuarios'>
-            <TablaGestionUsuarios />
-          </Route>
-          <Route path='/ventas'>
-            <Ventas />
-          </Route>
-          <Route path='/actualizarVentas'>
-            <ActualizarVentas />
-          </Route>
-          <Route path='/actualizarProductos'>
-            <ActualizarProductos />
-          </Route>
-            <Route path='/gestionProductos'>
-            <GestionProductos />
-          </Route>
-          <Route path='/listadoProductos'>
-            <ListadoProductos />
-          </Route>
-          <Route path=''>
-            <Index />
+          <Route path="">
+            <PublicLayout>
+              <Index />
+            </PublicLayout>
           </Route>
         </Switch>
       </Router>

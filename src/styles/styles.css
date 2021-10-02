@@ -30,6 +30,7 @@ input[type=number] { -moz-appearance:textfield; }
 .mainContainerTable{
   width: 70%;
   margin: auto;
+<<<<<<< HEAD
 
 }
 .selectlist{
@@ -40,3 +41,7 @@ input[type=number] { -moz-appearance:textfield; }
 .botonVolver{
   margin: 50px 0px 0px 200px;
 }
+=======
+}
+
+>>>>>>> dev-david-spr2
