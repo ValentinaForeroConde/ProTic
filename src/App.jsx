@@ -5,7 +5,6 @@ import Ventas from 'pages/Ventas';
 import ActualizarVentas from 'pages/ActualizarVentas';
 import TablaGestionUsuarios from 'pages/TablaGestionUsuarios';
 import 'styles/styles.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Switch,
