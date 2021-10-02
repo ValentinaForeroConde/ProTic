@@ -5,6 +5,15 @@
     font-family: 'Roboto Mono', monospace;
 }
 
+html, body, .app, .contenido {
+  height: 100%;
+}
+
+.contenido{
+  background-color:whitesmoke;
+}
+
+
 .tituloUno{
   background-color: #FFC300 ;
   text-align: center;
@@ -13,7 +22,7 @@
 
 .bola{
   display: inline-block;
-  margin-left: 40px;
+  margin-left: 30px;
   height: 120px;
   width: 140px;
   border-radius: 100%;
@@ -21,6 +30,59 @@
   text-align:center;
   object-fit:cover;
   ;}
+
+ 
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #023047;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  font-weight: bold;
+  display: block;
+}
+
+.sidebar .a {
+  display: block;
+  color: #FB8500;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebar .a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.sidebar .a:hover:not(.active) {
+  background-color:  #219EBC;
+  color: white;
+}
+
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+@media screen and (max-width: 800px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar .a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar .a {
+    text-align: center;
+    float: none;
+  }
+}
 
 .guiGestionUsuarios{
     max-width: 800px;

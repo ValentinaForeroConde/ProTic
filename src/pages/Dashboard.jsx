@@ -1,14 +1,13 @@
-import React from 'react'
-import Logo from 'assets/Logo.png'
+import React from "react";
 
 const Dashboard = () => {
-    return (
-        <div display='inline'>
-            <div align-items='center' display='inline'>
-          
-            </div>           
-        </div>
-    )
-}
+  return (
+    <div>
+      <div>
+        <h1>hola</h1>
+      </div>
+    </div>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

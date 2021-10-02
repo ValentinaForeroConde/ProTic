@@ -6,37 +6,43 @@ import PrivateLayout from "layouts/PrivateLayout";
 import "styles/styles.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "pages/Dashboard";
-import ActualizarProductos from "pages/ActualizarProductos"
-import ActualizarVentas from "pages/ActualizarVentas"
-import ListadoProductos from "pages/ListadoProductos"
-import TablaGestionUsuarios from "pages/TablaGestionUsuarios"
-
-
-  
+import ActualizarProductos from "pages/ActualizarProductos";
+import ActualizarVentas from "pages/ActualizarVentas";
+import ListadoProductos from "pages/ListadoProductos";
+import TablaGestionUsuarios from "pages/TablaGestionUsuarios";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path={["/gestionUsuarios", "/ventas","/Dashboard",
-          "/ActualizarProductos","/ActualizarVentas","/ListadoProductos","/TablaGestionUsuarios"]}>
+          <Route
+            path={[
+              "/gestionUsuarios",
+              "/ventas",
+              "/ActualizarProductos",
+              "/ActualizarVentas",
+              "/Dashboard",
+              "/ListadoProductos",
+              "/TablaGestionUsuarios",
+            ]}
+          >
             <PrivateLayout>
               <Switch>
-                <Route path="/gestionUsuarios">
-                  <GestionUsuarios />
-                </Route>
-                <Route path="/ventas">
-                  <Ventas />
-                </Route>
                 <Route path="/ActualizarProductos">
                   <ActualizarProductos />
                 </Route>
                 <Route path="/ActualizarVentas">
                   <ActualizarVentas />
-                </Route>               
+                </Route>
+                <Route path="/gestionUsuarios">
+                  <GestionUsuarios />
+                </Route>
                 <Route path="/ListadoProductos">
                   <ListadoProductos />
+                </Route>
+                <Route path="/ventas">
+                  <Ventas />
                 </Route>
                 <Route path="/TablaGestionUsuarios">
                   <TablaGestionUsuarios />
@@ -47,7 +53,7 @@ function App() {
               </Switch>
             </PrivateLayout>
           </Route>
-          <Route path="">
+          <Route path="/">
             <PublicLayout>
               <Index />
             </PublicLayout>
