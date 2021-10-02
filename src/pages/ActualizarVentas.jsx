@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Input from 'components/Input';
-import {Formulario, Etiqueta, ContCarrito, Carrito, Label, LabelVenta} from 'elements/Formularios';
+import {Formulario, Etiqueta, ContCarrito, Carrito, Label, LabelVenta, RadioButton, ContentRButton} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError';
 import Selects from 'components/Selects';
 import {Table, TableHead, TableData,} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faCartPlus, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import {faCartPlus, faArrowLeft, faTruckLoading, faTimes, faCheck} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 
@@ -162,7 +162,35 @@ const ActualizarVentas = () => {
                 </Table>
                 <Label>Total: $$$</Label>
                 <Etiqueta>Estado de la venta: </Etiqueta>
-                
+                <RadioButton>
+                    <ContentRButton>
+                      <input type="radio" value="En proceso" name="estado"/>
+                      <span>
+                        <FontAwesomeIcon icon={faTruckLoading}/>
+                      </span>
+                      <span>
+                      En proceso 
+                      </span>
+                    </ContentRButton>
+                    <ContentRButton>
+                      <input type="radio" value="Cancelado" name="estado"/>
+                      <span>
+                        <FontAwesomeIcon icon={faTimes}/>
+                      </span>
+                      <span>
+                        Cancelado
+                      </span>
+                    </ContentRButton>
+                    <ContentRButton>
+                      <input type="radio" value="Entregado" name="estado"/>
+                      <span>
+                        <FontAwesomeIcon icon={faCheck}/>
+                      </span>
+                      <span>
+                        Entregado
+                      </span>
+                    </ContentRButton>
+                </RadioButton>
                 {formularioValido === false  && <AlertaError/>}
                 <BotonCentrado 
                     nombreBoton = "Actualizar"
