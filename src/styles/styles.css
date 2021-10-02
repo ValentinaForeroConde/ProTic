@@ -5,6 +5,23 @@
     font-family: 'Roboto Mono', monospace;
 }
 
+.tituloUno{
+  background-color: #FFC300 ;
+  text-align: center;
+  font-style: italic;
+}
+
+.bola{
+  display: inline-block;
+  margin-left: 40px;
+  height: 120px;
+  width: 140px;
+  border-radius: 100%;
+  border: 2px solid black;
+  text-align:center;
+  object-fit:cover;
+  ;}
+
 .guiGestionUsuarios{
     max-width: 800px;
     width: 90%;
@@ -30,7 +47,6 @@ input[type=number] { -moz-appearance:textfield; }
 .mainContainerTable{
   width: 70%;
   margin: auto;
-<<<<<<< HEAD
 
 }
 .selectlist{
@@ -41,7 +57,3 @@ input[type=number] { -moz-appearance:textfield; }
 .botonVolver{
   margin: 50px 0px 0px 200px;
 }
-=======
-}
-
->>>>>>> dev-david-spr2

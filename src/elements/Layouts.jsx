@@ -54,6 +54,8 @@ const Boton = styled.button`
     padding: 16px;
     text-decoration: none;
     border-style: solid;
+    font-weight:bold;
+
 
     &.active{
         background-color: blue;

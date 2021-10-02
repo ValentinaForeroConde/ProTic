@@ -75,13 +75,13 @@ const productosBackend = [
     }, [listaProductos]);
     return (
       <div className="mainContainerTable">
-        <h2 className="tituloGestionVentas">Todos las productos</h2>
+        <h2 className="tituloGestionVentas">Todos los productos</h2>
         <Table>
           <TableHead>
             <tr>
-              <TableData>Nombre del cliente</TableData>
-              <TableData>Documento del cliente</TableData>
-              <TableData>Id compra</TableData>
+              <TableData>Producto</TableData>
+              <TableData>Estado</TableData>
+              <TableData>Id producto</TableData>
               <TableData>Actualizar</TableData>
             </tr>
           </TableHead>

@@ -13,12 +13,13 @@ const PrivateLayout = ({ children }) => {
   useOnClickOutside(node, () => setOpen(false));
   return (
     <div>
-      <div ref={node}>
+        {/* <div ref={node}>
         <FocusLock disabled={!open}>
           <Burger open={open} setOpen={setOpen} aria-controls={menuId} />
           <Menu open={open} setOpen={setOpen} id={menuId} />
         </FocusLock>
-      </div>
+      </div> */}
+      <Aside/>
       {children}
       <Footer />
     </div>

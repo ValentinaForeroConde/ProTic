@@ -1,4 +1,4 @@
-import Index from "pages/Index";
+import Index from "pages/index";
 import GestionUsuarios from "pages/GestionUsuarios";
 import Ventas from "pages/Ventas";
 import PublicLayout from "layouts/PublicLayout";
@@ -6,6 +6,13 @@ import PrivateLayout from "layouts/PrivateLayout";
 import "styles/styles.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "pages/Dashboard";
+import ActualizarProductos from "pages/ActualizarProductos"
+import ActualizarVentas from "pages/ActualizarVentas"
+import ListadoProductos from "pages/ListadoProductos"
+import TablaGestionUsuarios from "pages/TablaGestionUsuarios"
+
+
+  
 
 function App() {
   return (
@@ -13,7 +20,7 @@ function App() {
       <Router>
         <Switch>
           <Route path={["/gestionUsuarios", "/ventas","/Dashboard",
-          "/ActualizarProductos","/ActualizarVentas","/GestionProductos","/GestionVentas","/ListadoProductos","/TablaGestionUsuarios"]}>
+          "/ActualizarProductos","/ActualizarVentas","/ListadoProductos","/TablaGestionUsuarios"]}>
             <PrivateLayout>
               <Switch>
                 <Route path="/gestionUsuarios">
@@ -27,13 +34,7 @@ function App() {
                 </Route>
                 <Route path="/ActualizarVentas">
                   <ActualizarVentas />
-                </Route>
-                <Route path="/GestionProductos">
-                  <GestionProductos />
-                </Route>
-                <Route path="/GestionVentas">
-                  <Dashboard />
-                </Route>
+                </Route>               
                 <Route path="/ListadoProductos">
                   <ListadoProductos />
                 </Route>
