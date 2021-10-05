@@ -87,12 +87,12 @@ const TablaGestionUsuarios = () => {
                   </tr>
                 </TableHead>
                 <tbody>
-                  {UsuariosBackend.map((ventas, key) => {
+                  {UsuariosBackend.map((usuarios, key) => {
                     return (
                       <TableRow key={key}>
-                        <TableData>{ventas.nombreCliente}</TableData>
-                        <TableData>{ventas.documento}</TableData>
-                        <TableData>{ventas.estado}</TableData>
+                        <TableData>{usuarios.nombreCliente}</TableData>
+                        <TableData>{usuarios.documento}</TableData>
+                        <TableData>{usuarios.estado}</TableData>
                         <TableData>
                           <button>
                             <Link to='/GestionUsuarios'>

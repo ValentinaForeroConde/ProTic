@@ -5,11 +5,6 @@ import {faPhone, faFileSignature, faAtlas} from '@fortawesome/free-solid-svg-ico
 
 const Footer = () => {
     return (
-<<<<<<< HEAD
-        <div>
-            <Foot>Pet Shop</Foot>            
-        </div>
-=======
         <Foot>
             <span> Contácta con nosotros </span>
             <span><FontAwesomeIcon icon={faPhone}/> - </span>
@@ -17,8 +12,7 @@ const Footer = () => {
             <span><FontAwesomeIcon icon={faFileSignature}/> - </span>
             <span> Política de privacidad </span>
             <span><FontAwesomeIcon icon={faAtlas}/></span>
-        </Foot>            
->>>>>>> 86c87f2e5f81af4b752d3697600543dec55a3a4a
+        </Foot>
     )
 }
 

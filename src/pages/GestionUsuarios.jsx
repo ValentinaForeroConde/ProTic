@@ -8,6 +8,7 @@ import Selects from 'components/Selects';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 
 function GestionUsuarios() {
@@ -19,8 +20,33 @@ function GestionUsuarios() {
     const [Estado, cambiarEstado] = useState({campo:'', valido: null});
     const [formularioValido, cambiarFormularioValido] = useState(null);
 
-    const onSubmitForm = (e) =>{
+
+
+    const onSubmitForm = async(e) =>{
         e.preventDefault();
+        const infUsuariosJson = {
+            	"nombre": nombre.campo,
+                "apellido": apellido.campo,
+                "documento": documento.campo,
+                "Rol": Rol.campo.value,
+                "Estado": Estado.campo.value,
+        }
+        console.log(infUsuariosJson)
+        const options = {
+            method: 'POST',
+            url: '',
+            headers: { 'Content-Type': 'application/json' },
+            data: { nombre: infUsuariosJson.nombre, apellido: infUsuariosJson.apellido, documento: infUsuariosJson.documento, Rol: infUsuariosJson.Rol, Estado: infUsuariosJson.Estado},
+          };
+          await axios
+            .request(options)
+            .then(function (response) {
+              console.log(response.data);
+            })
+            .catch(function (error) {
+              console.error(error);
+            });
+
         if (
             nombre.valido === 'true' &&
             apellido.valido === 'true' &&
@@ -50,6 +76,9 @@ function GestionUsuarios() {
             {value:'autorizado', label: 'Autorizado'},
             {value:'no-autorizado', label: 'No Autorizado'}
         ]
+    
+
+
 
     return (
         <main className="guiGestionUsuarios">
@@ -125,5 +154,6 @@ function GestionUsuarios() {
         </main>
     );
 }
+
 
 export default GestionUsuarios
