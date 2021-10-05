@@ -4,7 +4,7 @@ const Table = styled.table`
 width: 100%;
 margin: 0;
 border-spacing: 0;
-border-collapse: collapse;
+
 `;
 
 const TableHead = styled.thead`

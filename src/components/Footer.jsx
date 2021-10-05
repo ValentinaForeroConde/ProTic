@@ -4,7 +4,7 @@ import {Foot} from 'elements/Layouts'
 const Footer = () => {
     return (
         <div>
-            <Foot>soy el footer</Foot>            
+            <Foot>Pet Shop</Foot>            
         </div>
     )
 }
