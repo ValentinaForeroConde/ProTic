@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Table, TableHead, TableData, TableRow} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPenAlt} from '@fortawesome/free-solid-svg-icons';
@@ -73,10 +73,25 @@ import { Link } from 'react-router-dom';
 
 
 const TablaGestionUsuarios = () => {
+  const [busqueda, setBusqueda] = useState('');
+  const [usuariosFiltrados, setUsuariosFiltrados] = useState(UsuariosBackend);
+
+  useEffect(() => {
+    setUsuariosFiltrados(
+      UsuariosBackend.filter((elemento) => {
+        return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+      })
+    );
+  }, [busqueda, UsuariosBackend]);
 
         return (
             <main className="mainContainerTable">
               <h2 className="tituloGestionVentas">Gestion de Usuarios</h2>
+              <input className = "inputBusqueda"
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+                placeholder='Buscar'
+            />
               <Table>
                 <TableHead>
                   <tr>
@@ -87,12 +102,12 @@ const TablaGestionUsuarios = () => {
                   </tr>
                 </TableHead>
                 <tbody>
-                  {UsuariosBackend.map((ventas, key) => {
+                  {usuariosFiltrados.map((usuarios, key) => {
                     return (
                       <TableRow key={key}>
-                        <TableData>{ventas.nombreCliente}</TableData>
-                        <TableData>{ventas.documento}</TableData>
-                        <TableData>{ventas.estado}</TableData>
+                        <TableData>{usuarios.nombreCliente}</TableData>
+                        <TableData>{usuarios.documento}</TableData>
+                        <TableData>{usuarios.estado}</TableData>
                         <TableData>
                           <button>
                             <Link to='/GestionUsuarios'>
