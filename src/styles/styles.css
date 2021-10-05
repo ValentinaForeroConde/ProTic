@@ -22,11 +22,11 @@ html, body, .app, .contenido {
 
 .bola{
   display: inline-block;
-  margin-left: 30px;
+  margin: 20px 0px 30px 30px;
   height: 120px;
   width: 140px;
   border-radius: 100%;
-  border: 2px solid black;
+  border: 2px solid white;
   text-align:center;
   object-fit:cover;
   ;}
@@ -46,19 +46,24 @@ html, body, .app, .contenido {
 
 .sidebar .a {
   display: block;
-  color: #FB8500;
+  color: white;
   padding: 16px;
   text-decoration: none;
 }
  
 .sidebar .a.active {
-  background-color: #04AA6D;
+  background-color: rgba(0, 68, 170, 0.555);
   color: white;
+  border-radius: 20px;
+  margin: 15px;
 }
 
 .sidebar .a:hover:not(.active) {
-  background-color:  #219EBC;
+  background-color:  #0e7a96;
   color: white;
+  border-radius: 20px;
+  margin: 15px;
+
 }
 
 div.content {
@@ -117,5 +122,17 @@ input[type=number] { -moz-appearance:textfield; }
   font-size: 14px;
 }
 .botonVolver{
-  margin: 50px 0px 0px 200px;
+  margin: 50px 0px 0px 300px;
+  font-size: 20px;
+
+}
+.iconSide{
+  margin-right: 10px;
+}
+.tituloSide{
+  font-size: bold;
+  display: block;
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
 }
