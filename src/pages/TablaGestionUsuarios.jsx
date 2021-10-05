@@ -1,5 +1,5 @@
 import React from 'react'
-import {Table, TableHead, TableData} from 'elements/Listas';
+import {Table, TableHead, TableData, TableRow} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPenAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -75,7 +75,7 @@ import { Link } from 'react-router-dom';
 const TablaGestionUsuarios = () => {
 
         return (
-            <main className="guiGestionUsuarios">
+            <main className="mainContainerTable">
               <h2 className="tituloGestionVentas">Gestion de Usuarios</h2>
               <Table>
                 <TableHead>
@@ -89,7 +89,7 @@ const TablaGestionUsuarios = () => {
                 <tbody>
                   {UsuariosBackend.map((ventas, key) => {
                     return (
-                      <tr key={key}>
+                      <TableRow key={key}>
                         <TableData>{ventas.nombreCliente}</TableData>
                         <TableData>{ventas.documento}</TableData>
                         <TableData>{ventas.estado}</TableData>
@@ -100,7 +100,7 @@ const TablaGestionUsuarios = () => {
                             </Link>
                           </button>
                         </TableData>
-                      </tr>
+                      </TableRow>
                     );
                   })}
                 </tbody>

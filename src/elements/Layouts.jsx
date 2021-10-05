@@ -15,7 +15,7 @@ position: fixed;
   bottom: 0;
   width: 100%;
   background-color: #023047;
-  color: #fb8500;
+  color: white;
   text-align: center;
 `;
 

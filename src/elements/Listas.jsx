@@ -2,26 +2,33 @@ import styled from "styled-components";
 
 const Table = styled.table`
 width: 100%;
-margin: 0;
-border-spacing: 0;
-border-collapse: collapse;
+margin: 50px;
+overflow-y: scroll;
+@media (max-width: 800px){
+    width: 50%
+}
 `;
 
 const TableHead = styled.thead`
-font-size: 3.5vh;
-font-weight: bold;
+background-color: #023047;
+color: white;
+padding-top: 12px;
+padding-bottom: 12px;
 text-align: left;
-padding 2;
+
+`;
+const TableRow = styled.tr`
+&:nth-child(even){
+    background-color: #d3d3d3c2;
+}
+&:hover { 
+    background-color: #ddd;
+  cursor: pointer;
 }
 `;
-
 const TableData = styled.td`
-font-size: 2vh;
-border: 1px solid LightGrey;
-height: 100%;
-text-align: center;
-vertical-align: middle;
-}
+padding: 8px;
+border: 1px solid #ddd;
 
 `;
 
@@ -35,11 +42,12 @@ const Boton = styled.button`
     height: 45px;
     line-height: 45px;
     width: 15%;
-    background: #000;
+    margin:20px;
+    background: #023047;
     color: #fff;
     font-weight: bold;
     border: none;
-    border-radius: 3px;
+    border-radius: 10px;
     transition: .1s ease all;
     cursor: pointer;
     &:hover {
@@ -55,6 +63,7 @@ export{
     Table,
     TableHead,
     TableData,
+    TableRow,
     ContenedorBotonCentrado,
     Boton,
 }

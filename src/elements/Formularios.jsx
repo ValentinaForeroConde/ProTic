@@ -111,11 +111,11 @@ const Boton = styled.button`
     line-height: 45px;
     width: min-content;
     padding: 0 .5rem;
-    background: #000;
+    background: #023047;
     color: #fff;
     font-weight: bold;
     border: none;
-    border-radius: 3px;
+    border-radius: 10px;
     transition: .1s ease all;
     cursor: pointer;
     &:hover {

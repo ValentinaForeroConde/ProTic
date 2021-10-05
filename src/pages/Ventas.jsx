@@ -5,9 +5,9 @@ import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError';
 import Selects from 'components/Selects';
-import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado} from 'elements/Listas';
+import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faCartPlus, faPenAlt} from '@fortawesome/free-solid-svg-icons';
+import {faCartPlus, faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 
@@ -103,18 +103,21 @@ const ventasBackend = [
           <tbody>
             {listaVentas.map((ventas, key) => {
               return (
-                <tr key={key}>
+                <TableRow key={key}>
                   <TableData>{ventas.nombreCliente}</TableData>
                   <TableData>{ventas.documento}</TableData>
                   <TableData>{ventas.idVenta}</TableData>
                   <TableData>
-                    <button>
+                    <button className="iconSide">
                       <Link to='/actualizarVentas'>
                         <FontAwesomeIcon icon={faPenAlt}/>
                       </Link>
                     </button>
+                    <button className="iconSide">
+                        <FontAwesomeIcon icon={faTrashAlt}/>
+                    </button>
                   </TableData>
-                </tr>
+                </TableRow>
               );
             })}
           </tbody>
