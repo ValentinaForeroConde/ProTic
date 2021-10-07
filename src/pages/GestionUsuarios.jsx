@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Formulario} from 'elements/Formularios';
 import Input from 'components/Input';
 import Expresiones from 'components/Expresiones';
@@ -8,17 +8,30 @@ import Selects from 'components/Selects';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import { Tooltip } from "@material-ui/core";
+// import axios from 'axios';
 
 
-function GestionUsuarios() {
+function GestionUsuarios(props) {
 
-    const [nombre, cambiarNombre] = useState({campo:'', valido: null});
-    const [apellido, cambiarApellido] = useState({campo:'', valido: null});
-    const [documento, cambiarDocumento] = useState({campo:'', valido: null});
-    const [Rol, cambiarRol] = useState({campo:'', valido: null});
-    const [Estado, cambiarEstado] = useState({campo:'', valido: null});
-    const [formularioValido, cambiarFormularioValido] = useState(null);
+
+    useEffect(
+      () => {
+        cambiarNombre({nombre, campo: props.currentUser.nombre, valido:'true'})
+        cambiarApellido({apellido, campo: props.currentUser.apellido, valido:'true'})
+        cambiarDocumento({documento, campo: props.currentUser.documento, valido:'true'})
+        cambiarRol({Rol, campo: props.currentUser.Rol, valido:'true'})
+        cambiarEstado({Estado, campo: props.currentUser.Estado, valido:'true'})
+      },
+      [ props ]
+    )
+
+    const [nombre, cambiarNombre] = useState({campo: '', valido: ''});
+    const [apellido, cambiarApellido] = useState({campo:'', valido: ''});
+    const [documento, cambiarDocumento] = useState({campo:'', valido: ''});
+    const [Rol, cambiarRol] = useState({campo:'', valido: ''});
+    const [Estado, cambiarEstado] = useState({campo:'', valido: ''});
+    const [formularioValido, cambiarFormularioValido] = useState('');
 
 
 
@@ -28,24 +41,24 @@ function GestionUsuarios() {
             	"nombre": nombre.campo,
                 "apellido": apellido.campo,
                 "documento": documento.campo,
-                "Rol": Rol.campo.value,
-                "Estado": Estado.campo.value,
+                "Rol": Rol.campo,
+                "Estado": Estado.campo,
         }
         console.log(infUsuariosJson)
-        const options = {
-            method: 'POST',
-            url: '',
-            headers: { 'Content-Type': 'application/json' },
-            data: { nombre: infUsuariosJson.nombre, apellido: infUsuariosJson.apellido, documento: infUsuariosJson.documento, Rol: infUsuariosJson.Rol, Estado: infUsuariosJson.Estado},
-          };
-          await axios
-            .request(options)
-            .then(function (response) {
-              console.log(response.data);
-            })
-            .catch(function (error) {
-              console.error(error);
-            });
+        // const options = {
+        //     method: 'POST',
+        //     url: '',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     data: { nombre: infUsuariosJson.nombre, apellido: infUsuariosJson.apellido, documento: infUsuariosJson.documento, Rol: infUsuariosJson.Rol, Estado: infUsuariosJson.Estado},
+        //   };
+        //   await axios
+        //     .request(options)
+        //     .then(function (response) {
+        //       console.log(response.data);
+        //     })
+        //     .catch(function (error) {
+        //       console.error(error);
+        //     });
 
         if (
             nombre.valido === 'true' &&
@@ -55,11 +68,11 @@ function GestionUsuarios() {
             Estado.valido === 'true'
             ){
                 cambiarFormularioValido(true);
-                cambiarNombre({campo: '', valido:''});
-                cambiarApellido({campo: '', valido:''});
-                cambiarDocumento({campo: '', valido:''});
-                cambiarRol({campo: '', valido:''});
-                cambiarEstado({campo: '', valido:''});
+                // cambiarNombre({campo: '', valido:''});
+                // cambiarApellido({campo: '', valido:''});
+                // cambiarDocumento({campo: '', valido:''});
+                // cambiarRol({campo: '', valido:''});
+                // cambiarEstado({campo: '', valido:''});
 
                 // hacer envios a apis base de datos
             }else{
@@ -67,31 +80,30 @@ function GestionUsuarios() {
             }
         }
         const opcion1  = [
-            {value:'administrador', label: 'Administrador'},
-            {value:'vendedor', label: 'Vendedor'},
-            {value:'pendiente', label: 'Pendiente'}
+            {value:'0', label: 'Administrador'},
+            {value:'1', label: 'Vendedor'},
+            {value:'2', label: 'Pendiente'}
         ]
         const opcion2  = [
-            {value:'pendiente', label: 'Pendiente'},
-            {value:'autorizado', label: 'Autorizado'},
-            {value:'no-autorizado', label: 'No Autorizado'}
+            {value:'0', label: 'Pendiente'},
+            {value:'1', label: 'Autorizado'},
+            {value:'2', label: 'No Autorizado'}
         ]
-    
-
 
 
     return (
         <main className="guiGestionUsuarios">
              <h2 className="tituloGestionVentas">Gestion Usuarios</h2>
-            <button >
+            <Tooltip title="Regresar" arrow >
                 <Link to='/TablaGestionUsuarios'>
                     <FontAwesomeIcon icon={faArrowLeft}/>
                 </Link>
-            </button>
+            </Tooltip>
            <Formulario action="" onSubmit={onSubmitForm}>
                 <Input
                     estado={nombre}
                     cambiarEstado={cambiarNombre}
+                    DefVal={nombre.campo}
                     tipo="text"
                     user="Nombre"
                     placeholdercont="Nombre de usuario"
@@ -102,6 +114,7 @@ function GestionUsuarios() {
                 <Input
                     estado={apellido}
                     cambiarEstado={cambiarApellido}
+                    DefVal={apellido.campo}
                     tipo="text"
                     user="Apellido"
                     placeholdercont="Apellido de usuario"
@@ -112,6 +125,7 @@ function GestionUsuarios() {
                  <Input
                     estado={documento}
                     cambiarEstado={cambiarDocumento}
+                    DefVal={documento.campo}
                     tipo="number"
                     user="Id Usuario"
                     placeholdercont="N° ID del usuario"
@@ -122,9 +136,9 @@ function GestionUsuarios() {
                 <Selects
                     estado={Rol}
                     cambiarEstado={cambiarRol}
+                    DefVal={[Rol.campo]}
                     tipo="text"
                     user="Rol"
-                    placeholdercont="No Asignado"
                     name="rol"
                     lenyenda= "Administrador/ Vendedor / No Asignado"
                     expresionRegular={Expresiones.nombre}
@@ -134,9 +148,9 @@ function GestionUsuarios() {
                <Selects
                     estado={Estado}
                     cambiarEstado={cambiarEstado}
+                    DefVal={[Estado.campo]}
                     tipo="text"
                     user="Estado"
-                    placeholdercont="Pendiente"
                     name="estado"
                     lenyenda= "Pendiente / Autorizado / No Autorizado"
                     expresionRegular={Expresiones.nombre}
@@ -147,8 +161,8 @@ function GestionUsuarios() {
                 {formularioValido === false  && <AlertaError/> }
                 <BotonCentrado
                     nombreBoton = "Actualizar"
-                    mensajeBoton = "Actualización exitosa"
                     formularioValido = {formularioValido}
+                    mensajeBoton = "Actualización exitosa"
                 />
            </Formulario>
         </main>

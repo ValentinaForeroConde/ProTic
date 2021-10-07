@@ -136,3 +136,10 @@ input[type=number] { -moz-appearance:textfield; }
   text-align: center;
   margin-bottom: 30px;
 }
+.TooltipEditar{
+  display: block;
+  text-align: center;
+}
+.GUS{
+  visibility:hidden;
+}

@@ -3,7 +3,8 @@ import {Label, GrupoInput, LeyendaError, IconoValidacion,} from 'elements/Formul
 import { faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import Select from 'react-select';
 
-const Selects = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, estado, cambiarEstado, opciones}) => {
+const Selects = ({user, tipo, lenyenda, expresionRegular, name, estado, cambiarEstado, opciones, DefVal}) => {
+
     const onChange = (e)=>{
         cambiarEstado({campo: e});
     }
@@ -23,9 +24,8 @@ const Selects = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name,
             <GrupoInput>
                 <Select
                     type={tipo}
-                    placeholder={placeholdercont}
                     id={name}
-                    value={estado.campo}
+                    value={DefVal}
                     onChange={onChange}
                     onKeyUp={validacion}
                     onBlur={validacion}
