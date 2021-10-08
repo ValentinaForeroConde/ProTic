@@ -10,6 +10,7 @@ import ActualizarProductos from "pages/ActualizarProductos";
 import ActualizarVentas from "pages/ActualizarVentas";
 import ListadoProductos from "pages/ListadoProductos";
 import TablaGestionUsuarios from "pages/TablaGestionUsuarios";
+import ModuloGestionUsuarios from "pages/ModuloGestionUsuarios";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               "/Dashboard",
               "/ListadoProductos",
               "/TablaGestionUsuarios",
+              "/editarUsuario/:id",
             ]}
           >
             <PrivateLayout>
@@ -46,6 +48,9 @@ function App() {
                 </Route>
                 <Route path="/TablaGestionUsuarios">
                   <TablaGestionUsuarios />
+                </Route>
+                <Route path="/editarUsuario/:id">
+                  <GestionUsuarios />
                 </Route>
                 <Route path="/Dashboard">
                   <Dashboard />

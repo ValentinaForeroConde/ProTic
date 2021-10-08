@@ -5,26 +5,34 @@ import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError'
 import Selects from 'components/Selects';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useParams  } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from "@material-ui/core";
+import * as server from './server';
 // import axios from 'axios';
 
 
-function GestionUsuarios(props) {
+function GestionUsuarios() {
 
+    const params = useParams();
+    const history =useHistory();
 
-    useEffect(
+    console.log(params)
+
+    const initialState={id:0, name:'',email:'', username:'' }
+    const [usuarios, setUsuarios]= useState(initialState);
+
+    /*useEffect(
       () => {
-        cambiarNombre({nombre, campo: props.currentUser.nombre, valido:'true'})
-        cambiarApellido({apellido, campo: props.currentUser.apellido, valido:'true'})
-        cambiarDocumento({documento, campo: props.currentUser.documento, valido:'true'})
-        cambiarRol({Rol, campo: props.currentUser.Rol, valido:'true'})
-        cambiarEstado({Estado, campo: props.currentUser.Estado, valido:'true'})
+        cambiarNombre({nombre, campo: usuarios.name, valido:'true'})
+        cambiarApellido({apellido, campo: usuarios.username, valido:'true'})
+        cambiarDocumento({documento, campo: usuarios.email, valido:'true'})
+        cambiarRol({Rol, campo:'' , valido:'true'})
+        cambiarEstado({Estado, campo: '', valido:'true'})
       },
-      [ props ]
-    )
+      [ ]
+     )*/
 
     const [nombre, cambiarNombre] = useState({campo: '', valido: ''});
     const [apellido, cambiarApellido] = useState({campo:'', valido: ''});
@@ -37,14 +45,21 @@ function GestionUsuarios(props) {
 
     const onSubmitForm = async(e) =>{
         e.preventDefault();
-        const infUsuariosJson = {
-            	"nombre": nombre.campo,
-                "apellido": apellido.campo,
-                "documento": documento.campo,
-                "Rol": Rol.campo,
-                "Estado": Estado.campo,
+        console.log(usuarios)
+
+        try{
+            let res;
+            res= await server.registerUser(usuarios);
+            const data= await res.json();
+            if (data.message ==="Sucess"){
+                setUsuarios(initialState);
+                history.push("/TablaGestionUsuarios");
+            }
+
+        }catch(error){
+            console.log(error)
         }
-        console.log(infUsuariosJson)
+
         // const options = {
         //     method: 'POST',
         //     url: '',
@@ -107,9 +122,11 @@ function GestionUsuarios(props) {
                     tipo="text"
                     user="Nombre"
                     placeholdercont="Nombre de usuario"
-                    name="nombre"
+                    name="name"
                     lenyenda= "El nombre solo admite letras"
                     expresionRegular={Expresiones.nombre}
+                    usuarios={usuarios}
+                    setUsuarios={setUsuarios}
                 />
                 <Input
                     estado={apellido}
@@ -118,9 +135,11 @@ function GestionUsuarios(props) {
                     tipo="text"
                     user="Apellido"
                     placeholdercont="Apellido de usuario"
-                    name="apellido"
+                    name="username"
                     lenyenda= "El apellido solo admite letras"
                     expresionRegular={Expresiones.nombre}
+                    usuarios={usuarios}
+                    setUsuarios={setUsuarios}
                 />
                  <Input
                     estado={documento}
@@ -129,9 +148,11 @@ function GestionUsuarios(props) {
                     tipo="number"
                     user="Id Usuario"
                     placeholdercont="N° ID del usuario"
-                    name="idUsuario"
+                    name="email"
                     lenyenda= "El Documento solo admite numeros, minimo 7 - maximo 14"
                     expresionRegular={Expresiones.telefono}
+                    usuarios={usuarios}
+                    setUsuarios={setUsuarios}
                 />
                 <Selects
                     estado={Rol}
@@ -143,6 +164,8 @@ function GestionUsuarios(props) {
                     lenyenda= "Administrador/ Vendedor / No Asignado"
                     expresionRegular={Expresiones.nombre}
                     opciones={opcion1}
+                    usuarios={usuarios}
+                    setUsuarios={setUsuarios}
                 />
 
                <Selects
@@ -155,6 +178,8 @@ function GestionUsuarios(props) {
                     lenyenda= "Pendiente / Autorizado / No Autorizado"
                     expresionRegular={Expresiones.nombre}
                     opciones={opcion2}
+                    usuarios={usuarios}
+                    setUsuarios={setUsuarios}
                 />
 
 

@@ -2,10 +2,11 @@ import React from 'react'
 import {Label, GrupoInput, Inputs, LeyendaError, IconoValidacion,} from 'elements/Formularios';
 import { faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 
-const Input = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, estado, cambiarEstado, DefVal}) => {
+const Input = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, estado, cambiarEstado, DefVal, setUsuarios, usuarios}) => {
 
     const onChange = (e) =>{
         cambiarEstado({...estado, campo: e.target.value});
+        setUsuarios({...usuarios, [e.target.id]: e.target.value});
     }
     const validacion = () =>{
         if(expresionRegular){
