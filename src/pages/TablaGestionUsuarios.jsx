@@ -31,9 +31,25 @@ const TablaGestionUsuarios = () => {
           listUsuarios();
         }
 
+        const [busqueda, setBusqueda] = useState('');
+        const [usuariosFiltrados, setUsuariosFiltrados] = useState(usuarios);
+
+        useEffect(() => {
+          setUsuariosFiltrados(
+            usuarios.filter((elemento) => {
+              return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+            })
+          );
+        }, [busqueda, usuarios]);
+
         return (
             <main className="mainContainerTable">
               <h2 className="tituloGestionVentas">Gestion de Usuarios</h2>
+              <input className = "inputBusqueda"
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+                placeholder='Buscar'
+            />
               <Table>
                 <TableHead>
                   <tr>
