@@ -1,13 +1,38 @@
-const API_URL = "https://jsonplaceholder.typicode.com/users "
+import axios from 'axios';
 
-export const listUsuarios = async () =>{
-    return await fetch(API_URL);
-};
+const API_URL = "http://localhost:5000/usuario"
+
+export const listUsuarios = async () => {
+    return await axios.get( "http://localhost:5000/usuario");
+
+  };
+
+
+
+
+// export const listUsuarios = async () =>{
+//     return await fetch(API_URL);
+// };
 
 export const getUsuario = async (usuarioId) =>{
     return await fetch(`${API_URL}${usuarioId}`);
 };
 
+
+export const registerUser = async (newUser) =>{
+    try{
+        const response  = await axios({
+            url:`${API_URL}/nuevo`,
+            method:'POST',
+            data:{ nombre: newUser.nombre, apellido: newUser.apellido, documento: newUser.documento, Rol: newUser.Rol, Estado: newUser.Estado},
+        })
+        return response
+
+    } catch(e){
+        console.log(e)
+    }
+}
+/*
 export const registerUser = async (newUser) =>{
     return await fetch(API_URL, {
         method:'POST',
@@ -21,6 +46,7 @@ export const registerUser = async (newUser) =>{
         })
     });
 };
+*/
 
 export const deleteUser = async (usuarioId) =>{
     return await fetch(`${API_URL}${usuarioId}`, {

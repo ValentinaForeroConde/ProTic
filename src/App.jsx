@@ -10,7 +10,6 @@ import ActualizarProductos from "pages/ActualizarProductos";
 import ActualizarVentas from "pages/ActualizarVentas";
 import ListadoProductos from "pages/ListadoProductos";
 import TablaGestionUsuarios from "pages/TablaGestionUsuarios";
-import ModuloGestionUsuarios from "pages/ModuloGestionUsuarios";
 
 function App() {
   return (

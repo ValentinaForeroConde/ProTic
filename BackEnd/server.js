@@ -1,8 +1,8 @@
 import Express from "express";
 import { MongoClient, ObjectId } from 'mongodb';
-import Cors from 'cors'; 
+import Cors from 'cors';
 
-const stringConexion = "mongodb+srv://Valentina:12231998Vf@proyectoprotic.ips3a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const stringConexion = "mongodb+srv://carlosesp10:Carlos7891@proyectoprotic.ips3a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(stringConexion, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

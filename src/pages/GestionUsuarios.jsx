@@ -20,19 +20,9 @@ function GestionUsuarios() {
 
     console.log(params)
 
-    const initialState={id:0, name:'',email:'', username:'' }
+    const initialState={id:'', nombre:'',apellido:'', documento:'', Estado:'', Rol:''}
     const [usuarios, setUsuarios]= useState(initialState);
 
-    /*useEffect(
-      () => {
-        cambiarNombre({nombre, campo: usuarios.name, valido:'true'})
-        cambiarApellido({apellido, campo: usuarios.username, valido:'true'})
-        cambiarDocumento({documento, campo: usuarios.email, valido:'true'})
-        cambiarRol({Rol, campo:'' , valido:'true'})
-        cambiarEstado({Estado, campo: '', valido:'true'})
-      },
-      [ ]
-     )*/
 
     const [nombre, cambiarNombre] = useState({campo: '', valido: ''});
     const [apellido, cambiarApellido] = useState({campo:'', valido: ''});
@@ -82,21 +72,6 @@ function GestionUsuarios() {
             console.log(error)
         }
 
-        // const options = {
-        //     method: 'POST',
-        //     url: '',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     data: { nombre: infUsuariosJson.nombre, apellido: infUsuariosJson.apellido, documento: infUsuariosJson.documento, Rol: infUsuariosJson.Rol, Estado: infUsuariosJson.Estado},
-        //   };
-        //   await axios
-        //     .request(options)
-        //     .then(function (response) {
-        //       console.log(response.data);
-        //     })
-        //     .catch(function (error) {
-        //       console.error(error);
-        //     });
-
         if (
             nombre.valido === 'true' &&
             apellido.valido === 'true' &&
@@ -144,7 +119,7 @@ function GestionUsuarios() {
                     tipo="text"
                     user="Nombre"
                     placeholdercont="Nombre de usuario"
-                    name="name"
+                    name="nombre"
                     lenyenda= "El nombre solo admite letras"
                     expresionRegular={Expresiones.nombre}
                     usuarios={usuarios}
@@ -157,7 +132,7 @@ function GestionUsuarios() {
                     tipo="text"
                     user="Apellido"
                     placeholdercont="Apellido de usuario"
-                    name="username"
+                    name="apellido"
                     lenyenda= "El apellido solo admite letras"
                     expresionRegular={Expresiones.nombre}
                     usuarios={usuarios}
@@ -170,7 +145,7 @@ function GestionUsuarios() {
                     tipo="number"
                     user="Id Usuario"
                     placeholdercont="N° ID del usuario"
-                    name="email"
+                    name="documento"
                     lenyenda= "El Documento solo admite numeros, minimo 7 - maximo 14"
                     expresionRegular={Expresiones.telefono}
                     usuarios={usuarios}
@@ -182,7 +157,7 @@ function GestionUsuarios() {
                     DefVal={[Rol.campo]}
                     tipo="text"
                     user="Rol"
-                    name="rol"
+                    name="Rol"
                     lenyenda= "Administrador/ Vendedor / No Asignado"
                     expresionRegular={Expresiones.nombre}
                     opciones={opcion1}
@@ -196,7 +171,7 @@ function GestionUsuarios() {
                     DefVal={[Estado.campo]}
                     tipo="text"
                     user="Estado"
-                    name="estado"
+                    name="Estado"
                     lenyenda= "Pendiente / Autorizado / No Autorizado"
                     expresionRegular={Expresiones.nombre}
                     opciones={opcion2}

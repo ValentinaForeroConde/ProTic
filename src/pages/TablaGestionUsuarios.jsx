@@ -12,9 +12,7 @@ const TablaGestionUsuarios = () => {
         const listUsuarios = async()=>{
             try{
                 const res = await server.listUsuarios();
-                const data = await res.json();
-                setUsuarios(data)
-                console.log(data);
+                setUsuarios(res.data)
 
             }catch(error){
                 console.log(error)
@@ -62,9 +60,9 @@ const TablaGestionUsuarios = () => {
                 <tbody>
                   {usuarios.map((usuario) => (
                       <TableRow key={usuario.id}>
-                        <TableData>{usuario.name}</TableData>
-                        <TableData>{usuario.username}</TableData>
-                        <TableData>{usuario.email}</TableData>
+                        <TableData>{usuario.nombre}</TableData>
+                        <TableData>{usuario.apellido}</TableData>
+                        <TableData>{usuario.documento}</TableData>
                         <TableData>
                           <button className="iconSide"
                             onClick={() => {
