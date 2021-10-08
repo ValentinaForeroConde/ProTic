@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {Table, TableHead, TableData, TableRow} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faPenAlt} from '@fortawesome/free-solid-svg-icons';
+import {faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
-import { Tooltip } from "@material-ui/core";
 import * as server from './server';
 
 const TablaGestionUsuarios = () => {
@@ -26,6 +25,11 @@ const TablaGestionUsuarios = () => {
         },[]);
 
         const history = useHistory();
+
+        const handleDelete= async (usuarioId)=>{
+          await server.deleteUser(usuarioId);
+          listUsuarios();
+        }
 
         return (
             <main className="mainContainerTable">
@@ -51,6 +55,11 @@ const TablaGestionUsuarios = () => {
                               history.push(`/editarUsuario/${usuario.id}`)}}
                             >
                             <FontAwesomeIcon  icon={faPenAlt}/>
+                          </button>
+                          <button className="iconSide"
+                            onClick={()=> usuario.id && handleDelete(usuario.id)}
+                          >
+                            <FontAwesomeIcon icon={faTrashAlt}/>
                           </button>
                         </TableData>
                       </TableRow>

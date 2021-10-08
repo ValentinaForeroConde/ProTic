@@ -41,7 +41,25 @@ function GestionUsuarios() {
     const [Estado, cambiarEstado] = useState({campo:'', valido: ''});
     const [formularioValido, cambiarFormularioValido] = useState('');
 
+    const getUsuario= async(usuarioId)=>{
+        try{
+            const res = await server.getUsuario(usuarioId);
+            const data = await res.json();
+            const {name, email, username}=data.usuarios;
+            setUsuarios({name, username, email});
+            console.log(data);
 
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        if(params.id){
+            getUsuario(params.id);
+        }
+        // eslint-disable-next-line
+    }, []);
 
     const onSubmitForm = async(e) =>{
         e.preventDefault();
@@ -49,10 +67,14 @@ function GestionUsuarios() {
 
         try{
             let res;
-            res= await server.registerUser(usuarios);
-            const data= await res.json();
-            if (data.message ==="Sucess"){
-                setUsuarios(initialState);
+            if(!params.id){
+                res= await server.registerUser(usuarios);
+                const data= await res.json();
+                if (data.message ==="Sucess"){
+                    setUsuarios(initialState);
+            }else{
+                await server.updateUser(params.id, usuarios);
+            }
                 history.push("/TablaGestionUsuarios");
             }
 
@@ -184,11 +206,20 @@ function GestionUsuarios() {
 
 
                 {formularioValido === false  && <AlertaError/> }
-                <BotonCentrado
+                { params.id?(
+                    <BotonCentrado
                     nombreBoton = "Actualizar"
                     formularioValido = {formularioValido}
                     mensajeBoton = "Actualización exitosa"
                 />
+                ):(
+                    <BotonCentrado
+                    nombreBoton = "Crear"
+                    formularioValido = {formularioValido}
+                    mensajeBoton = "Creación exitosa"
+                />
+
+                ) }
            </Formulario>
         </main>
     );
