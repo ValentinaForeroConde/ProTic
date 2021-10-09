@@ -33,8 +33,8 @@ function GestionUsuarios() {
     const getUsuario= async(usuarioId)=>{
         try{
             const res = await server.getUsuario(usuarioId);
-            console.log(res)
-            const {nombre, apellido, documento, Rol, Estado}=res.usuarios;
+            console.log(res.data)
+            const {nombre, apellido, documento, Rol, Estado}=res.data.usuarios;
             setUsuarios({nombre, apellido, documento, Rol, Estado});
             console.log(res);
 
@@ -52,7 +52,6 @@ function GestionUsuarios() {
 
     const onSubmitForm = async(e) =>{
         e.preventDefault();
-        console.log(usuarios)
 
         try{
             let res;

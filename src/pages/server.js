@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = "http://localhost:5000/usuario"
 
 export const listUsuarios = async () => {
-    return await axios.get( "http://localhost:5000/usuario");
+    return await axios.get("http://localhost:5000/usuario");
 
   };
 
@@ -14,7 +14,7 @@ export const listUsuarios = async () => {
 export const registerUser = async (newUser) =>{
     try{
         const response  = await axios({
-            url:`${API_URL}/nuevo`,
+            url:`${API_URL}`,
             method:'POST',
             data:{
                 nombre: newUser.nombre,
@@ -48,9 +48,8 @@ export const registerUser = async (newUser) =>{
 export const getUsuario = async (usuarioId) =>{
     try{
         const response  = await axios({
-            url:`${API_URL}${usuarioId}`,
+            url:`${API_URL}/${usuarioId}`,
             method:'GET',
-           
         })
         return response
 
@@ -66,7 +65,7 @@ export const getUsuario = async (usuarioId) =>{
 export const deleteUser = async (usuarioId) =>{
     try{
         const response  = await axios({
-            url:`${API_URL}/eliminar`,
+            url:`${API_URL}/${usuarioId}`,
             method:'DELETE',
             data: { id: usuarioId},
         })

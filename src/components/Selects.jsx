@@ -12,7 +12,6 @@ const Selects = ({user, tipo, lenyenda, expresionRegular, name, estado, cambiarE
         valor = 'Estado'
     }
 
-
     const onChange = (e)=>{
         cambiarEstado({campo: e});
         setUsuarios({...usuarios,  [valor]: e.value});

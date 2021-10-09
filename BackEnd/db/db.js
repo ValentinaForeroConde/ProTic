@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({path: './.env'});
 
-const stringConexion = process.env.DATABASE_URL; 
+const stringConexion = process.env.DATABASE_URL;
 
 const client = new MongoClient(stringConexion, {
     useNewUrlParser: true,
