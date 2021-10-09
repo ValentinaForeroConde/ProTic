@@ -20,16 +20,17 @@ function App() {
             path={[
               "/gestionUsuarios",
               "/ventas",
-              "/ActualizarProductos",
+              "/CrearProductos",
               "/ActualizarVentas",
               "/Dashboard",
               "/ListadoProductos",
               "/TablaGestionUsuarios",
+              "/editarUsuario/:id",
             ]}
           >
             <PrivateLayout>
               <Switch>
-                <Route path="/ActualizarProductos">
+                <Route path="/CrearProductos">
                   <ActualizarProductos />
                 </Route>
                 <Route path="/ActualizarVentas">
@@ -46,6 +47,9 @@ function App() {
                 </Route>
                 <Route path="/TablaGestionUsuarios">
                   <TablaGestionUsuarios />
+                </Route>
+                <Route path="/editarUsuario/:id">
+                  <GestionUsuarios />
                 </Route>
                 <Route path="/Dashboard">
                   <Dashboard />

@@ -7,42 +7,72 @@ import AlertaError from 'components/AlertaError'
 import Selects from 'components/Selects';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link,useHistory,useParams } from 'react-router-dom';
+import * as api from 'Api'
 
 
 const ActualizarProductos = () => {
     
-    const [nombre, cambiarNombre] = useState({campo:'', valido: null});
-    const [descripcion, cambiarDescripcion] = useState({campo:'', valido: null});
-    const [valor, cambiarvalor] = useState({campo:'', valido: null});
-    const [idVendedor, cambiarIdVendedor] = useState({campo:'', valido: null});
-    const [formularioValido, cambiarFormularioValido] = useState(null);
-    const [estado, cambiarEstado] = useState({campo:'', valido: null});
+    
+
+    const [nombre, cambiarNombre] = useState({valido: ''});
+    const [descripcion, cambiarDescripcion] = useState({valido: ''});
+    const [valor, cambiarvalor] = useState({valido: ''});
+    //const [idVendedor, cambiarIdVendedor] = useState({valido: ''});
+    const [formularioValido, cambiarFormularioValido] = useState('');
+    const [Estado, cambiarEstado] = useState({valido: ''});
+
+
+    const initialState={_id:'', nombre:'', descripcion:'', valor:'', Estado:'' };
+    const [usuarios,setUsuarios]= useState(initialState);
+    const params=useParams();
+    const history=useHistory();
+
+
 
     const productoDisponible = [
-        {value:'Disponible', label: 'Disponible'},
-        {value:'No disponible', label: 'No disponible'},
+        {value:'0', label: 'Disponible'},
+        {value:'1', label: 'No disponible'},
         ];
         
-    const onSubmitForm = (e) =>{
+    const onSubmitForm = async(e) =>{
         e.preventDefault();
+console.log(usuarios)
+        try{
+            let res;
+            if(!params.id){
+
+                res= await api.registerProducts(usuarios);
+                console.log(res)
+                if (res ==="OK"){
+                    setUsuarios(initialState);
+            }else{
+                //await server.updateUser(params.id, usuarios);
+            }
+                history.push("/ListadoProductos");
+            }
+
+        }catch(error){
+            console.log(error)
+        }
         if (
             nombre.valido === 'true' &&
             descripcion.valido === 'true' &&
-            valor.valido === 'true' &&
-            idVendedor.valido === 'true' &&
-            estado.valido === 'true'  
+            valor.valido === 'true' &&            
+            Estado.valido === 'true'  
             ){
                 cambiarFormularioValido(true);
-                cambiarNombre({campo: '', valido:''});
+               /* cambiarNombre({campo: '', valido:''});
                 cambiarDescripcion({campo: '', valido:''});
                 cambiarvalor({campo: '', valido:''});
                 cambiarIdVendedor({campo: '', valido:''});
-                cambiarEstado({campo: '', valido:''});
+                cambiarEstado({campo: '', valido:''});*/
                 // hacer envios a apis base de datos
             }else{
+                
                 cambiarFormularioValido(false);
             }
+            console.log(formularioValido);
         }
     return (
         <main>
@@ -52,13 +82,16 @@ const ActualizarProductos = () => {
                 </Link>
             </button>
             <h2 className="tituloGestionVentas">Registro de productos</h2>
-            <Formulario className = "guiGestionUsuarios" onSubmit = {onSubmitForm}>
+            <Formulario className = "guiGestionUsuarios" onSubmit = {onSubmitForm} action="">
                 <Input 
                     user = "Nombre"
                     placeholdercont = "Nombre producto"
                     tipo = "text"
                     lenyenda = "El nombre solo admite letras"
                     expresionRegular = {Expresiones.nombre}
+                    DefVal={usuarios.nombre}
+                    usuarios={usuarios}
+                    setUsuarios={setUsuarios}
                     name = "nombre"
                     estado = {nombre}
                     cambiarEstado = {cambiarNombre}
@@ -72,9 +105,12 @@ const ActualizarProductos = () => {
                     name = "descripcion"
                     estado = {descripcion}
                     cambiarEstado = {cambiarDescripcion}
+                    DefVal={usuarios.descripcion}
+                    usuarios={usuarios}
+                    setUsuarios={setUsuarios}
                     />
                     <Input 
-                    user = "valor"
+                    user = "Valor"
                     placeholdercont = "valor producto"
                     tipo = "number"
                     lenyenda = "El valor solo admite números"
@@ -82,9 +118,12 @@ const ActualizarProductos = () => {
                     name = "valor"
                     estado = {valor}
                     cambiarEstado = {cambiarvalor}
+                    DefVal={usuarios.valor}
+                    usuarios={usuarios}
+                    setUsuarios={setUsuarios}
                     />
                     
-                    <Input 
+                   {/* <Input 
                     user = "Id-Producto"
                     placeholdercont = "Id-Producto"
                     tipo = "number"
@@ -94,26 +133,31 @@ const ActualizarProductos = () => {
                     estado = {idVendedor}
                     cambiarEstado = {cambiarIdVendedor}
                     />
-                    
+                     */}
                     <Selects 
                     user = "Estado"
                     placeholdercont = "Selecciona el estado"
                     tipo = "text"
                     lenyenda = "Solo ingrese disponible o no disponible"
                     expresionRegular = {Expresiones.nombre}
-                    name = "estado"
-                    estado = {estado}
+                    name = "Estado"
+                    estado = {Estado}
                     cambiarEstado = {cambiarEstado}
                     opciones={productoDisponible}
+                    DefVal={productoDisponible[usuarios.Estado]}
+                    usuarios={usuarios}
+                    setUsuarios={setUsuarios}
                     />
                     
                     {formularioValido === false  && <AlertaError/>}
-                
-                    <BotonCentrado 
-                    nombreBoton = "Actualizar"
-                    mensajeBoton = "Venta actualizada exitosamente"
-                    formularioValido = {formularioValido}
-                />
+                      <BotonCentrado 
+                        nombreBoton = "Crear"
+                        mensajeBoton = "Producto creado exitosamente"
+                        formularioValido = {formularioValido}
+                    />
+                      
+                    
+                  
                 </Formulario>
         </main>
     )
