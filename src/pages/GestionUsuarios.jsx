@@ -56,22 +56,7 @@ function GestionUsuarios() {
 
     const onSubmitForm = async(e) =>{
         e.preventDefault();
-        try{
-            let res;
-            if(!params.id){
-                res= await server.registerUser(usuarios);
-                console.log(res)
-                if (res ==="OK"){
-                    setUsuarios(initialState);
-            }else{
-                await server.updateUser(params.id, usuarios);
-            }
-                history.push("/TablaGestionUsuarios");
-            }
-
-        }catch(error){
-            console.log(error)
-        }
+       
 
         if (
             nombre.valido === 'true' &&
@@ -87,7 +72,22 @@ function GestionUsuarios() {
                 // cambiarRol({campo: '', valido:''});
                 // cambiarEstado({campo: '', valido:''});
 
-                // hacer envios a apis base de datos
+                try{
+                    let res;
+                    if(!params.id){
+                        res= await server.registerUser(usuarios);
+                        console.log(res)
+                        if (res === 'OK'){
+                            setUsuarios(initialState);
+                            }
+                    }else{
+                        console.log(usuarios);
+                        await server.updateUser(params.id, usuarios);
+                    }
+                        history.push("/TablaGestionUsuarios");
+                    }catch(error){
+                    console.log(error)
+                }
             }else{
                 cambiarFormularioValido(false);
             }
