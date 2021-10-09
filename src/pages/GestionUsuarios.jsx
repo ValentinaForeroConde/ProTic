@@ -18,7 +18,6 @@ function GestionUsuarios() {
     const params = useParams();
     const history =useHistory();
 
-    console.log(params)
 
     const initialState={id:'', nombre:'',apellido:'', documento:'', Estado:'', Rol:''}
     const [usuarios, setUsuarios]= useState(initialState);
@@ -34,10 +33,10 @@ function GestionUsuarios() {
     const getUsuario= async(usuarioId)=>{
         try{
             const res = await server.getUsuario(usuarioId);
-            const data = await res.json();
-            const {name, email, username}=data.usuarios;
-            setUsuarios({name, username, email});
-            console.log(data);
+            console.log(res)
+            const {nombre, apellido, documento, Rol, Estado}=res.usuarios;
+            setUsuarios({nombre, apellido, documento, Rol, Estado});
+            console.log(res);
 
         }catch(error){
             console.log(error)
@@ -59,8 +58,8 @@ function GestionUsuarios() {
             let res;
             if(!params.id){
                 res= await server.registerUser(usuarios);
-                const data= await res.json();
-                if (data.message ==="Sucess"){
+                console.log(res)
+                if (res ==="OK"){
                     setUsuarios(initialState);
             }else{
                 await server.updateUser(params.id, usuarios);

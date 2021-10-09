@@ -58,7 +58,7 @@ const TablaGestionUsuarios = () => {
                   </tr>
                 </TableHead>
                 <tbody>
-                  {usuarios.map((usuario) => (
+                  {usuariosFiltrados.map((usuario) => (
                       <TableRow key={usuario.id}>
                         <TableData>{usuario.nombre}</TableData>
                         <TableData>{usuario.apellido}</TableData>
@@ -66,12 +66,12 @@ const TablaGestionUsuarios = () => {
                         <TableData>
                           <button className="iconSide"
                             onClick={() => {
-                              history.push(`/editarUsuario/${usuario.id}`)}}
+                              history.push(`/editarUsuario/${usuario._id}`)}}
                             >
                             <FontAwesomeIcon  icon={faPenAlt}/>
                           </button>
                           <button className="iconSide"
-                            onClick={()=> usuario.id && handleDelete(usuario.id)}
+                            onClick={()=>handleDelete(usuario._id)}
                           >
                             <FontAwesomeIcon icon={faTrashAlt}/>
                           </button>

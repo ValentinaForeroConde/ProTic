@@ -7,24 +7,21 @@ export const listUsuarios = async () => {
 
   };
 
-
-
-
 // export const listUsuarios = async () =>{
 //     return await fetch(API_URL);
 // };
-
-export const getUsuario = async (usuarioId) =>{
-    return await fetch(`${API_URL}${usuarioId}`);
-};
-
 
 export const registerUser = async (newUser) =>{
     try{
         const response  = await axios({
             url:`${API_URL}/nuevo`,
             method:'POST',
-            data:{ nombre: newUser.nombre, apellido: newUser.apellido, documento: newUser.documento, Rol: newUser.Rol, Estado: newUser.Estado},
+            data:{
+                nombre: newUser.nombre,
+                apellido: newUser.apellido,
+                documento: newUser.documento,
+                Rol: newUser.Rol,
+                Estado: newUser.Estado},
         })
         return response
 
@@ -48,12 +45,44 @@ export const registerUser = async (newUser) =>{
 };
 */
 
+export const getUsuario = async (usuarioId) =>{
+    try{
+        const response  = await axios({
+            url:`${API_URL}${usuarioId}`,
+            method:'GET',
+           
+        })
+        return response
+
+    } catch(e){
+        console.log(e)
+    }
+}
+
+// export const getUsuario = async (usuarioId) =>{
+//     return await fetch(`${API_URL}${usuarioId}`);
+// };
+
+export const deleteUser = async (usuarioId) =>{
+    try{
+        const response  = await axios({
+            url:`${API_URL}/eliminar`,
+            method:'DELETE',
+            data: { id: usuarioId},
+        })
+        return response
+
+    } catch(e){
+        console.log(e)
+    }
+}
+/*
 export const deleteUser = async (usuarioId) =>{
     return await fetch(`${API_URL}${usuarioId}`, {
         method:'DELETE',
     });
 };
-
+*/
 export const updateUser = async (usuarioId, updateUser) =>{
     return await fetch(`${API_URL}${usuarioId}`, {
         method:'PUT',
