@@ -18,26 +18,29 @@ function GestionUsuarios() {
     const params = useParams();
     const history =useHistory();
 
-
-    const initialState={id:'', nombre:'',apellido:'', documento:'', Estado:'', Rol:''}
+    const initialState={_id:'', nombre:'',apellido:'', documento:'', Estado:'', Rol:''}
     const [usuarios, setUsuarios]= useState(initialState);
 
-
-    const [nombre, cambiarNombre] = useState({campo: '', valido: ''});
-    const [apellido, cambiarApellido] = useState({campo:'', valido: ''});
-    const [documento, cambiarDocumento] = useState({campo:'', valido: ''});
-    const [Rol, cambiarRol] = useState({campo:'', valido: ''});
-    const [Estado, cambiarEstado] = useState({campo:'', valido: ''});
+    const [nombre, cambiarNombre] = useState({valido: ''});
+    const [apellido, cambiarApellido] = useState({valido: ''});
+    const [documento, cambiarDocumento] = useState({valido: ''});
+    const [Rol, cambiarRol] = useState({valido: ''});
+    const [Estado, cambiarEstado] = useState({valido: ''});
     const [formularioValido, cambiarFormularioValido] = useState('');
+
+
+    // useEffect(()=>{
+    //     cambiarNombre({nombre, campo: usuarios.nombre, valido:'true'})
+    //     cambiarApellido({apellido, campo: usuarios.apellido, valido:'true'})
+    //     cambiarDocumento({documento, campo: usuarios.documento, valido:'true'})
+    //     cambiarRol({Rol, campo: usuarios.Rol, valido:'true'})
+    //     cambiarEstado({Estado, campo: usuarios.Estado, valido:'true'})
+    // },[]);
 
     const getUsuario= async(usuarioId)=>{
         try{
             const res = await server.getUsuario(usuarioId);
-            console.log(res.data)
-            const {nombre, apellido, documento, Rol, Estado}=res.data.usuarios;
-            setUsuarios({nombre, apellido, documento, Rol, Estado});
-            console.log(res);
-
+            setUsuarios(res.data);
         }catch(error){
             console.log(error)
         }
@@ -46,13 +49,13 @@ function GestionUsuarios() {
     useEffect(() => {
         if(params.id){
             getUsuario(params.id);
+
         }
         // eslint-disable-next-line
     }, []);
 
     const onSubmitForm = async(e) =>{
         e.preventDefault();
-
         try{
             let res;
             if(!params.id){
@@ -113,7 +116,7 @@ function GestionUsuarios() {
                 <Input
                     estado={nombre}
                     cambiarEstado={cambiarNombre}
-                    DefVal={nombre.campo}
+                    DefVal={usuarios.nombre}
                     tipo="text"
                     user="Nombre"
                     placeholdercont="Nombre de usuario"
@@ -126,7 +129,7 @@ function GestionUsuarios() {
                 <Input
                     estado={apellido}
                     cambiarEstado={cambiarApellido}
-                    DefVal={apellido.campo}
+                    DefVal={usuarios.apellido}
                     tipo="text"
                     user="Apellido"
                     placeholdercont="Apellido de usuario"
@@ -139,7 +142,7 @@ function GestionUsuarios() {
                  <Input
                     estado={documento}
                     cambiarEstado={cambiarDocumento}
-                    DefVal={documento.campo}
+                    DefVal={usuarios.documento}
                     tipo="number"
                     user="Id Usuario"
                     placeholdercont="N° ID del usuario"
@@ -152,7 +155,7 @@ function GestionUsuarios() {
                 <Selects
                     estado={Rol}
                     cambiarEstado={cambiarRol}
-                    DefVal={[Rol.campo]}
+                    DefVal={opcion1[usuarios.Rol]}
                     tipo="text"
                     user="Rol"
                     name="Rol"
@@ -166,7 +169,7 @@ function GestionUsuarios() {
                <Selects
                     estado={Estado}
                     cambiarEstado={cambiarEstado}
-                    DefVal={[Estado.campo]}
+                    DefVal={opcion2[usuarios.Estado]}
                     tipo="text"
                     user="Estado"
                     name="Estado"
