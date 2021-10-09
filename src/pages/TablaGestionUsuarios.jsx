@@ -102,7 +102,7 @@ const TablaGestionUsuarios = () => {
                   </tr>
                 </TableHead>
                 <tbody>
-                  {UsuariosBackend.map((usuarios, key) => {
+                  {usuariosFiltrados.map((usuarios, key) => {
                     return (
                       <TableRow key={key}>
                         <TableData>{usuarios.nombreCliente}</TableData>

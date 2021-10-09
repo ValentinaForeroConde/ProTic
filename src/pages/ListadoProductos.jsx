@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 const productosBackend = [
     {
         nombreProducto: 'Hills',
-        idProducto: 123456,
+        idProducto: 1234456,
         estado: 'Disponible',
     },
     {
@@ -33,12 +33,12 @@ const productosBackend = [
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [ventas, setVehiculos] = useState([]);
     const [textoBoton, setTextoBoton] = useState('Crear Nueva Venta');
-  
+    
     useEffect(() => {
       //obtener lista de vehículos desde el backend
       setVehiculos(productosBackend);
     }, []);
-  
+    
     useEffect(() => {
       if (mostrarTabla) {
         setTextoBoton('Agregar producto');
@@ -68,14 +68,30 @@ const productosBackend = [
       </div>
     );
   };
-
+  
   const TablaVentas = ({ listaProductos }) => {
+    const [busqueda, setBusqueda] = useState('');
+    const [productosFiltrados, setProductosFiltrados] = useState(productosBackend);
+
+    useEffect(() => {
+      setProductosFiltrados(
+        productosBackend.filter((elemento) => {
+          return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+        })
+      );
+    }, [busqueda, productosBackend]);
+
     useEffect(() => {
       console.log('este es el listado de ventas en el componente de tabla', listaProductos);
     }, [listaProductos]);
     return (
       <div className="mainContainerTable">
         <h2 className="tituloGestionVentas">Todos los productos</h2>
+        <input className = "inputBusqueda"
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+                placeholder='Buscar'
+            />
         <Table>
           <TableHead>
             <tr>
@@ -86,7 +102,7 @@ const productosBackend = [
             </tr>
           </TableHead>
           <tbody>
-            {listaProductos.map((ventas, key) => {
+            {productosFiltrados.map((ventas, key) => {
               return (
                 <TableRow key={key}>
                   <TableData>{ventas.nombreProducto}</TableData>
