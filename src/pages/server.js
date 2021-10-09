@@ -82,16 +82,35 @@ export const deleteUser = async (usuarioId) =>{
     });
 };
 */
+// export const updateUser = async (usuarioId, updateUser) =>{
+//     return await fetch(`${API_URL}${usuarioId}`, {
+//         method:'PUT',
+//         headers:{
+//             'Content-type':'application/json'
+//         },
+//         body:JSON.stringify({
+//             "name":String(updateUser.name).trim(),
+//             "username":String(updateUser.username).trim(),
+//             "email":String(updateUser.email).trim(),
+//         })
+//     });
+// };
+
 export const updateUser = async (usuarioId, updateUser) =>{
-    return await fetch(`${API_URL}${usuarioId}`, {
-        method:'PUT',
-        headers:{
-            'Content-type':'application/json'
-        },
-        body:JSON.stringify({
-            "name":String(updateUser.name).trim(),
-            "username":String(updateUser.username).trim(),
-            "email":String(updateUser.email).trim(),
+    try{
+        const response  = await axios({
+            url:`${API_URL}/${usuarioId}`,
+            method:'PATCH',
+            data:{
+                nombre: updateUser.nombre,
+                apellido: updateUser.apellido,
+                documento: updateUser.documento,
+                Rol: updateUser.Rol,
+                Estado: updateUser.Estado},
         })
-    });
-};
+        return response
+
+    } catch(e){
+        console.log(e)
+    }
+}

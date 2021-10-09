@@ -29,14 +29,6 @@ function GestionUsuarios() {
     const [formularioValido, cambiarFormularioValido] = useState('');
 
 
-    // useEffect(()=>{
-    //     cambiarNombre({nombre, campo: usuarios.nombre, valido:'true'})
-    //     cambiarApellido({apellido, campo: usuarios.apellido, valido:'true'})
-    //     cambiarDocumento({documento, campo: usuarios.documento, valido:'true'})
-    //     cambiarRol({Rol, campo: usuarios.Rol, valido:'true'})
-    //     cambiarEstado({Estado, campo: usuarios.Estado, valido:'true'})
-    // },[]);
-
     const getUsuario= async(usuarioId)=>{
         try{
             const res = await server.getUsuario(usuarioId);
@@ -56,22 +48,7 @@ function GestionUsuarios() {
 
     const onSubmitForm = async(e) =>{
         e.preventDefault();
-        try{
-            let res;
-            if(!params.id){
-                res= await server.registerUser(usuarios);
-                console.log(res)
-                if (res ==="OK"){
-                    setUsuarios(initialState);
-            }else{
-                await server.updateUser(params.id, usuarios);
-            }
-                history.push("/TablaGestionUsuarios");
-            }
-
-        }catch(error){
-            console.log(error)
-        }
+       
 
         if (
             nombre.valido === 'true' &&
@@ -86,8 +63,22 @@ function GestionUsuarios() {
                 // cambiarDocumento({campo: '', valido:''});
                 // cambiarRol({campo: '', valido:''});
                 // cambiarEstado({campo: '', valido:''});
-
-                // hacer envios a apis base de datos
+                try{
+                    let res;
+                    if(!params.id){
+                        res= await server.registerUser(usuarios);
+                        console.log(res)
+                        if (res === 'OK'){
+                            setUsuarios(initialState);
+                            }
+                    }else{
+                        console.log(usuarios);
+                        await server.updateUser(params.id, usuarios);
+                    }
+                        history.push("/TablaGestionUsuarios");
+                    }catch(error){
+                    console.log(error)
+                }
             }else{
                 cambiarFormularioValido(false);
             }
@@ -180,7 +171,6 @@ function GestionUsuarios() {
                     setUsuarios={setUsuarios}
                 />
 
-
                 {formularioValido === false  && <AlertaError/> }
                 { params.id?(
                     <BotonCentrado
@@ -194,7 +184,6 @@ function GestionUsuarios() {
                     formularioValido = {formularioValido}
                     mensajeBoton = "Creación exitosa"
                 />
-
                 ) }
            </Formulario>
         </main>

@@ -59,7 +59,7 @@ const TablaGestionUsuarios = () => {
                 </TableHead>
                 <tbody>
                   {usuariosFiltrados.map((usuario) => (
-                      <TableRow key={usuario.id}>
+                      <TableRow key={usuario._id}>
                         <TableData>{usuario.nombre}</TableData>
                         <TableData>{usuario.apellido}</TableData>
                         <TableData>{usuario.documento}</TableData>
