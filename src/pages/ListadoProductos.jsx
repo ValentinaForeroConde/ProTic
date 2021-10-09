@@ -8,6 +8,7 @@ import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow} f
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import * as api from 'Api'
 
 
 const productosBackend = [
@@ -31,14 +32,28 @@ const productosBackend = [
 
   const Ventas = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
-    const [ventas, setVehiculos] = useState([]);
+    const [productos, setProductos] = useState([]);
     const [textoBoton, setTextoBoton] = useState('Crear Nueva Venta');
   
-    useEffect(() => {
-      //obtener lista de vehículos desde el backend
-      setVehiculos(productosBackend);
-    }, []);
-  
+    const listUsuarios = async()=>{
+      try{
+          const res = await api.listProduct();
+          const data = await res.json();
+          setProductos(data)
+          console.log(data);
+
+      }catch(error){
+          console.log(error)
+      }
+  }
+
+
+
+  useEffect(()=>{
+      listUsuarios();
+  },[]);
+
+   
     useEffect(() => {
       if (mostrarTabla) {
         setTextoBoton('Agregar producto');
@@ -61,14 +76,13 @@ const productosBackend = [
           </ContenedorBotonCentrado>
         </div>
         {mostrarTabla ? (
-          <TablaVentas listaProductos={ventas} />
+          <TablaVentas listaProductos={productos} />
         ) : (
           <GestionProductos />
         )}
       </div>
     );
   };
-
   const TablaVentas = ({ listaProductos }) => {
     useEffect(() => {
       console.log('este es el listado de ventas en el componente de tabla', listaProductos);
@@ -89,9 +103,9 @@ const productosBackend = [
             {listaProductos.map((ventas, key) => {
               return (
                 <TableRow key={key}>
-                  <TableData>{ventas.nombreProducto}</TableData>
-                  <TableData>{ventas.estado}</TableData>
-                  <TableData>{ventas.idProducto}</TableData>
+                  <TableData>{ventas.username}</TableData>
+                  <TableData>{ventas.name}</TableData>
+                  <TableData>{ventas.id}</TableData>
                   <TableData>
                     <button className="iconSide">
                       <Link to='/actualizarProductos'>
