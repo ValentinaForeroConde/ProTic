@@ -5,13 +5,54 @@
     font-family: 'Roboto Mono', monospace;
 }
 
-html, body, .app, .contenido {
+html, body, .app {
   height: 100%;
 }
 
-.contenido{
+.layout{
   background-color:whitesmoke;
+  flex-wrap:wrap;
+  height: 100%;
+  width: 100%;
+
 }
+
+Aside{
+  margin: 0;
+ flex-wrap: wrap;
+ height: 100%;
+ width: 100%;
+}
+
+.burger{
+  position: fixed;
+}
+
+.responsive{
+  background-color: #023047;
+}
+.responsive .a {
+  display: block;
+  color: white;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.responsive .a.active {
+  background-color: rgba(0, 68, 170, 0.555);
+  color: white;
+  border-radius: 20px;
+  margin: 15px;
+}
+
+.responsive .a:hover:not(.active) {
+  background-color:  #0e7a96;
+  color: white;
+  border-radius: 20px;
+  margin: 15px;
+
+}
+
 
 
 .tituloUno{
@@ -37,12 +78,14 @@ html, body, .app, .contenido {
   padding: 0;
   width: 200px;
   background-color: #023047;
-  position: fixed;
-  height: 100%;
+  position: fixed;  
   overflow: auto;
   font-weight: bold;
   display: block;
+  height: 100%;
+  
 }
+
 
 .sidebar .a {
   display: block;
@@ -72,22 +115,41 @@ div.content {
   height: 1000px;
 }
 
-@media screen and (max-width: 800px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-  .sidebar .a {float: left;}
-  div.content {margin-left: 0;}
+.hola{
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  
+  position: fixed;  
+  overflow: auto;
+  font-weight: bold;
+  display: block;
+  height: 100%;
 }
 
-@media screen and (max-width: 400px) {
-  .sidebar .a {
-    text-align: center;
-    float: none;
+@media screen and (max-width: 800px) {
+  .sidebar {
+  visibility: hidden;
   }
+
 }
+
+@media screen and (min-width: 800px) {
+  .responsive {
+  visibility: hidden;
+  }
+
+}
+@media screen and (min-width: 800px) {
+  .burger {
+  visibility: hidden;
+  }
+
+}
+
+
+
+
 
 .guiGestionUsuarios{
     max-width: 800px;

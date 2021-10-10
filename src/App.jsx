@@ -20,7 +20,7 @@ function App() {
             path={[
               "/gestionUsuarios",
               "/ventas",
-              "/ActualizarProductos",
+              "/CrearProductos",
               "/ActualizarVentas",
               "/Dashboard",
               "/ListadoProductos",
@@ -30,7 +30,7 @@ function App() {
           >
             <PrivateLayout>
               <Switch>
-                <Route path="/ActualizarProductos">
+                <Route path="/CrearProductos">
                   <ActualizarProductos />
                 </Route>
                 <Route path="/ActualizarVentas">

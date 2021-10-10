@@ -1,17 +1,23 @@
-import React from 'react'
-import {Side, Fila,Boton} from 'elements/Layouts'
-import { Link } from 'react-router-dom'
+import React, {useState} from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import logoPets1 from "assets/logoPets1.png";
-import { NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faUsers, faHome, faCashRegister, faShoppingBag, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import logo from "assets/Logo.png"
+import { NavLink, Link } from 'react-router-dom';
+import {faUsers, faHome, faCashRegister, faShoppingBag, faSignOutAlt, faBars, faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 
 
-const Aside = () => {
-    return (        
-            <nav className="sidebar">
-                <div padding='20px'><img   className='bola' src={logoPets1} alt="" /></div>
+const SideResponsive = () => {
+     const [mostrarNavegacion, setMostrarNavegacion] = useState(false)
+    return (
+<div>
+        <FontAwesomeIcon  className="burger" size="4x" icon={mostrarNavegacion? faWindowClose : faBars} onClick={()=>setMostrarNavegacion(!mostrarNavegacion)} />
+
+        <div className="responsive" padding='20px'>
+
+
+        {mostrarNavegacion && (  
+        <nav>
                 <span className="tituloSide">Pet Shop</span>
                 
                 <NavLink className="a" activeClassName='active' to='Dashboard'>
@@ -34,9 +40,10 @@ const Aside = () => {
                     <FontAwesomeIcon className="iconSide" icon={faSignOutAlt}/>
                     Salir
                 </Link>
-            </nav>
-        
+            </nav>)}
+        </div>
+        </div>
     )
 }
 
-export default Aside
+export default SideResponsive

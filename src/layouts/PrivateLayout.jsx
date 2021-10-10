@@ -1,12 +1,16 @@
 import React from "react";
 import Aside from "components/Aside";
 import Footer from "components/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SideResponsive from "components/SideResponsive";
 
 const PrivateLayout = ({ children }) => {
   return (
-    <div className="contenido">
-      <Aside />
-      <div > {children}</div>
+    <div className="layout">
+      <Aside/>
+      <SideResponsive />
+      
+      <div className="contenido"> {children}</div>
       <Footer />
     </div>
   );
