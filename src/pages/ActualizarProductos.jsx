@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Input from 'components/Input';
 import {Formulario} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
@@ -12,8 +12,13 @@ import * as api from 'Api'
 
 
 const ActualizarProductos = () => {
-    
-    
+
+    const params=useParams();
+    const history=useHistory();
+
+    const initialState={_id:'', nombre:'', descripcion:'', valor:'', Estado:'' };
+    const [usuarios,setUsuarios]= useState(initialState);
+
 
     const [nombre, cambiarNombre] = useState({valido: ''});
     const [descripcion, cambiarDescripcion] = useState({valido: ''});
@@ -23,43 +28,31 @@ const ActualizarProductos = () => {
     const [Estado, cambiarEstado] = useState({valido: ''});
 
 
-    const initialState={_id:'', nombre:'', descripcion:'', valor:'', Estado:'' };
-    const [usuarios,setUsuarios]= useState(initialState);
-    const params=useParams();
-    const history=useHistory();
-
-
-
-    const productoDisponible = [
-        {value:'0', label: 'Disponible'},
-        {value:'1', label: 'No disponible'},
-        ];
-        
-    const onSubmitForm = async(e) =>{
-        e.preventDefault();
-console.log(usuarios)
+    const getProducto= async(productId)=>{
         try{
-            let res;
-            if(!params.id){
-
-                res= await api.registerProducts(usuarios);
-                console.log(res)
-                if (res ==="OK"){
-                    setUsuarios(initialState);
-            }else{
-                //await server.updateUser(params.id, usuarios);
-            }
-                history.push("/ListadoProductos");
-            }
-
+            const res = await api.getProduct(productId);
+            setUsuarios(res.data);
         }catch(error){
             console.log(error)
         }
+    }
+
+    useEffect(() => {
+        if(params.id){
+            getProducto(params.id);
+        }
+        // eslint-disable-next-line
+    }, []);
+
+
+    const onSubmitForm = async(e) =>{
+        e.preventDefault();
+
         if (
             nombre.valido === 'true' &&
             descripcion.valido === 'true' &&
-            valor.valido === 'true' &&            
-            Estado.valido === 'true'  
+            valor.valido === 'true' &&
+            Estado.valido === 'true'
             ){
                 cambiarFormularioValido(true);
                /* cambiarNombre({campo: '', valido:''});
@@ -68,12 +61,32 @@ console.log(usuarios)
                 cambiarIdVendedor({campo: '', valido:''});
                 cambiarEstado({campo: '', valido:''});*/
                 // hacer envios a apis base de datos
+
+                try{
+                    let res;
+                    if(!params.id){
+                        res= await api.registerProducts(usuarios);
+                        console.log(res)
+                        if (res === 'OK'){
+                            setUsuarios(initialState);
+                            }
+                    }else{
+                        await api.updateProduct(params.id, usuarios);
+                    }
+                        history.push("/ListadoProductos");;
+                    }catch(error){
+                    console.log(error)
+                }
             }else{
-                
                 cambiarFormularioValido(false);
             }
-            console.log(formularioValido);
         }
+
+    const productoDisponible = [
+        {value:'0', label: 'Disponible'},
+        {value:'1', label: 'No disponible'},
+        ];
+
     return (
         <main>
         <button className="botonVolver">
@@ -83,7 +96,7 @@ console.log(usuarios)
             </button>
             <h2 className="tituloGestionVentas">Registro de productos</h2>
             <Formulario className = "guiGestionUsuarios" onSubmit = {onSubmitForm} action="">
-                <Input 
+                <Input
                     user = "Nombre"
                     placeholdercont = "Nombre producto"
                     tipo = "text"
@@ -96,7 +109,7 @@ console.log(usuarios)
                     estado = {nombre}
                     cambiarEstado = {cambiarNombre}
                     />
-                    <Input 
+                    <Input
                     user = "Descripcion"
                     placeholdercont = "Descripción producto"
                     tipo = "text"
@@ -109,7 +122,7 @@ console.log(usuarios)
                     usuarios={usuarios}
                     setUsuarios={setUsuarios}
                     />
-                    <Input 
+                    <Input
                     user = "Valor"
                     placeholdercont = "valor producto"
                     tipo = "number"
@@ -122,8 +135,8 @@ console.log(usuarios)
                     usuarios={usuarios}
                     setUsuarios={setUsuarios}
                     />
-                    
-                   {/* <Input 
+
+                   {/* <Input
                     user = "Id-Producto"
                     placeholdercont = "Id-Producto"
                     tipo = "number"
@@ -134,7 +147,7 @@ console.log(usuarios)
                     cambiarEstado = {cambiarIdVendedor}
                     />
                      */}
-                    <Selects 
+                    <Selects
                     user = "Estado"
                     placeholdercont = "Selecciona el estado"
                     tipo = "text"
@@ -148,16 +161,21 @@ console.log(usuarios)
                     usuarios={usuarios}
                     setUsuarios={setUsuarios}
                     />
-                    
+
                     {formularioValido === false  && <AlertaError/>}
-                      <BotonCentrado 
-                        nombreBoton = "Crear"
-                        mensajeBoton = "Producto creado exitosamente"
-                        formularioValido = {formularioValido}
+                    { params.id?(
+                        <BotonCentrado
+                            nombreBoton = "Actualizar"
+                            mensajeBoton = "Actualización exitos"
+                            formularioValido = {formularioValido}
                     />
-                      
-                    
-                  
+                    ):(
+                        <BotonCentrado
+                            nombreBoton = "Crear"
+                            formularioValido = {formularioValido}
+                            mensajeBoton = "Creación exitosa"
+                    />
+                    ) }
                 </Formulario>
         </main>
     )

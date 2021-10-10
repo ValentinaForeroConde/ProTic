@@ -3,13 +3,10 @@ import axios from 'axios';
 const API_URL = "http://localhost:5000/usuario"
 
 export const listUsuarios = async () => {
-    return await axios.get("http://localhost:5000/usuario");
+    return await axios.get(API_URL);
 
   };
 
-// export const listUsuarios = async () =>{
-//     return await fetch(API_URL);
-// };
 
 export const registerUser = async (newUser) =>{
     try{
@@ -29,21 +26,7 @@ export const registerUser = async (newUser) =>{
         console.log(e)
     }
 }
-/*
-export const registerUser = async (newUser) =>{
-    return await fetch(API_URL, {
-        method:'POST',
-        headers:{
-            'Content-type':'application/json'
-        },
-        body:JSON.stringify({
-            "name":String(newUser.name).trim(),
-            "username":String(newUser.username).trim(),
-            "email":String(newUser.email).trim(),
-        })
-    });
-};
-*/
+
 
 export const getUsuario = async (usuarioId) =>{
     try{
@@ -58,9 +41,7 @@ export const getUsuario = async (usuarioId) =>{
     }
 }
 
-// export const getUsuario = async (usuarioId) =>{
-//     return await fetch(`${API_URL}${usuarioId}`);
-// };
+
 
 export const deleteUser = async (usuarioId) =>{
     try{
@@ -75,26 +56,7 @@ export const deleteUser = async (usuarioId) =>{
         console.log(e)
     }
 }
-/*
-export const deleteUser = async (usuarioId) =>{
-    return await fetch(`${API_URL}${usuarioId}`, {
-        method:'DELETE',
-    });
-};
-*/
-// export const updateUser = async (usuarioId, updateUser) =>{
-//     return await fetch(`${API_URL}${usuarioId}`, {
-//         method:'PUT',
-//         headers:{
-//             'Content-type':'application/json'
-//         },
-//         body:JSON.stringify({
-//             "name":String(updateUser.name).trim(),
-//             "username":String(updateUser.username).trim(),
-//             "email":String(updateUser.email).trim(),
-//         })
-//     });
-// };
+
 
 export const updateUser = async (usuarioId, updateUser) =>{
     try{

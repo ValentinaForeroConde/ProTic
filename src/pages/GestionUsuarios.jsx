@@ -41,14 +41,12 @@ function GestionUsuarios() {
     useEffect(() => {
         if(params.id){
             getUsuario(params.id);
-
         }
         // eslint-disable-next-line
     }, []);
 
     const onSubmitForm = async(e) =>{
         e.preventDefault();
-       
 
         if (
             nombre.valido === 'true' &&
@@ -72,7 +70,6 @@ function GestionUsuarios() {
                             setUsuarios(initialState);
                             }
                     }else{
-                        console.log(usuarios);
                         await server.updateUser(params.id, usuarios);
                     }
                         history.push("/TablaGestionUsuarios");

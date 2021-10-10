@@ -26,6 +26,7 @@ function App() {
               "/ListadoProductos",
               "/TablaGestionUsuarios",
               "/editarUsuario/:id",
+              "/editarProductos/:id",
             ]}
           >
             <PrivateLayout>
@@ -50,6 +51,9 @@ function App() {
                 </Route>
                 <Route path="/editarUsuario/:id">
                   <GestionUsuarios />
+                </Route>
+                <Route path="/editarProductos/:id">
+                  <ActualizarProductos />
                 </Route>
                 <Route path="/Dashboard">
                   <Dashboard />
