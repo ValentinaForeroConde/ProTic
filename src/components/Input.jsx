@@ -6,10 +6,12 @@ const Input = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, e
 
     const onChange = (e) =>{
         cambiarEstado({...estado, campo: e.target.value});
+        console.log(e.target.value)
         setUsuarios({...usuarios, [e.target.id]: e.target.value});
     }
     const validacion = () =>{
         if(expresionRegular){
+            console.log(estado.campo)
             if(expresionRegular.test(estado.campo)){
                 cambiarEstado({...estado, valido: "true"});
             } else{

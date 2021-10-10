@@ -19,7 +19,7 @@ const Selects = ({user, tipo, lenyenda, expresionRegular, name, estado, cambiarE
     const validacion = (e) =>{
         if(expresionRegular){
             console.log(`usuarios.${valor}`)
-            if(`usuarios.${valor}`!== undefined){
+            if(estado.campo.value!== undefined){
                 cambiarEstado({...estado, valido: "true"});
             } else{
                 cambiarEstado({...estado, valido: "false"});

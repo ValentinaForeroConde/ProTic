@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from "@material-ui/core";
 import * as server from './server';
-// import axios from 'axios';
 
 
 function GestionUsuarios() {
@@ -21,11 +20,11 @@ function GestionUsuarios() {
     const initialState={_id:'', nombre:'',apellido:'', documento:'', Estado:'', Rol:''}
     const [usuarios, setUsuarios]= useState(initialState);
 
-    const [nombre, cambiarNombre] = useState({valido: ''});
-    const [apellido, cambiarApellido] = useState({valido: ''});
-    const [documento, cambiarDocumento] = useState({valido: ''});
-    const [Rol, cambiarRol] = useState({valido: ''});
-    const [Estado, cambiarEstado] = useState({valido: ''});
+    const [nombre, cambiarNombre] = useState({campo:'',valido: ''});
+    const [apellido, cambiarApellido] = useState({campo:'',valido: ''});
+    const [documento, cambiarDocumento] = useState({campo:'',valido: ''});
+    const [Rol, cambiarRol] = useState({campo:'',valido: ''});
+    const [Estado, cambiarEstado] = useState({campo:'',valido: ''});
     const [formularioValido, cambiarFormularioValido] = useState('');
 
 
@@ -41,13 +40,17 @@ function GestionUsuarios() {
     useEffect(() => {
         if(params.id){
             getUsuario(params.id);
+            cambiarNombre({valido: "true"});
+            cambiarApellido({valido: "true"});
+            cambiarDocumento({valido: "true"});
+            cambiarRol({valido: "true"});
+            cambiarEstado({valido: "true"});
         }
         // eslint-disable-next-line
     }, []);
 
     const onSubmitForm = async(e) =>{
         e.preventDefault();
-
         if (
             nombre.valido === 'true' &&
             apellido.valido === 'true' &&
@@ -56,11 +59,6 @@ function GestionUsuarios() {
             Estado.valido === 'true'
             ){
                 cambiarFormularioValido(true);
-                // cambiarNombre({campo: '', valido:''});
-                // cambiarApellido({campo: '', valido:''});
-                // cambiarDocumento({campo: '', valido:''});
-                // cambiarRol({campo: '', valido:''});
-                // cambiarEstado({campo: '', valido:''});
                 try{
                     let res;
                     if(!params.id){

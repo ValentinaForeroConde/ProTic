@@ -1,9 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Input from 'components/Input';
-import {Formulario} from 'elements/Formularios';
-import Expresiones from 'components/Expresiones';
-import BotonesProductos from 'components/BotonesProductos';import AlertaError from 'components/AlertaError'
-import Selects from 'components/Selects';
 import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';

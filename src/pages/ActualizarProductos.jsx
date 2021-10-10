@@ -20,13 +20,12 @@ const ActualizarProductos = () => {
     const [usuarios,setUsuarios]= useState(initialState);
 
 
-    const [nombre, cambiarNombre] = useState({valido: ''});
-    const [descripcion, cambiarDescripcion] = useState({valido: ''});
-    const [valor, cambiarvalor] = useState({valido: ''});
+    const [nombre, cambiarNombre] = useState({campo:'',valido: ''});
+    const [descripcion, cambiarDescripcion] = useState({campo:'',valido: ''});
+    const [valor, cambiarvalor] = useState({campo:'',valido: ''});
     //const [idVendedor, cambiarIdVendedor] = useState({valido: ''});
+    const [Estado, cambiarEstado] = useState({campo:'',valido: ''});
     const [formularioValido, cambiarFormularioValido] = useState('');
-    const [Estado, cambiarEstado] = useState({valido: ''});
-
 
     const getProducto= async(productId)=>{
         try{
@@ -40,6 +39,10 @@ const ActualizarProductos = () => {
     useEffect(() => {
         if(params.id){
             getProducto(params.id);
+            cambiarNombre({valido: "true"});
+            cambiarDescripcion({valido: "true"});
+            cambiarvalor({valido: "true"});
+            cambiarEstado({valido: "true"});
         }
         // eslint-disable-next-line
     }, []);
@@ -47,7 +50,6 @@ const ActualizarProductos = () => {
 
     const onSubmitForm = async(e) =>{
         e.preventDefault();
-
         if (
             nombre.valido === 'true' &&
             descripcion.valido === 'true' &&
@@ -55,13 +57,6 @@ const ActualizarProductos = () => {
             Estado.valido === 'true'
             ){
                 cambiarFormularioValido(true);
-               /* cambiarNombre({campo: '', valido:''});
-                cambiarDescripcion({campo: '', valido:''});
-                cambiarvalor({campo: '', valido:''});
-                cambiarIdVendedor({campo: '', valido:''});
-                cambiarEstado({campo: '', valido:''});*/
-                // hacer envios a apis base de datos
-
                 try{
                     let res;
                     if(!params.id){
