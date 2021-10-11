@@ -12,7 +12,7 @@ const Footer = () => {
             <span><FontAwesomeIcon icon={faFileSignature}/> - </span>
             <span> Política de privacidad </span>
             <span><FontAwesomeIcon icon={faAtlas}/></span>
-        </Foot>            
+        </Foot>
     )
 }
 

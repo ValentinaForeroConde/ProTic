@@ -2,12 +2,16 @@ import React from 'react'
 import {Label, GrupoInput, Inputs, LeyendaError, IconoValidacion,} from 'elements/Formularios';
 import { faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 
-const Input = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, estado, cambiarEstado}) => {
+const Input = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, estado, cambiarEstado, DefVal, setUsuarios, usuarios}) => {
+
     const onChange = (e) =>{
         cambiarEstado({...estado, campo: e.target.value});
+        console.log(e.target.value)
+        setUsuarios({...usuarios, [e.target.id]: e.target.value});
     }
     const validacion = () =>{
         if(expresionRegular){
+            console.log(estado.campo)
             if(expresionRegular.test(estado.campo)){
                 cambiarEstado({...estado, valido: "true"});
             } else{
@@ -23,7 +27,7 @@ const Input = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, e
                     type={tipo}
                     placeholder={placeholdercont}
                     id={name}
-                    value={estado.campo}
+                    defaultValue={DefVal}
                     onChange={onChange}
                     onKeyUp={validacion}
                     onBlur={validacion}
