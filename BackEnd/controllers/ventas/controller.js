@@ -34,12 +34,12 @@ const crearVenta = async (datosVenta, callback) =>{
 const editarVenta = async (id, edicion, callback)=>{
     const filtroVenta = { _id: new ObjectId(id) };
     const operacion = {
-      $set: edicion,
+        $set: edicion,
     };
     const baseDeDatos = getDB();
     await baseDeDatos
-      .collection('venta')
-      .findOneAndUpdate(filtroVenta, operacion, { upsert: true, returnOriginal: true }, callback)     
+    .collection('venta')
+    .findOneAndUpdate(filtroVenta, operacion, { upsert: true, returnOriginal: true }, callback)     
 };
 
 const eliminarVenta = async (id, callback) => {

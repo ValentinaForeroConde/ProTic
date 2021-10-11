@@ -27,7 +27,7 @@ rutasVenta.route('/venta').post((req,res)=>{
 
 rutasVenta.route('/venta/:id').patch((req, res) => {
     editarVenta(req.params.id, req.body, genericCallback(res));
-  });
+});
 
 rutasVenta.route('/venta/:id').delete((req,res)=>{
     eliminarVenta(req.params.id, genericCallback(res));
