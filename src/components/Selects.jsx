@@ -48,6 +48,6 @@ const Selects = ({user, tipo, lenyenda, expresionRegular, name, estado, cambiarE
             <LeyendaError valido={estado.valido}>{lenyenda}</LeyendaError>
         </div>
     )
-}
+};
 
-export default Selects
+export default Selects;

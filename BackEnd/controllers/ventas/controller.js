@@ -25,11 +25,11 @@ const crearVenta = async (datosVenta, callback) =>{
 
     ){
      //implementar codigo para crear venta en BD
-        await baseDeDatos.collection('venta').insertOne(datosVenta, callback)
+        await baseDeDatos.collection('venta').insertOne(datosVenta, callback);
     }else{
-        return "error";
+            return "error";
         }
-}
+};
 
 const editarVenta = async (id, edicion, callback)=>{
     const filtroVenta = { _id: new ObjectId(id) };
@@ -46,7 +46,7 @@ const eliminarVenta = async (id, callback) => {
     const filtroVenta= { _id: new ObjectId(id) };
     const baseDeDatos = getDB();
     await baseDeDatos.collection('venta').deleteOne(filtroVenta, callback)
-}
+};
 
 
 export {queryAllVentas, crearVenta, editarVenta, eliminarVenta, consultarVenta};

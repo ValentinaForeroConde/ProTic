@@ -16,7 +16,8 @@ export const registerProducts = async (newProduct) =>{
                 nombre: newProduct.nombre,
                 descripcion: newProduct.descripcion,
                 valor: newProduct.valor,
-                Estado: newProduct.Estado},
+                Estado: newProduct.Estado
+            },
         })
         return response
 
@@ -61,11 +62,12 @@ export const updateProduct = async (productId, updateProduct) =>{
                 nombre: updateProduct.nombre,
                 descripcion: updateProduct.descripcion,
                 valor: updateProduct.valor,
-                Estado: updateProduct.Estado},
+                Estado: updateProduct.Estado
+            },
         })
         return response
 
     } catch(e){
         console.log(e)
     }
-}
+};

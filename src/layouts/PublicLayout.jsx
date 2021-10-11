@@ -10,6 +10,6 @@ const PublicLayout = ({ children }) => {
             <Footer/>
         </div>
     )
-}
+};
 
-export default PublicLayout
+export default PublicLayout;

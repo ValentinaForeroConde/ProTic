@@ -58,41 +58,42 @@ function GestionUsuarios() {
             Rol.valido === 'true' &&
             Estado.valido === 'true'
             ){
-                cambiarFormularioValido(true);
-                try{
-                    let res;
-                    if(!params.id){
-                        res= await server.registerUser(usuarios);
-                        console.log(res)
-                        if (res === 'OK'){
-                            setUsuarios(initialState);
-                            }
-                    }else{
-                        await server.updateUser(params.id, usuarios);
+            cambiarFormularioValido(true);
+            try{
+                let res;
+                if(!params.id){
+                    res= await server.registerUser(usuarios);
+                    console.log(res)
+                    if (res === 'OK'){
+                        setUsuarios(initialState);
                     }
-                        history.push("/TablaGestionUsuarios");
-                    }catch(error){
-                    console.log(error)
+                }else{
+                    await server.updateUser(params.id, usuarios);
                 }
+                history.push("/TablaGestionUsuarios");
+            }catch(error){
+                console.log(error)
+            }
             }else{
                 cambiarFormularioValido(false);
             }
-        }
+        };
+
         const opcion1  = [
             {value:'0', label: 'Administrador'},
             {value:'1', label: 'Vendedor'},
             {value:'2', label: 'Pendiente'}
-        ]
+        ];
+
         const opcion2  = [
             {value:'0', label: 'Pendiente'},
             {value:'1', label: 'Autorizado'},
             {value:'2', label: 'No Autorizado'}
-        ]
-
+        ];
 
     return (
         <main className="guiGestionUsuarios">
-             <h2 className="tituloGestionVentas">Gestion Usuarios</h2>
+            <h2 className="tituloGestionVentas">Gestion Usuarios</h2>
             <Tooltip title="Regresar" arrow >
                 <Link to='/TablaGestionUsuarios'>
                     <FontAwesomeIcon icon={faArrowLeft}/>
@@ -151,7 +152,6 @@ function GestionUsuarios() {
                     usuarios={usuarios}
                     setUsuarios={setUsuarios}
                 />
-
                <Selects
                     estado={Estado}
                     cambiarEstado={cambiarEstado}
@@ -172,18 +172,19 @@ function GestionUsuarios() {
                     nombreBoton = "Actualizar"
                     formularioValido = {formularioValido}
                     mensajeBoton = "Actualización exitosa"
-                />
+                    />
                 ):(
                     <BotonCentrado
                     nombreBoton = "Crear"
                     formularioValido = {formularioValido}
                     mensajeBoton = "Creación exitosa"
-                />
-                ) }
+                    />
+                )};
+
            </Formulario>
         </main>
     );
-}
+};
 
 
-export default GestionUsuarios
+export default GestionUsuarios;

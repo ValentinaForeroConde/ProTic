@@ -6,6 +6,6 @@ const Login = () => {
             este es el login
         </div>
     )
-}
+};
 
-export default Login
+export default Login;

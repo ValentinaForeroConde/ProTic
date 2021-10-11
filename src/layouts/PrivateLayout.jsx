@@ -1,7 +1,6 @@
 import React from "react";
 import Aside from "components/Aside";
 import Footer from "components/Footer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SideResponsive from "components/SideResponsive";
 
 const PrivateLayout = ({ children }) => {
@@ -9,7 +8,6 @@ const PrivateLayout = ({ children }) => {
     <div className="layout">
       <Aside/>
       <SideResponsive />
-      
       <div className="contenido"> {children}</div>
       <Footer />
     </div>

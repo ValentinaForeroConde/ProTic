@@ -7,7 +7,6 @@ export const listUsuarios = async () => {
 
   };
 
-
 export const registerUser = async (newUser) =>{
     try{
         const response  = await axios({
@@ -18,14 +17,14 @@ export const registerUser = async (newUser) =>{
                 apellido: newUser.apellido,
                 documento: newUser.documento,
                 Rol: newUser.Rol,
-                Estado: newUser.Estado},
+                Estado: newUser.Estado
+            },
         })
-        return response
-
+        return response;
     } catch(e){
-        console.log(e)
+        console.log(e);
     }
-}
+};
 
 
 export const getUsuario = async (usuarioId) =>{
@@ -34,14 +33,11 @@ export const getUsuario = async (usuarioId) =>{
             url:`${API_URL}/${usuarioId}`,
             method:'GET',
         })
-        return response
-
+        return response;
     } catch(e){
-        console.log(e)
+        console.log(e);
     }
-}
-
-
+};
 
 export const deleteUser = async (usuarioId) =>{
     try{
@@ -50,13 +46,11 @@ export const deleteUser = async (usuarioId) =>{
             method:'DELETE',
             data: { id: usuarioId},
         })
-        return response
-
+        return response;
     } catch(e){
-        console.log(e)
+        console.log(e);
     }
-}
-
+};
 
 export const updateUser = async (usuarioId, updateUser) =>{
     try{
@@ -68,11 +62,11 @@ export const updateUser = async (usuarioId, updateUser) =>{
                 apellido: updateUser.apellido,
                 documento: updateUser.documento,
                 Rol: updateUser.Rol,
-                Estado: updateUser.Estado},
+                Estado: updateUser.Estado
+            },
         })
-        return response
-
+        return response;
     } catch(e){
-        console.log(e)
+        console.log(e);
     }
-}
+};
