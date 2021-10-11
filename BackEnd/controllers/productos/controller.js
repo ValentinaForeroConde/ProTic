@@ -6,42 +6,42 @@ const queryAllProductos = async (callback) =>{
     await baseDeDatos.collection('producto').find().limit(50).toArray(callback);
 };
 
-const consultarproducto = async (id, callback) =>{
+const consultarProducto = async (id, callback) =>{
     const baseDeDatos = getDB();
     await baseDeDatos.collection('producto').findOne({_id: new ObjectId(id)}, callback);
 }
 
-const crearproducto = async (datosproducto, callback) =>{
+const crearProducto = async (datosProducto, callback) =>{
     const baseDeDatos = getDB();    
     if(
-        Object.keys(datosproducto).includes("nombre") &&
-        Object.keys(datosproducto).includes("descripcion") &&
-        Object.keys(datosproducto).includes("valor") &&
-        Object.keys(datosproducto).includes("Estado") 
+        Object.keys(datosProducto).includes("nombre") &&
+        Object.keys(datosProducto).includes("descripcion") &&
+        Object.keys(datosProducto).includes("valor") &&
+        Object.keys(datosProducto).includes("Estado") 
     ){
      //implementar codigo para crear producto en BD
-        await baseDeDatos.collection('producto').insertOne(datosproducto, callback)
+        await baseDeDatos.collection('producto').insertOne(datosProducto, callback)
     }else{
         return "error";
         }
 }
 
-const editarproducto = async (id, edicion, callback)=>{
-    const filtroproducto = { _id: new ObjectId(id) };
+const editarProducto = async (id, edicion, callback)=>{
+    const filtroProducto = { _id: new ObjectId(id) };
     const operacion = {
       $set: edicion,
     };
     const baseDeDatos = getDB();
     await baseDeDatos
       .collection('producto')
-      .findOneAndUpdate(filtroproducto, operacion, { upsert: true, returnOriginal: true }, callback)     
+      .findOneAndUpdate(filtroProducto, operacion, { upsert: true, returnOriginal: true }, callback)     
 };
 
-const eliminarproducto = async (id, callback) => {
-    const filtroproducto= { _id: new ObjectId(id) };
+const eliminarProducto = async (id, callback) => {
+    const filtroProducto= { _id: new ObjectId(id) };
     const baseDeDatos = getDB();
-    await baseDeDatos.collection('producto').deleteOne(filtroproducto, callback)
+    await baseDeDatos.collection('producto').deleteOne(filtroProducto, callback)
 }
 
 
-export {queryAllProductos, crearproducto, editarproducto, eliminarproducto, consultarproducto};
+export {queryAllProductos, crearProducto, editarProducto, eliminarProducto, consultarProducto};

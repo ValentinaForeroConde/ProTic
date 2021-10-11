@@ -1,5 +1,5 @@
 import Express from 'express';
-import { queryAllProductos, crearproducto, editarproducto, eliminarproducto, consultarproducto} from '../../controllers/productos/controller.js';
+import { queryAllProductos, crearProducto, editarProducto, eliminarProducto, consultarProducto} from '../../controllers/productos/controller.js';
 
 const rutasProductos = Express.Router();
 
@@ -18,19 +18,19 @@ rutasProductos.route('/producto').get((req,res)=>{
 
 rutasProductos.route('/producto/:id').get((req,res)=>{
     console.log('alguien hizo get en la ruta /producto');
-    consultarproducto(req.params.id, genericCallback(res));
+    consultarProducto(req.params.id, genericCallback(res));
 });
 
 rutasProductos.route('/producto').post((req,res)=>{
-    crearproducto(req.body, genericCallback(res));
+    crearProducto(req.body, genericCallback(res));
 });
 
 rutasProductos.route('/producto/:id').patch((req, res) => {
-    editarproducto(req.params.id, req.body, genericCallback(res));
-  });
+    editarProducto(req.params.id, req.body, genericCallback(res));
+});
 
 rutasProductos.route('/producto/:id').delete((req,res)=>{
-    eliminarproducto(req.params.id, genericCallback(res));
+    eliminarProducto(req.params.id, genericCallback(res));
 });
 
 export default  rutasProductos;
