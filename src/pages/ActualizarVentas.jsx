@@ -11,6 +11,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import * as api from './ApiVentas';
 import * as apiProductos from 'Api';
 import { GrupoInput } from 'elements/Formularios';
+import Selects from 'components/Selects';
 
 const ActualizarVentas = () => {
 
@@ -18,6 +19,9 @@ const ActualizarVentas = () => {
   const history = useHistory();
   const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', producto:''};
   const [usuarios, setUsuarios] = useState(initialState);
+  const initialStateListProductos = {item:'', cantidad:''};
+  const [canasta, setCanasta] = useState(initialStateListProductos);
+  const [listaCanasta, setListaCanasta] = useState([]);
   
   
       
@@ -29,7 +33,8 @@ const ActualizarVentas = () => {
   const [tipoProducto, cambiarTipoProducto] = useState([]);
   const [cantidadProducto, cambiarCantidadProducto] = useState({campo:'', valido: null});
   const [formularioValido, cambiarFormularioValido] = useState(null);
-  const [listaProdutos, cambiarListaProducto] = useState([]);  
+  const [listaProdutos, cambiarListaProducto] = useState([]);
+  const [producto, setProducto] = useState({campo:'', valido: null});
 
   
   const getVenta = async(idVenta)=>{
@@ -62,7 +67,7 @@ const ActualizarVentas = () => {
           documento.valido === 'true' &&
           idVendedor.valido === 'true' &&
           fecha.valido === 'true' &&
-          cantidadProducto.valido === 'true' 
+          cantidadProducto.valido === 'true'
         ){
           cambiarFormularioValido(true);
           console.log(usuarios);
@@ -107,11 +112,23 @@ const ActualizarVentas = () => {
     listProductos();
   },[]);
 
+  const productoOpciones = productos.map((producto)=>{
+    return {value: producto._id, label: producto.nombre}
+  });
   
-  const agregarProducto = ()=>{
-    cambiarListaProducto();
+  
+  const agregarProducto = (cantidadProducto, producto)=>{
+    setCanasta ({...canasta, cantidad: cantidadProducto, item: producto});
+    console.log(canasta);
+    agregarLista();
+  };
+
+  const agregarLista=()=>{
+    setListaCanasta([...listaCanasta, canasta]);
+    console.log(canasta);
+
   }
-                
+
   return (
       <main>
         <button className="botonVolver">
@@ -193,20 +210,19 @@ const ActualizarVentas = () => {
             null
           )}  
           <Etiqueta>Información de compra: </Etiqueta>
-          <div>
-            <Label>
-              Tipos de Productos
-            </Label>
-            <GrupoInput>
-              <select className="selectlist">
-                {productos.map(elemento=>(
-                  <option  key =  {elemento._id} value = {elemento.nombre}>
-                    {elemento.nombre}
-                  </option>
-                ))}
-              </select>
-            </GrupoInput>
-          </div>
+          <Selects
+            user = "Producto"
+            placeholdercont = "Seleccione el producto"
+            tipo = "text"
+            lenyenda = "Seleccione un producto"
+            expresionRegular = {Expresiones.nombre}
+            name = "producto"
+            estado = {producto}
+            cambiarEstado = {setProducto}
+            opciones = {productoOpciones}
+            usuarios = {usuarios}
+            setUsuarios = {setUsuarios}
+          />
           <ContCarrito>
             <Input 
               user = "cantidad"
@@ -221,7 +237,7 @@ const ActualizarVentas = () => {
               usuarios = {usuarios}
               setUsuarios = {setUsuarios}
             />
-            <Carrito type="button" onClick={()=>{agregarProducto();}}>
+            <Carrito type="button" onClick={()=>{agregarProducto(usuarios.cantidadProducto, usuarios.producto);}}>
               <FontAwesomeIcon icon={faCartPlus}/>
             </Carrito>
           </ContCarrito>
@@ -234,11 +250,12 @@ const ActualizarVentas = () => {
               </tr>
             </TableHead>
             <tbody>
-              {listaProdutos.map((tipoProducto) => {
+              {listaCanasta.map((TipoProducto) => {
                 return (
-                <tr >
-                  <TableData>{tipoProducto.campo.value}</TableData>
-                  <TableData>2</TableData>                            
+                <tr key = {TipoProducto.item.value} >
+
+                  <TableData>{TipoProducto.item.label}</TableData>
+                  <TableData>{TipoProducto.cantidad}</TableData>                     
                 </tr>
                 );
               })}

@@ -8,16 +8,20 @@ const Selects = ({user, tipo, lenyenda, expresionRegular, name, estado, cambiarE
     var valor = ""
     if(name==='Rol'){
         valor = 'Rol';
-    }else{
+    }else if(name === 'Estado'){
         valor = 'Estado'
+    }else{
+        valor = 'producto'
     }
 
     const onChange = (e)=>{
         cambiarEstado({campo: e});
-        setUsuarios({...usuarios,  [valor]: e.value});
+        setUsuarios({...usuarios,  [valor]: e});
     }
     const validacion = (e) =>{
         if(expresionRegular){
+            console.log(estado.campo.value);
+
             console.log(`usuarios.${valor}`)
             if(estado.campo.value!== undefined){
                 cambiarEstado({...estado, valido: "true"});
