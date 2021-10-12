@@ -60,6 +60,7 @@ function GestionUsuarios() {
             ){
                 cambiarFormularioValido(true);
                 try{
+                    console.log(usuarios)
                     let res;
                     if(!params.id){
                         res= await server.registerUser(usuarios);

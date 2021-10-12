@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 import * as server from './server';
+import Swal from 'sweetalert2';
 
 const TablaGestionUsuarios = () => {
 
@@ -40,6 +41,11 @@ const TablaGestionUsuarios = () => {
           );
         }, [busqueda, usuarios]);
 
+        //Ventana nodal
+        const showAlert =()=>{
+          Swal.fire('Atención!','Deseas eliminar el usuario','warning')
+        }
+
         return (
             <main className="mainContainerTable">
               <h2 className="tituloGestionVentas">Gestion de Usuarios</h2>
@@ -71,7 +77,8 @@ const TablaGestionUsuarios = () => {
                             <FontAwesomeIcon  icon={faPenAlt}/>
                           </button>
                           <button className="iconSide"
-                            onClick={()=>handleDelete(usuario._id)}
+                              onClick={showAlert}
+                            // onClick={()=>handleDelete(usuario._id)}
                           >
                             <FontAwesomeIcon icon={faTrashAlt}/>
                           </button>
