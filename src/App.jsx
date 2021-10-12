@@ -1,13 +1,13 @@
 import Index from "pages/index";
 import GestionUsuarios from "pages/GestionUsuarios";
-import Ventas from "pages/ventas/Ventas";
+import Ventas from "pages/Ventas";
 import PublicLayout from "layouts/PublicLayout";
 import PrivateLayout from "layouts/PrivateLayout";
 import "styles/styles.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "pages/Dashboard";
 import ActualizarProductos from "pages/ActualizarProductos";
-import ActualizarVentas from "pages/ventas/ActualizarVentas";
+import ActualizarVentas from "pages/ActualizarVentas";
 import ListadoProductos from "pages/ListadoProductos";
 import TablaGestionUsuarios from "pages/TablaGestionUsuarios";
 
@@ -19,8 +19,9 @@ function App() {
           <Route
             path={[
               "/gestionUsuarios",
-              "/ventas/ventas",
+              "/ventas",
               "/CrearProductos",
+              "/CrearVentas",
               "/ActualizarVentas",
               "/Dashboard",
               "/ListadoProductos",
@@ -35,6 +36,9 @@ function App() {
                   <ActualizarProductos />
                 </Route>
                 <Route path="/ActualizarVentas/:id">
+                  <ActualizarVentas />
+                </Route>
+                <Route path="/CrearVentas">
                   <ActualizarVentas />
                 </Route>
                 <Route path="/gestionUsuarios">

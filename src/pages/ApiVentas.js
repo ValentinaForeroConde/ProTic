@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL = "http://localhost:5000/venta"
 
-export const listaVenta = async () => {
+export const listaVentas = async () => {
     return await axios.get(API_URL);
 
   };
@@ -13,14 +13,13 @@ export const registerVenta = async (newVenta) =>{
             url:`${API_URL}`,
             method:'POST',
             data:{
-                nombre: newVenta.nombreCliente,
-                apellido: newVenta.apellidoCliente,
+                nombre: newVenta.nombre,
+                apellido: newVenta.apellido,
                 documento: newVenta.documento,
                 fecha: newVenta.fecha,
-                idVenta: newVenta.idVenta,
                 idVendedor: newVenta.idVendedor,
-                cantidad: newVenta.cantidadProducto,
-                Producto: newVenta.idProducto
+                cantidadProducto: newVenta.cantidadProducto,
+                producto: newVenta.producto,
             },
         })
         return response
@@ -63,13 +62,13 @@ export const updateVenta = async (idVenta, updateVenta) =>{
             url:`${API_URL}/${idVenta}`,
             method:'PATCH',
             data:{
-                nombre: updateVenta.nombreCliente,
-                apellido: updateVenta.apellidoCliente,
+                nombre: updateVenta.nombre,
+                apellido: updateVenta.apellido,
                 documento: updateVenta.documento,
                 fecha: updateVenta.fecha,
                 idVendedor: updateVenta.idVendedor,
-                cantidad: updateVenta.cantidadProducto,
-                Producto: updateVenta.idProducto
+                cantidadProducto: updateVenta.cantidadProducto,
+                producto: updateVenta.producto
             },
         })
         return response

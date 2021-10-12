@@ -3,7 +3,7 @@ import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow} f
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
-import * as api from 'Api';
+import * as api from './ApiVentas';
 
   const Ventas = () => {
     const [ventas, setVentas] = useState([]);
@@ -16,7 +16,7 @@ import * as api from 'Api';
       }catch(error){
         console.error(error);
       }
-    }
+    };
     
     useEffect(() => {
       listaVentas();
@@ -25,10 +25,10 @@ import * as api from 'Api';
     const handleDelete = async (idVenta)=>{
       await api.deleteVenta(idVenta);
       listaVentas();
-    }
+    };
 
     const [busqueda, setBusqueda] = useState('');
-    const [ventasFiltradas, setVentasFiltradas] = useState(ventasFiltradas);
+    const [ventasFiltradas, setVentasFiltradas] = useState(ventas);
     
     useEffect(() => {
       setVentasFiltradas(
@@ -42,7 +42,7 @@ import * as api from 'Api';
       <main className="mainContainerTable">
         <ContenedorBotonCentrado>
           <Boton>
-            <Link to ="/crearVenta">Crear venta</Link>
+            <Link to ="/CrearVentas">Crear venta</Link>
           </Boton>
         </ContenedorBotonCentrado>
         <h2 className="tituloGestionVentas">Todas las ventas</h2>
@@ -63,9 +63,9 @@ import * as api from 'Api';
           <tbody>
               {ventasFiltradas.map((ventas) =>(
                 <TableRow key={ventas._id}>
-                  <TableData>{ventas.nombreCliente}</TableData>
+                  <TableData>{ventas.nombre}</TableData>
+                  <TableData>{ventas.apellido}</TableData>
                   <TableData>{ventas.documento}</TableData>
-                  <TableData>{ventas.idVenta}</TableData>
                   <TableData>
                     <button className="iconSide" 
                       onClick={()=>{
