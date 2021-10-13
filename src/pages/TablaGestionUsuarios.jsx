@@ -42,8 +42,29 @@ const TablaGestionUsuarios = () => {
         }, [busqueda, usuarios]);
 
         //Ventana nodal
-        const showAlert =()=>{
-          Swal.fire('Atención!','Deseas eliminar el usuario','warning')
+        const showAlert =(usuario)=>{
+          Swal.fire({
+            title:'Atención!',
+            text:'Deseas eliminar el usuario seleccionado?',
+            icon:'warning',
+            showConfirmButton:true,
+            confirmButtonColor: '#023047',
+            confirmButtonText: 'Si',
+            showCancelButton:true,
+            cancelButtonColor: '#023047',
+            cancelButtonText: 'No',
+            showCloseButton:true,
+        }).then((result)=>{
+          if(result.value){
+            handleDelete(usuario)
+              Swal.fire({
+                icon: 'success',
+                title: 'Usuario eliminado',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            }
+          })
         }
 
         return (
@@ -77,7 +98,7 @@ const TablaGestionUsuarios = () => {
                             <FontAwesomeIcon  icon={faPenAlt}/>
                           </button>
                           <button className="iconSide"
-                              onClick={showAlert}
+                              onClick={()=>{showAlert(usuario._id)}}
                             // onClick={()=>handleDelete(usuario._id)}
                           >
                             <FontAwesomeIcon icon={faTrashAlt}/>
