@@ -19,7 +19,7 @@ export const registerVenta = async (newVenta) =>{
                 fecha: newVenta.fecha,
                 idVendedor: newVenta.idVendedor,
                 cantidadProducto: newVenta.cantidadProducto,
-                producto: newVenta.producto,
+                listaCanasta: newVenta.listaCanasta,
             },
         })
         return response

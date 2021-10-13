@@ -6,7 +6,7 @@ import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError';
 import {Table, TableHead, TableData,} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faCartPlus, faArrowLeft, faTruckLoading, faTimes, faCheck} from '@fortawesome/free-solid-svg-icons';
+import {faCartPlus, faArrowLeft, faTruckLoading, faTimes, faCheck, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import * as api from './ApiVentas';
 import * as apiProductos from 'Api';
@@ -17,10 +17,9 @@ const ActualizarVentas = () => {
 
   const params = useParams();
   const history = useHistory();
-  const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', producto:''};
+  const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', listaCanasta:'', producto:'', valor:''};
   const [usuarios, setUsuarios] = useState(initialState);
   const initialStateListProductos = {item:'', cantidad:''};
-  const [canasta, setCanasta] = useState(initialStateListProductos);
   const [listaCanasta, setListaCanasta] = useState([]);
   
   
@@ -30,11 +29,10 @@ const ActualizarVentas = () => {
   const [documento, cambiarDocumento] = useState({campo:'', valido: null});
   const [idVendedor, cambiarIdVendedor] = useState({campo:'', valido: null});
   const [fecha, cambiarFecha] = useState({campo:'', valido: null});
-  const [tipoProducto, cambiarTipoProducto] = useState([]);
   const [cantidadProducto, cambiarCantidadProducto] = useState({campo:'', valido: null});
   const [formularioValido, cambiarFormularioValido] = useState(null);
-  const [listaProdutos, cambiarListaProducto] = useState([]);
   const [producto, setProducto] = useState({campo:'', valido: null});
+  const [multi, setMulti] = useState([]);
 
   
   const getVenta = async(idVenta)=>{
@@ -54,7 +52,6 @@ const ActualizarVentas = () => {
       cambiarDocumento({valido:'true'});
       cambiarIdVendedor({valido:'true'});
       cambiarFecha({valido:'true'});
-      cambiarTipoProducto({valido:'true'})
       cambiarCantidadProducto({valido:'true'});
     }
   }, []);
@@ -113,21 +110,33 @@ const ActualizarVentas = () => {
   },[]);
 
   const productoOpciones = productos.map((producto)=>{
-    return {value: producto._id, label: producto.nombre}
+    return {value: producto._id, label: producto.nombre, valor:producto.valor}
   });
   
-  
-  const agregarProducto = (cantidadProducto, producto)=>{
-    setCanasta ({...canasta, cantidad: cantidadProducto, item: producto});
-    console.log(canasta);
-    agregarLista();
+  const agregarProducto = (cantidadProducto, producto, valor)=>{
+    let item = {
+      'cantidad':cantidadProducto,
+      'producto': producto,
+      'valor': valor
+    }
+    setListaCanasta([...listaCanasta, item]);
   };
 
-  const agregarLista=()=>{
-    setListaCanasta([...listaCanasta, canasta]);
-    console.log(canasta);
+  const deleteItem =(i)=>{
+    console.log(listaCanasta)
+    var index = i;
+    listaCanasta.splice(index, 1);
+    console.log(i);
+    setListaCanasta([...listaCanasta]);
+  };
 
-  }
+  useEffect(()=>{
+    for (let i of listaCanasta){
+      
+      setMulti(parseInt(multi + (i.producto.valor * i.cantidad)));
+      console.log(multi);
+    }
+  },[listaCanasta]);
 
   return (
       <main>
@@ -246,22 +255,28 @@ const ActualizarVentas = () => {
               <tr>
                 <TableData>Producto</TableData>
                 <TableData>Cantidad</TableData>
+                <TableData>Precio unitario</TableData>
                 <TableData>Eliminar</TableData>
               </tr>
             </TableHead>
             <tbody>
-              {listaCanasta.map((TipoProducto) => {
+              {listaCanasta.map((item, i) => {
                 return (
-                <tr key = {TipoProducto.item.value} >
-
-                  <TableData>{TipoProducto.item.label}</TableData>
-                  <TableData>{TipoProducto.cantidad}</TableData>                     
+                <tr key = {i} >
+                  <TableData key={i + 'td1'}>{item.producto.label}</TableData>
+                  <TableData key={i + 'td2'}>{item.cantidad}</TableData>
+                  <TableData key={i + 'td3'}>{item.producto.valor}</TableData>
+                  <TableData>
+                    <button type="button" className="iconSide" onClick={()=>deleteItem(i)}>
+                      <FontAwesomeIcon icon={faTrashAlt}/>
+                    </button>
+                  </TableData>                     
                 </tr>
                 );
               })}
             </tbody>
           </Table>
-          <Label>Total: $$$</Label>
+          <Label>Total: {multi}</Label>
           {params.id?(
             <div>
               <Etiqueta>Estado de la venta: </Etiqueta>
