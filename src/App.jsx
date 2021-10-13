@@ -21,6 +21,7 @@ function App() {
               "/gestionUsuarios",
               "/ventas",
               "/CrearProductos",
+              "/CrearVentas",
               "/ActualizarVentas",
               "/Dashboard",
               "/ListadoProductos",
@@ -34,7 +35,10 @@ function App() {
                 <Route path="/CrearProductos">
                   <ActualizarProductos />
                 </Route>
-                <Route path="/ActualizarVentas">
+                <Route path="/ActualizarVentas/:id">
+                  <ActualizarVentas />
+                </Route>
+                <Route path="/CrearVentas">
                   <ActualizarVentas />
                 </Route>
                 <Route path="/gestionUsuarios">

@@ -8,38 +8,37 @@ import Swal from 'sweetalert2';
 
 const TablaGestionUsuarios = () => {
 
-        const [usuarios, setUsuarios]= useState([]);
+    const [usuarios, setUsuarios]= useState([]);
 
-        const listUsuarios = async()=>{
-            try{
-                const res = await server.listUsuarios();
-                setUsuarios(res.data)
+    const listUsuarios = async()=>{
+      try{
+        const res = await server.listUsuarios();
+        setUsuarios(res.data)
+      }catch(error){
+        console.log(error)
+      }
+    };
 
-            }catch(error){
-                console.log(error)
-            }
-        }
-        useEffect(()=>{
-            listUsuarios();
-        },[]);
+    useEffect(()=>{
+      listUsuarios();
+    },[]);
 
-        const history = useHistory();
+    const history = useHistory();
 
-        const handleDelete= async (usuarioId)=>{
-          await server.deleteUser(usuarioId);
-          listUsuarios();
-        }
+    const handleDelete= async (usuarioId)=>{
+      await server.deleteUser(usuarioId);
+      listUsuarios();
+    };
 
-        const [busqueda, setBusqueda] = useState('');
-        const [usuariosFiltrados, setUsuariosFiltrados] = useState(usuarios);
+    const [busqueda, setBusqueda] = useState('');
+    const [usuariosFiltrados, setUsuariosFiltrados] = useState(usuarios);
 
-        useEffect(() => {
-          setUsuariosFiltrados(
-            usuarios.filter((elemento) => {
-              return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
-            })
-          );
-        }, [busqueda, usuarios]);
+    useEffect(() => {
+      setUsuariosFiltrados(
+      usuarios.filter((elemento) => {
+        return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+      }));
+    }, [busqueda, usuarios]);
 
         //Ventana nodal
         const showAlert =(usuario)=>{
@@ -112,5 +111,5 @@ const TablaGestionUsuarios = () => {
           );
     }
 
-export default TablaGestionUsuarios
+export default TablaGestionUsuarios;
 

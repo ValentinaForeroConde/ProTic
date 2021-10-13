@@ -1,12 +1,9 @@
 import React from 'react'
-import {Side, Fila,Boton} from 'elements/Layouts'
 import { Link } from 'react-router-dom'
 import logoPets1 from "assets/logoPets1.png";
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUsers, faHome, faCashRegister, faShoppingBag, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-
-
 
 const Aside = () => {
     return (        
@@ -37,6 +34,6 @@ const Aside = () => {
             </nav>
         
     )
-}
+};
 
-export default Aside
+export default Aside;

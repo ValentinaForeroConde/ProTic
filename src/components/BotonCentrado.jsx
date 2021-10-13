@@ -11,4 +11,4 @@ const BotonCentrado = ({nombreBoton, mensajeBoton, formularioValido}) => {
     )
 }
 
-export default BotonCentrado
+export default BotonCentrado;

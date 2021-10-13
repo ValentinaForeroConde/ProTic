@@ -40,6 +40,6 @@ const Input = ({user, placeholdercont, tipo, lenyenda, expresionRegular, name, e
             <LeyendaError valido={estado.valido}>{lenyenda}</LeyendaError>
         </div>
     )
-}
+};
 
 export default Input;

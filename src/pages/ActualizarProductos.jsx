@@ -68,7 +68,7 @@ const ActualizarProductos = () => {
                     }else{
                         await api.updateProduct(params.id, usuarios);
                     }
-                        history.push("/ListadoProductos");;
+                        history.push("/ListadoProductos");
                     }catch(error){
                     console.log(error)
                 }
