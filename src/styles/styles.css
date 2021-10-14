@@ -211,3 +211,7 @@ input[type=number] { -moz-appearance:textfield; }
   margin-left: 53px;
   transition: .3s ease all;
 }
+.link-boton{
+  text-decoration: none;
+  color: #fff;
+}

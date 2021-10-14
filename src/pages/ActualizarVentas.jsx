@@ -4,7 +4,7 @@ import {Formulario, Etiqueta, ContCarrito, Carrito, Label, LabelVenta, RadioButt
 import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError';
-import {Table, TableHead, TableData,} from 'elements/Listas';
+import {Table, TableHead, TableData, ContenedorEstado} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCartPlus, faArrowLeft, faTruckLoading, faTimes, faCheck, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory, useParams } from 'react-router-dom';
@@ -119,14 +119,18 @@ const ActualizarVentas = () => {
       'producto': producto,
       'valor': valor
     }
-    setListaCanasta([...listaCanasta, item]);
+    setListaCanasta([...listaCanasta, item]); 
   };
 
+  useEffect(()=>{
+    setUsuarios({...usuarios, cantidadProducto:"", producto:""});
+    cambiarCantidadProducto({...cantidadProducto, campo:""})
+  },[listaCanasta]);
+
+  
   const deleteItem =(i)=>{
-    console.log(listaCanasta)
     var index = i;
     listaCanasta.splice(index, 1);
-    console.log(i);
     setListaCanasta([...listaCanasta]);
   };
 
@@ -265,7 +269,7 @@ const ActualizarVentas = () => {
                 <tr key = {i} >
                   <TableData key={i + 'td1'}>{item.producto.label}</TableData>
                   <TableData key={i + 'td2'}>{item.cantidad}</TableData>
-                  <TableData key={i + 'td3'}>{item.producto.valor}</TableData>
+                  <TableData key={i + 'td3'}>{'$ ' + item.producto.valor}</TableData>
                   <TableData>
                     <button type="button" className="iconSide" onClick={()=>deleteItem(i)}>
                       <FontAwesomeIcon icon={faTrashAlt}/>
@@ -276,9 +280,9 @@ const ActualizarVentas = () => {
               })}
             </tbody>
           </Table>
-          <Label>Total: {multi}</Label>
+          <Label>Total: $ {multi}</Label>
           {params.id?(
-            <div>
+            <ContenedorEstado>
               <Etiqueta>Estado de la venta: </Etiqueta>
               <RadioButton>
                 <ContentRButton>
@@ -303,7 +307,7 @@ const ActualizarVentas = () => {
                   <span> Entregado </span>
                 </ContentRButton>
               </RadioButton>
-            </div>
+            </ContenedorEstado>
           ):(
             null
           )}  
