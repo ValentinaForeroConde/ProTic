@@ -215,3 +215,6 @@ input[type=number] { -moz-appearance:textfield; }
   text-decoration: none;
   color: #fff;
 }
+.estado-venta p{
+  margin-left: 12rem;
+}

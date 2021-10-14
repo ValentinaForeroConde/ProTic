@@ -20,6 +20,7 @@ export const registerVenta = async (newVenta) =>{
                 idVendedor: newVenta.idVendedor,
                 cantidadProducto: newVenta.cantidadProducto,
                 listaCanasta: newVenta.listaCanasta,
+                estadoBoton: newVenta.estadoBoton,
             },
         })
         return response

@@ -17,9 +17,9 @@ const ActualizarVentas = () => {
 
   const params = useParams();
   const history = useHistory();
-  const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', listaCanasta:'', producto:'', valor:''};
+  const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', listaCanasta:'', producto:'', valor:'', estadoBoton:''};
   const [usuarios, setUsuarios] = useState(initialState);
-  const initialStateListProductos = {item:'', cantidad:''};
+  const [canasta, setCanasta]=useState({item:'', cantidad:''});
   const [listaCanasta, setListaCanasta] = useState([]);
   
   
@@ -33,6 +33,7 @@ const ActualizarVentas = () => {
   const [formularioValido, cambiarFormularioValido] = useState(null);
   const [producto, setProducto] = useState({campo:'', valido: null});
   const [multi, setMulti] = useState([]);
+  const [estadoRadioButton, setEstadoRadioButton] = useState('En proceso');
 
   
   const getVenta = async(idVenta)=>{
@@ -63,8 +64,7 @@ const ActualizarVentas = () => {
           apellido.valido === 'true' &&
           documento.valido === 'true' &&
           idVendedor.valido === 'true' &&
-          fecha.valido === 'true' &&
-          cantidadProducto.valido === 'true'
+          fecha.valido === 'true'
         ){
           cambiarFormularioValido(true);
           console.log(usuarios);
@@ -113,20 +113,21 @@ const ActualizarVentas = () => {
     return {value: producto._id, label: producto.nombre, valor:producto.valor}
   });
   
-  const agregarProducto = (cantidadProducto, producto, valor)=>{
-    let item = {
-      'cantidad':cantidadProducto,
-      'producto': producto,
-      'valor': valor
-    }
-    setListaCanasta([...listaCanasta, item]); 
+  const agregarProducto = ()=>{
+    setListaCanasta([...listaCanasta, canasta]);
+    setUsuarios({...usuarios, listaCanasta:listaCanasta})
   };
 
   useEffect(()=>{
-    setUsuarios({...usuarios, cantidadProducto:"", producto:""});
-    cambiarCantidadProducto({...cantidadProducto, campo:""})
-  },[listaCanasta]);
+    setCanasta({...canasta, item:usuarios.producto, cantidad:usuarios.cantidadProducto});
+    // eslint-disable-next-line
+  },[producto, cantidadProducto]);
 
+  useEffect(() => {
+    setUsuarios({...usuarios, cantidadProducto:'', producto:{"value":"","label":""}})
+    cambiarCantidadProducto({valido:''});
+    setProducto({valido:''})
+  },[listaCanasta]);
   
   const deleteItem =(i)=>{
     var index = i;
@@ -136,11 +137,16 @@ const ActualizarVentas = () => {
 
   useEffect(()=>{
     for (let i of listaCanasta){
-      
-      setMulti(parseInt(multi + (i.producto.valor * i.cantidad)));
+      setMulti(parseInt(multi + (i.item.valor * i.cantidad)));
       console.log(multi);
     }
   },[listaCanasta]);
+
+  const cambioRadioButton=e=>{
+    setEstadoRadioButton(e.target.value);
+    setUsuarios({...usuarios, estadoBoton:estadoRadioButton});
+    console.log(estadoRadioButton);
+  }
 
   return (
       <main>
@@ -235,6 +241,7 @@ const ActualizarVentas = () => {
             opciones = {productoOpciones}
             usuarios = {usuarios}
             setUsuarios = {setUsuarios}
+            DefVal = {usuarios.producto}
           />
           <ContCarrito>
             <Input 
@@ -250,7 +257,7 @@ const ActualizarVentas = () => {
               usuarios = {usuarios}
               setUsuarios = {setUsuarios}
             />
-            <Carrito type="button" onClick={()=>{agregarProducto(usuarios.cantidadProducto, usuarios.producto);}}>
+            <Carrito type="button" onClick={()=>{agregarProducto();}}>
               <FontAwesomeIcon icon={faCartPlus}/>
             </Carrito>
           </ContCarrito>
@@ -264,12 +271,12 @@ const ActualizarVentas = () => {
               </tr>
             </TableHead>
             <tbody>
-              {listaCanasta.map((item, i) => {
+              {listaCanasta.map((listado, i) => {
                 return (
                 <tr key = {i} >
-                  <TableData key={i + 'td1'}>{item.producto.label}</TableData>
-                  <TableData key={i + 'td2'}>{item.cantidad}</TableData>
-                  <TableData key={i + 'td3'}>{'$ ' + item.producto.valor}</TableData>
+                  <TableData key={i + 'td1'}>{listado.item.label}</TableData>
+                  <TableData key={i + 'td2'}>{listado.cantidad}</TableData>
+                  <TableData key={i + 'td3'}>{'$ ' + listado.item.valor}</TableData>
                   <TableData>
                     <button type="button" className="iconSide" onClick={()=>deleteItem(i)}>
                       <FontAwesomeIcon icon={faTrashAlt}/>
@@ -286,27 +293,48 @@ const ActualizarVentas = () => {
               <Etiqueta>Estado de la venta: </Etiqueta>
               <RadioButton>
                 <ContentRButton>
-                  <input type="radio" value="En proceso" name="estado"/>
+                  <input 
+                    type="radio" 
+                    value="En proceso" 
+                    name="estadoBoton" 
+                    checked={estadoRadioButton === 'En proceso' ? true:false}
+                    onChange={cambioRadioButton}
+                  />
                   <span>
                     <FontAwesomeIcon icon={faTruckLoading}/>
                   </span>
                   <span> En proceso </span>
                 </ContentRButton>
                 <ContentRButton>
-                  <input type="radio" value="Cancelado" name="estado"/>
+                  <input 
+                    type="radio" 
+                    value="Cancelado" 
+                    name="estadoBoton" 
+                    checked={estadoRadioButton === 'Cancelado' ? true:false}
+                    onChange={cambioRadioButton}
+                  />
                   <span>
                     <FontAwesomeIcon icon={faTimes}/>
                   </span>
                   <span> Cancelado </span>
                 </ContentRButton>
                 <ContentRButton>
-                  <input type="radio" value="Entregado" name="estado"/>
+                  <input 
+                    type="radio" 
+                    value="Entregado" 
+                    name="estadoBoton" 
+                    checked={estadoRadioButton === 'Entregado' ? true:false}
+                    onChange={cambioRadioButton}
+                  />
                   <span>
                     <FontAwesomeIcon icon={faCheck}/>
                   </span>
                   <span> Entregado </span>
                 </ContentRButton>
               </RadioButton>
+              <div className="estado-venta">
+                <p> El estado de la venta es: {estadoRadioButton}</p>
+              </div>
             </ContenedorEstado>
           ):(
             null
