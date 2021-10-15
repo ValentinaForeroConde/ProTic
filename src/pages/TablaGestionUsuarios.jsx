@@ -98,7 +98,6 @@ const TablaGestionUsuarios = () => {
                           </button>
                           <button className="iconSide"
                               onClick={()=>{showAlert(usuario._id)}}
-                            // onClick={()=>handleDelete(usuario._id)}
                           >
                             <FontAwesomeIcon icon={faTrashAlt}/>
                           </button>

@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import { Link,useHistory,useParams } from 'react-router-dom';
 import * as api from 'Api'
+import Swal from 'sweetalert2';
 
 
 const ActualizarProductos = () => {
@@ -62,11 +63,13 @@ const ActualizarProductos = () => {
                     if(!params.id){
                         res= await api.registerProducts(usuarios);
                         console.log(res)
+                        showAlert("Creado con exito");
                         if (res === 'OK'){
                             setUsuarios(initialState);
                             }
                     }else{
                         await api.updateProduct(params.id, usuarios);
+                        showAlert("Actualizado con exito");
                     }
                         history.push("/ListadoProductos");
                     }catch(error){
@@ -81,6 +84,15 @@ const ActualizarProductos = () => {
         {value:'0', label: 'Disponible'},
         {value:'1', label: 'No disponible'},
         ];
+    const showAlert =(comentario)=>{
+        Swal.fire({
+            icon: 'success',
+            title: (comentario),
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
 
     return (
         <main>
@@ -109,7 +121,7 @@ const ActualizarProductos = () => {
                     placeholdercont = "Descripción producto"
                     tipo = "text"
                     lenyenda = "El descripción solo admite letras"
-                    expresionRegular = {Expresiones.nombre}
+                    expresionRegular = {Expresiones.descripcion}
                     name = "descripcion"
                     estado = {descripcion}
                     cambiarEstado = {cambiarDescripcion}
@@ -152,7 +164,7 @@ const ActualizarProductos = () => {
                     estado = {Estado}
                     cambiarEstado = {cambiarEstado}
                     opciones={productoDisponible}
-                    DefVal={productoDisponible[usuarios.Estado]}
+                    DefVal={productoDisponible[usuarios.Estado.value]}
                     usuarios={usuarios}
                     setUsuarios={setUsuarios}
                     />

@@ -10,7 +10,6 @@ import {faCartPlus, faArrowLeft, faTruckLoading, faTimes, faCheck, faTrashAlt} f
 import { Link, useHistory, useParams } from 'react-router-dom';
 import * as api from './ApiVentas';
 import * as apiProductos from 'Api';
-import { GrupoInput } from 'elements/Formularios';
 import Selects from 'components/Selects';
 
 const ActualizarVentas = () => {
@@ -19,11 +18,9 @@ const ActualizarVentas = () => {
   const history = useHistory();
   const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', listaCanasta:'', producto:'', valor:''};
   const [usuarios, setUsuarios] = useState(initialState);
-  const initialStateListProductos = {item:'', cantidad:''};
   const [listaCanasta, setListaCanasta] = useState([]);
-  
-  
-      
+
+
   const [nombre, cambiarNombre] = useState({campo:'', valido: null});
   const [apellido, cambiarApellido] = useState({campo:'', valido: null});
   const [documento, cambiarDocumento] = useState({campo:'', valido: null});
@@ -34,7 +31,7 @@ const ActualizarVentas = () => {
   const [producto, setProducto] = useState({campo:'', valido: null});
   const [multi, setMulti] = useState([]);
 
-  
+
   const getVenta = async(idVenta)=>{
     try{
       const res = await api.getVenta(idVenta);
@@ -52,7 +49,6 @@ const ActualizarVentas = () => {
       cambiarDocumento({valido:'true'});
       cambiarIdVendedor({valido:'true'});
       cambiarFecha({valido:'true'});
-      cambiarCantidadProducto({valido:'true'});
     }
   }, []);
 
@@ -63,8 +59,7 @@ const ActualizarVentas = () => {
           apellido.valido === 'true' &&
           documento.valido === 'true' &&
           idVendedor.valido === 'true' &&
-          fecha.valido === 'true' &&
-          cantidadProducto.valido === 'true'
+          fecha.valido === 'true'
         ){
           cambiarFormularioValido(true);
           console.log(usuarios);
@@ -109,18 +104,18 @@ const ActualizarVentas = () => {
     listProductos();
   },[]);
 
-  const productoOpciones = productos.map((producto)=>{
-    return {value: producto._id, label: producto.nombre, valor:producto.valor}
+  const productoOpciones = productos.map((productos)=>{
+    return {value: productos._id, label: productos.nombre, valor:productos.valor}
   });
-  
-  const agregarProducto = (cantidadProducto, producto, valor)=>{
-    let item = {
-      'cantidad':cantidadProducto,
-      'producto': producto,
-      'valor': valor
+
+  const agregarProducto = () =>{
+      var item = {
+        'cantidad':usuarios.cantidadProducto,
+        'producto': usuarios.producto,
+        'valor': usuarios.producto.valor
+        };
+        setListaCanasta([...listaCanasta, item]);
     }
-    setListaCanasta([...listaCanasta, item]);
-  };
 
   const deleteItem =(i)=>{
     console.log(listaCanasta)
@@ -130,12 +125,23 @@ const ActualizarVentas = () => {
     setListaCanasta([...listaCanasta]);
   };
 
+useEffect(() => {
+      cambiarCantidadProducto({...cantidadProducto,campo:'' ,valido:''});
+      setProducto({...producto,campo:'', valido:''});
+      setUsuarios({...usuarios, cantidadProducto:'', producto:"", listaCanasta:listaCanasta});
+      // eslint-disable-next-line
+  },[listaCanasta])
+
+useEffect(() => {
+},[usuarios])
+
   useEffect(()=>{
+    var suma=0;
     for (let i of listaCanasta){
-      
-      setMulti(parseInt(multi + (i.producto.valor * i.cantidad)));
-      console.log(multi);
+     suma =(suma + (i.producto.valor * i.cantidad));
     }
+    setMulti(parseInt(suma));
+    // eslint-disable-next-line
   },[listaCanasta]);
 
   return (
@@ -221,7 +227,6 @@ const ActualizarVentas = () => {
           <Etiqueta>Información de compra: </Etiqueta>
           <Selects
             user = "Producto"
-            placeholdercont = "Seleccione el producto"
             tipo = "text"
             lenyenda = "Seleccione un producto"
             expresionRegular = {Expresiones.nombre}
@@ -231,9 +236,10 @@ const ActualizarVentas = () => {
             opciones = {productoOpciones}
             usuarios = {usuarios}
             setUsuarios = {setUsuarios}
+            DefVal = {usuarios.producto}
           />
           <ContCarrito>
-            <Input 
+            <Input
               user = "cantidad"
               placeholdercont = "cantidad producto"
               tipo = "number"
@@ -246,7 +252,7 @@ const ActualizarVentas = () => {
               usuarios = {usuarios}
               setUsuarios = {setUsuarios}
             />
-            <Carrito type="button" onClick={()=>{agregarProducto(usuarios.cantidadProducto, usuarios.producto);}}>
+            <Carrito type="button" onClick={()=>{agregarProducto();}}>
               <FontAwesomeIcon icon={faCartPlus}/>
             </Carrito>
           </ContCarrito>
