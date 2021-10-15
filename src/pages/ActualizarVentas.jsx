@@ -11,6 +11,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import * as api from './ApiVentas';
 import * as apiProductos from 'Api';
 import Selects from 'components/Selects';
+import Swal from 'sweetalert2';
 
 const ActualizarVentas = () => {
 
@@ -68,16 +69,15 @@ const ActualizarVentas = () => {
           try{
             let res;
             if(!params.id){
-              console.log(usuarios);
-
               res = await api.registerVenta(usuarios);
               console.log(res);
+              showAlert("Creado con exito");
               if(res === 'OK'){
-
                 setUsuarios(initialState);
               }
             }else{
               await api.updateVenta(params.id, usuarios);
+              showAlert("Actualizado con exito");
             }
             history.push("/ventas");
           }catch(error){
@@ -166,6 +166,15 @@ useEffect(() => {
   useEffect(()=>{
     console.log(usuarios.estadoBoton);
   },[usuarios.estadoBoton]);
+
+  const showAlert =(comentario)=>{
+    Swal.fire({
+        icon: 'success',
+        title: (comentario),
+        showConfirmButton: false,
+        timer: 1500
+    })
+}
 
   return (
       <main>

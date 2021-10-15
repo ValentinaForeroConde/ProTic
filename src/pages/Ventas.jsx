@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
 import * as api from './ApiVentas';
+import Swal from 'sweetalert2';
 
   const Ventas = () => {
     const [ventas, setVentas] = useState([]);
     const history = useHistory();
-    
+
     const listaVentas = async()=> {
       try{
         const res = await api.listaVentas();
@@ -17,7 +18,7 @@ import * as api from './ApiVentas';
         console.error(error);
       }
     };
-    
+
     useEffect(() => {
       listaVentas();
     }, []);
@@ -29,7 +30,7 @@ import * as api from './ApiVentas';
 
     const [busqueda, setBusqueda] = useState('');
     const [ventasFiltradas, setVentasFiltradas] = useState(ventas);
-    
+
     useEffect(() => {
       setVentasFiltradas(
         ventas.filter((elemento) =>{
@@ -37,7 +38,31 @@ import * as api from './ApiVentas';
         })
       );
     }, [busqueda, ventas]);
-    
+
+    const showAlert =(venta)=>{
+      Swal.fire({
+        title:'Atención!',
+        text:'Deseas eliminar la venta seleccionada?',
+        icon:'warning',
+        showConfirmButton:true,
+        confirmButtonColor: '#023047',
+        confirmButtonText: 'Si',
+        showCancelButton:true,
+        cancelButtonColor: '#023047',
+        cancelButtonText: 'No',
+        showCloseButton:true,
+    }).then((result)=>{
+      if(result.value){
+        handleDelete(venta)
+          Swal.fire({
+            icon: 'success',
+            title: 'Venta eliminada',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      })
+    }
     return(
       <main className="mainContainerTable">
         <ContenedorBotonCentrado>
@@ -75,7 +100,7 @@ import * as api from './ApiVentas';
                       <FontAwesomeIcon icon={faPenAlt}/>
                     </button>
                     <button className="iconSide"
-                      onClick={()=>handleDelete(ventas._id)}
+                      onClick={()=>showAlert(ventas._id)}
                     >
                       <FontAwesomeIcon icon={faTrashAlt}/>
                     </button>

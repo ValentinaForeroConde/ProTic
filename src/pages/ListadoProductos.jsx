@@ -71,7 +71,7 @@ const ListadoProductos = () => {
     <main className="mainContainerTable">
       <ContenedorBotonCentrado>
         <Boton>
-          <Link to="/CrearProductos">Agregar</Link>
+          <Link className="link-boton" to="/CrearProductos">Agregar</Link>
         </Boton>
       </ContenedorBotonCentrado>
       <h2 className="tituloGestionVentas">Todos los productos</h2>
