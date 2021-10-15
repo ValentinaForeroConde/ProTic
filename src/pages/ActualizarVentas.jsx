@@ -13,13 +13,12 @@ import * as apiProductos from 'Api';
 import Selects from 'components/Selects';
 
 const ActualizarVentas = () => {
-
+  //
   const params = useParams();
   const history = useHistory();
   const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', listaCanasta:[], producto:'', valor:'', estadoBoton:''};
   const [usuarios, setUsuarios] = useState(initialState);
-  const [listaCanasta, setListaCanasta] = useState([]);
-      
+  const [listaCanasta, setListaCanasta] = useState([]); 
   const [nombre, cambiarNombre] = useState({campo:'', valido: null});
   const [apellido, cambiarApellido] = useState({campo:'', valido: null});
   const [documento, cambiarDocumento] = useState({campo:'', valido: null});
