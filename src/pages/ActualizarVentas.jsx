@@ -119,12 +119,11 @@ const ActualizarVentas = () => {
   }
 
   useEffect(() => {
-    setUsuarios({...usuarios, cantidadProducto:'', producto:{"value":"","label":""}})
-    cambiarCantidadProducto({valido:''});
-    setProducto({valido:''});
-    setUsuarios({...usuarios,  listaCanasta:listaCanasta});
-      // eslint-disable-next-line
-  },[listaCanasta]);
+    cambiarCantidadProducto({...cantidadProducto,campo:'' ,valido:''});
+    setProducto({...producto,campo:'', valido:''});
+    setUsuarios({...usuarios, cantidadProducto:'', producto:"", listaCanasta:listaCanasta});
+    // eslint-disable-next-line
+},[listaCanasta])
   
   useEffect(() => {
   },[usuarios]);
@@ -136,10 +135,12 @@ const ActualizarVentas = () => {
   };
 
   useEffect(()=>{
+    var suma=0;
     for (let i of listaCanasta){
-      setMulti(parseInt(multi + (i.producto.valor * i.cantidad)));
-      console.log(multi);
+     suma =(suma + (i.producto.valor * i.cantidad));
     }
+    setMulti(parseInt(suma));
+    // eslint-disable-next-line
   },[listaCanasta]);
 
   const cambioRadioButton=e=>{
@@ -237,7 +238,6 @@ const ActualizarVentas = () => {
           <Etiqueta>Información de compra: </Etiqueta>
           <Selects
             user = "Producto"
-            placeholdercont = "Seleccione el producto"
             tipo = "text"
             lenyenda = "Seleccione un producto"
             expresionRegular = {Expresiones.nombre}
@@ -338,9 +338,6 @@ const ActualizarVentas = () => {
                   <span> Entregado </span>
                 </ContentRButton>
               </RadioButton>
-              <div className="estado-venta">
-                <p> El estado de la venta es: {estadoRadioButton}</p>
-              </div>
             </ContenedorEstado>
           ):(
             null
