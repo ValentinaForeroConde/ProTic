@@ -1,11 +1,17 @@
 import axios from 'axios';
 
 const API_URL = "http://localhost:5000/usuario"
+const getToken = ()=>{
+    return `bearer ${localStorage.getItem('token')}`
+}
 
 export const listUsuarios = async () => {
-    return await axios.get("http://localhost:5000/usuario");
+    return await axios.get("http://localhost:5000/usuario", `headers:{
+        Authorization: ${getToken}}`);
 
   };
+
+  
 
 // export const listUsuarios = async () =>{
 //     return await fetch(API_URL);
@@ -16,6 +22,8 @@ export const registerUser = async (newUser) =>{
         const response  = await axios({
             url:`${API_URL}`,
             method:'POST',
+            headers:{
+                Authorization: {getToken}},
             data:{
                 nombre: newUser.nombre,
                 apellido: newUser.apellido,

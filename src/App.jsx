@@ -18,6 +18,7 @@ function App() {
     domain="protic.us.auth0.com"
     clientId="TRzeRVZrK9oTBxYwvXwLGZvFyDp9enSK"
     redirectUri={window.location.origin}
+    audience='api-autenticacion-petshop'
   >
     <div className="App">
       <Router>
