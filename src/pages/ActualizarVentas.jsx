@@ -4,7 +4,7 @@ import {Formulario, Etiqueta, ContCarrito, Carrito, Label, LabelVenta, RadioButt
 import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError';
-import {Table, TableHead, TableData,} from 'elements/Listas';
+import {Table, TableHead, TableData, ContenedorEstado} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCartPlus, faArrowLeft, faTruckLoading, faTimes, faCheck, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory, useParams } from 'react-router-dom';
@@ -16,10 +16,9 @@ const ActualizarVentas = () => {
 
   const params = useParams();
   const history = useHistory();
-  const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', listaCanasta:'', producto:'', valor:''};
+  const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', listaCanasta:[], producto:'', valor:'', estadoBoton:''};
   const [usuarios, setUsuarios] = useState(initialState);
   const [listaCanasta, setListaCanasta] = useState([]);
-
 
   const [nombre, cambiarNombre] = useState({campo:'', valido: null});
   const [apellido, cambiarApellido] = useState({campo:'', valido: null});
@@ -30,14 +29,16 @@ const ActualizarVentas = () => {
   const [formularioValido, cambiarFormularioValido] = useState(null);
   const [producto, setProducto] = useState({campo:'', valido: null});
   const [multi, setMulti] = useState([]);
+  const [estadoRadioButton, setEstadoRadioButton] = useState('En proceso');
 
 
   const getVenta = async(idVenta)=>{
     try{
       const res = await api.getVenta(idVenta);
       setUsuarios(res.data);
+      setListaCanasta(res.data.listaCanasta);
     }catch(error){
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -50,6 +51,7 @@ const ActualizarVentas = () => {
       cambiarIdVendedor({valido:'true'});
       cambiarFecha({valido:'true'});
     }
+    // eslint-disable-next-line
   }, []);
 
   const onSubmitForm = async(e) =>{
@@ -109,19 +111,27 @@ const ActualizarVentas = () => {
   });
 
   const agregarProducto = () =>{
-      var item = {
-        'cantidad':usuarios.cantidadProducto,
-        'producto': usuarios.producto,
-        'valor': usuarios.producto.valor
-        };
-        setListaCanasta([...listaCanasta, item]);
-    }
+    var item = {
+      'cantidad':usuarios.cantidadProducto,
+      'producto': usuarios.producto,
+      'valor': usuarios.producto.valor
+      };
+      setListaCanasta([...listaCanasta, item]);
+  }
+
+  useEffect(() => {
+    cambiarCantidadProducto({...cantidadProducto,campo:'' ,valido:''});
+    setProducto({...producto,campo:'', valido:''});
+    setUsuarios({...usuarios, cantidadProducto:'', producto:"", listaCanasta:listaCanasta});
+    // eslint-disable-next-line
+},[listaCanasta])
+
+  useEffect(() => {
+  },[usuarios]);
 
   const deleteItem =(i)=>{
-    console.log(listaCanasta)
     var index = i;
     listaCanasta.splice(index, 1);
-    console.log(i);
     setListaCanasta([...listaCanasta]);
   };
 
@@ -144,6 +154,19 @@ useEffect(() => {
     // eslint-disable-next-line
   },[listaCanasta]);
 
+  const cambioRadioButton=e=>{
+    setEstadoRadioButton(e.target.value);
+  };
+
+  useEffect(()=>{
+    setUsuarios({...usuarios, estadoBoton:estadoRadioButton});
+    // eslint-disable-next-line
+  },[estadoRadioButton]);
+
+  useEffect(()=>{
+    console.log(usuarios.estadoBoton);
+  },[usuarios.estadoBoton]);
+
   return (
       <main>
         <button className="botonVolver">
@@ -153,7 +176,7 @@ useEffect(() => {
         </button>
         <h2 className="tituloGestionVentas">Registro de venta</h2>
         <Formulario className = "guiGestionUsuarios" onSubmit = {onSubmitForm} action="">
-          <Input 
+          <Input
             user = "Nombre"
             placeholdercont = "Nombre"
             tipo = "text"
@@ -166,7 +189,7 @@ useEffect(() => {
             usuarios = {usuarios}
             setUsuarios = {setUsuarios}
           />
-          <Input 
+          <Input
             user = "Apellido"
             placeholdercont = "Apellido"
             tipo = "text"
@@ -179,7 +202,7 @@ useEffect(() => {
             usuarios = {usuarios}
             setUsuarios = {setUsuarios}
            />
-          <Input 
+          <Input
             user = "Documento"
             placeholdercont = "Número del documento"
             tipo = "number"
@@ -204,7 +227,7 @@ useEffect(() => {
             usuarios = {usuarios}
             setUsuarios = {setUsuarios}
           />
-          <Input 
+          <Input
             user = "Id-vendedor"
             placeholdercont = "Indíque su Id"
             tipo = "number"
@@ -218,12 +241,12 @@ useEffect(() => {
             setUsuarios = {setUsuarios}
           />
           {params.id?(
-            <LabelVenta> 
-              Id-Venta: {usuarios._id} 
+            <LabelVenta>
+              Id-Venta: {usuarios._id}
             </LabelVenta>
           ):(
             null
-          )}  
+          )}
           <Etiqueta>Información de compra: </Etiqueta>
           <Selects
             user = "Producto"
@@ -266,71 +289,88 @@ useEffect(() => {
               </tr>
             </TableHead>
             <tbody>
-              {listaCanasta.map((item, i) => {
+              {listaCanasta.map((listado, i) => {
                 return (
                 <tr key = {i} >
-                  <TableData key={i + 'td1'}>{item.producto.label}</TableData>
-                  <TableData key={i + 'td2'}>{item.cantidad}</TableData>
-                  <TableData key={i + 'td3'}>{item.producto.valor}</TableData>
+                  <TableData key={i + 'td1'}>{listado.producto.label}</TableData>
+                  <TableData key={i + 'td2'}>{listado.cantidad}</TableData>
+                  <TableData key={i + 'td3'}>{'$ ' + listado.producto.valor}</TableData>
                   <TableData>
                     <button type="button" className="iconSide" onClick={()=>deleteItem(i)}>
                       <FontAwesomeIcon icon={faTrashAlt}/>
                     </button>
-                  </TableData>                     
+                  </TableData>
                 </tr>
                 );
               })}
             </tbody>
           </Table>
-          <Label>Total: {multi}</Label>
+          <Label>Total: $ {multi}</Label>
           {params.id?(
-            <div>
+            <ContenedorEstado>
               <Etiqueta>Estado de la venta: </Etiqueta>
               <RadioButton>
-                <ContentRButton>
-                  <input type="radio" value="En proceso" name="estado"/>
+                <ContentRButton> 
+                  <input 
+                    type="radio" 
+                    value="En proceso" 
+                    name="estadoBoton" 
+                    checked={usuarios.estadoBoton === 'En proceso' ? true:false}
+                    onChange={cambioRadioButton}
+                  />
                   <span>
                     <FontAwesomeIcon icon={faTruckLoading}/>
                   </span>
                   <span> En proceso </span>
                 </ContentRButton>
                 <ContentRButton>
-                  <input type="radio" value="Cancelado" name="estado"/>
+                  <input 
+                    type="radio" 
+                    value="Cancelado" 
+                    name="estadoBoton" 
+                    checked={usuarios.estadoBoton === 'Cancelado' ? true:false}
+                    onChange={cambioRadioButton}
+                  />
                   <span>
                     <FontAwesomeIcon icon={faTimes}/>
                   </span>
                   <span> Cancelado </span>
                 </ContentRButton>
                 <ContentRButton>
-                  <input type="radio" value="Entregado" name="estado"/>
+                  <input 
+                    type="radio" 
+                    value="Entregado" 
+                    name="estadoBoton" 
+                    checked={usuarios.estadoBoton === 'Entregado' ? true:false} 
+                    onChange={cambioRadioButton}
+                  />
                   <span>
                     <FontAwesomeIcon icon={faCheck}/>
                   </span>
                   <span> Entregado </span>
                 </ContentRButton>
               </RadioButton>
-            </div>
+            </ContenedorEstado>
           ):(
             null
-          )}  
-          
-          
+          )}
+
           {formularioValido === false  && <AlertaError/>}
           {params.id?(
-            <BotonCentrado 
+            <BotonCentrado
               nombreBoton = "Actualizar"
               mensajeBoton = "Venta actualizada exitosamente"
               formularioValido = {formularioValido}
             />
           ):(
-            <BotonCentrado 
+            <BotonCentrado
               nombreBoton = "Crear"
               mensajeBoton = "Venta creada exitosamente"
               formularioValido = {formularioValido}
             />
-          )}  
+          )}
       </Formulario>
-            
+
     </main>
   )
 };

@@ -42,7 +42,7 @@ import * as api from './ApiVentas';
       <main className="mainContainerTable">
         <ContenedorBotonCentrado>
           <Boton>
-            <Link to ="/CrearVentas">Crear venta</Link>
+            <Link className="link-boton" to ="/CrearVentas">Crear venta</Link>
           </Boton>
         </ContenedorBotonCentrado>
         <h2 className="tituloGestionVentas">Todas las ventas</h2>

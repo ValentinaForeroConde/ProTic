@@ -4,8 +4,11 @@ const Table = styled.table`
 width: 100%;
 margin: 50px;
 overflow-y: scroll;
+grid-column: span 2;
 @media (max-width: 800px){
-    width: 50%
+    width: 50%;
+    grid-column: span 1;
+
 }
 `;
 
@@ -58,7 +61,15 @@ const Boton = styled.button`
         width: 30%
     }
 `;
+const ContenedorEstado = styled.div`
 
+grid-column: span 2;
+@media (max-width: 800px){
+    width: 50%;
+    grid-column: span 1;
+
+}
+`;
 export{
     Table,
     TableHead,
@@ -66,5 +77,6 @@ export{
     TableRow,
     ContenedorBotonCentrado,
     Boton,
+    ContenedorEstado
 }
 
