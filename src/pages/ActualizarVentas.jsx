@@ -11,6 +11,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import * as api from './ApiVentas';
 import * as apiProductos from 'Api';
 import Selects from 'components/Selects';
+import Swal from 'sweetalert2';
 
 const ActualizarVentas = () => {
   //
@@ -18,7 +19,8 @@ const ActualizarVentas = () => {
   const history = useHistory();
   const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', listaCanasta:[], producto:'', valor:'', estadoBoton:''};
   const [usuarios, setUsuarios] = useState(initialState);
-  const [listaCanasta, setListaCanasta] = useState([]); 
+  const [listaCanasta, setListaCanasta] = useState([]);
+
   const [nombre, cambiarNombre] = useState({campo:'', valido: null});
   const [apellido, cambiarApellido] = useState({campo:'', valido: null});
   const [documento, cambiarDocumento] = useState({campo:'', valido: null});
@@ -30,7 +32,7 @@ const ActualizarVentas = () => {
   const [multi, setMulti] = useState([]);
   const [estadoRadioButton, setEstadoRadioButton] = useState('En proceso');
 
-  
+
   const getVenta = async(idVenta)=>{
     try{
       const res = await api.getVenta(idVenta);
@@ -50,6 +52,7 @@ const ActualizarVentas = () => {
       cambiarIdVendedor({valido:'true'});
       cambiarFecha({valido:'true'});
     }
+    // eslint-disable-next-line
   }, []);
 
   const onSubmitForm = async(e) =>{
@@ -66,16 +69,15 @@ const ActualizarVentas = () => {
           try{
             let res;
             if(!params.id){
-              console.log(usuarios);
-
               res = await api.registerVenta(usuarios);
               console.log(res);
+              showAlert("Creado con exito");
               if(res === 'OK'){
-
                 setUsuarios(initialState);
               }
             }else{
               await api.updateVenta(params.id, usuarios);
+              showAlert("Actualizado con exito");
             }
             history.push("/ventas");
           }catch(error){
@@ -104,10 +106,10 @@ const ActualizarVentas = () => {
     listProductos();
   },[]);
 
-  const productoOpciones = productos.map((producto)=>{
-    return {value: producto._id, label: producto.nombre, valor:producto.valor}
+  const productoOpciones = productos.map((productos)=>{
+    return {value: productos._id, label: productos.nombre, valor:productos.valor}
   });
-  
+
   const agregarProducto = () =>{
     var item = {
       'cantidad':usuarios.cantidadProducto,
@@ -123,7 +125,7 @@ const ActualizarVentas = () => {
     setUsuarios({...usuarios, cantidadProducto:'', producto:"", listaCanasta:listaCanasta});
     // eslint-disable-next-line
 },[listaCanasta])
-  
+
   useEffect(() => {
   },[usuarios]);
 
@@ -132,6 +134,16 @@ const ActualizarVentas = () => {
     listaCanasta.splice(index, 1);
     setListaCanasta([...listaCanasta]);
   };
+
+useEffect(() => {
+      cambiarCantidadProducto({...cantidadProducto,campo:'' ,valido:''});
+      setProducto({...producto,campo:'', valido:''});
+      setUsuarios({...usuarios, cantidadProducto:'', producto:"", listaCanasta:listaCanasta});
+      // eslint-disable-next-line
+  },[listaCanasta])
+
+useEffect(() => {
+},[usuarios])
 
   useEffect(()=>{
     var suma=0;
@@ -148,12 +160,22 @@ const ActualizarVentas = () => {
 
   useEffect(()=>{
     setUsuarios({...usuarios, estadoBoton:estadoRadioButton});
+    // eslint-disable-next-line
   },[estadoRadioButton]);
-  
+
   useEffect(()=>{
     console.log(usuarios.estadoBoton);
   },[usuarios.estadoBoton]);
-  
+
+  const showAlert =(comentario)=>{
+    Swal.fire({
+        icon: 'success',
+        title: (comentario),
+        showConfirmButton: false,
+        timer: 1500
+    })
+}
+
   return (
       <main>
         <button className="botonVolver">
@@ -163,7 +185,7 @@ const ActualizarVentas = () => {
         </button>
         <h2 className="tituloGestionVentas">Registro de venta</h2>
         <Formulario className = "guiGestionUsuarios" onSubmit = {onSubmitForm} action="">
-          <Input 
+          <Input
             user = "Nombre"
             placeholdercont = "Nombre"
             tipo = "text"
@@ -176,7 +198,7 @@ const ActualizarVentas = () => {
             usuarios = {usuarios}
             setUsuarios = {setUsuarios}
           />
-          <Input 
+          <Input
             user = "Apellido"
             placeholdercont = "Apellido"
             tipo = "text"
@@ -189,7 +211,7 @@ const ActualizarVentas = () => {
             usuarios = {usuarios}
             setUsuarios = {setUsuarios}
            />
-          <Input 
+          <Input
             user = "Documento"
             placeholdercont = "Número del documento"
             tipo = "number"
@@ -214,7 +236,7 @@ const ActualizarVentas = () => {
             usuarios = {usuarios}
             setUsuarios = {setUsuarios}
           />
-          <Input 
+          <Input
             user = "Id-vendedor"
             placeholdercont = "Indíque su Id"
             tipo = "number"
@@ -228,12 +250,12 @@ const ActualizarVentas = () => {
             setUsuarios = {setUsuarios}
           />
           {params.id?(
-            <LabelVenta> 
-              Id-Venta: {usuarios._id} 
+            <LabelVenta>
+              Id-Venta: {usuarios._id}
             </LabelVenta>
           ):(
             null
-          )}  
+          )}
           <Etiqueta>Información de compra: </Etiqueta>
           <Selects
             user = "Producto"
@@ -249,7 +271,7 @@ const ActualizarVentas = () => {
             DefVal = {usuarios.producto}
           />
           <ContCarrito>
-            <Input 
+            <Input
               user = "cantidad"
               placeholdercont = "cantidad producto"
               tipo = "number"
@@ -286,7 +308,7 @@ const ActualizarVentas = () => {
                     <button type="button" className="iconSide" onClick={()=>deleteItem(i)}>
                       <FontAwesomeIcon icon={faTrashAlt}/>
                     </button>
-                  </TableData>                     
+                  </TableData>
                 </tr>
                 );
               })}
@@ -340,25 +362,24 @@ const ActualizarVentas = () => {
             </ContenedorEstado>
           ):(
             null
-          )}  
-          
-          
+          )}
+
           {formularioValido === false  && <AlertaError/>}
           {params.id?(
-            <BotonCentrado 
+            <BotonCentrado
               nombreBoton = "Actualizar"
               mensajeBoton = "Venta actualizada exitosamente"
               formularioValido = {formularioValido}
             />
           ):(
-            <BotonCentrado 
+            <BotonCentrado
               nombreBoton = "Crear"
               mensajeBoton = "Venta creada exitosamente"
               formularioValido = {formularioValido}
             />
-          )}  
+          )}
       </Formulario>
-            
+
     </main>
   )
 };

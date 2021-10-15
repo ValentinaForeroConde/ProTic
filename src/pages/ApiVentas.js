@@ -18,7 +18,6 @@ export const registerVenta = async (newVenta) =>{
                 documento: newVenta.documento,
                 fecha: newVenta.fecha,
                 idVendedor: newVenta.idVendedor,
-                cantidadProducto: newVenta.cantidadProducto,
                 listaCanasta: newVenta.listaCanasta,
                 estadoBoton: newVenta.estadoBoton,
             },

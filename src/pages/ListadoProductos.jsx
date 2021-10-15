@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
 import * as api from 'Api'
+import Swal from 'sweetalert2';
 
 
 const ListadoProductos = () => {
@@ -41,11 +42,36 @@ const ListadoProductos = () => {
     );
   }, [busqueda, productos]);
 
+  const showAlert =(producto)=>{
+    Swal.fire({
+      title:'Atención!',
+      text:'Deseas eliminar el producto seleccionado?',
+      icon:'warning',
+      showConfirmButton:true,
+      confirmButtonColor: '#023047',
+      confirmButtonText: 'Si',
+      showCancelButton:true,
+      cancelButtonColor: '#023047',
+      cancelButtonText: 'No',
+      showCloseButton:true,
+  }).then((result)=>{
+    if(result.value){
+      handleDelete(producto)
+        Swal.fire({
+          icon: 'success',
+          title: 'Producto eliminado',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
+  }
+
   return (
     <main className="mainContainerTable">
       <ContenedorBotonCentrado>
         <Boton>
-          <Link to="/CrearProductos">Agregar</Link>
+          <Link className="link-boton" to="/CrearProductos">Agregar</Link>
         </Boton>
       </ContenedorBotonCentrado>
       <h2 className="tituloGestionVentas">Todos los productos</h2>
@@ -67,7 +93,7 @@ const ListadoProductos = () => {
           {productosFiltrados.map((productos) =>(
             <TableRow key={productos._id}>
               <TableData>{productos.nombre}</TableData>
-              <TableData>{productos.estado}</TableData>
+              <TableData>{productos.Estado.label}</TableData>
               <TableData>{productos.valor}</TableData>
               <TableData>
                 <button className="iconSide" onClick={() => {
@@ -75,8 +101,11 @@ const ListadoProductos = () => {
                 >
                   <FontAwesomeIcon  icon={faPenAlt}/>
                 </button>
-                <button className="iconSide" onClick={()=>handleDelete(productos._id)}>
-                  <FontAwesomeIcon icon={faTrashAlt}/>
+                <button
+                  className="iconSide"
+                  onClick={()=>{showAlert(productos._id)}}
+                >
+                    <FontAwesomeIcon icon={faTrashAlt}/>
                 </button>
               </TableData>
             </TableRow>

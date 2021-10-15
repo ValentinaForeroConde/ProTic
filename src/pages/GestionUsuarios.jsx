@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from "@material-ui/core";
 import * as server from './server';
+import Swal from 'sweetalert2';
 
 
 function GestionUsuarios() {
@@ -58,18 +59,20 @@ function GestionUsuarios() {
             Rol.valido === 'true' &&
             Estado.valido === 'true'
             ){
-            cambiarFormularioValido(true);
-            try{
-                let res;
-                if(!params.id){
-                    res= await server.registerUser(usuarios);
-                    console.log(res)
-                    if (res === 'OK'){
-                        setUsuarios(initialState);
+                cambiarFormularioValido(true);
+                try{
+                    let res;
+                    if(!params.id){
+                        res= await server.registerUser(usuarios);
+                        console.log(res)
+                        showAlert("Creado con exito");
+                        if (res === 'OK'){
+                            setUsuarios(initialState);
+                            }
+                    }else{
+                        await server.updateUser(params.id, usuarios);
+                        showAlert("Actualizado con exito");
                     }
-                }else{
-                    await server.updateUser(params.id, usuarios);
-                }
                 history.push("/TablaGestionUsuarios");
             }catch(error){
                 console.log(error)
@@ -90,6 +93,15 @@ function GestionUsuarios() {
             {value:'1', label: 'Autorizado'},
             {value:'2', label: 'No Autorizado'}
         ];
+
+        const showAlert =(comentario)=>{
+            Swal.fire({
+                icon: 'success',
+                title: (comentario),
+                showConfirmButton: false,
+                timer: 1500
+              })
+          }
 
     return (
         <main className="guiGestionUsuarios">
@@ -142,7 +154,7 @@ function GestionUsuarios() {
                 <Selects
                     estado={Rol}
                     cambiarEstado={cambiarRol}
-                    DefVal={opcion1[usuarios.Rol]}
+                    DefVal={opcion1[usuarios.Rol.value]}
                     tipo="text"
                     user="Rol"
                     name="Rol"
@@ -155,7 +167,7 @@ function GestionUsuarios() {
                <Selects
                     estado={Estado}
                     cambiarEstado={cambiarEstado}
-                    DefVal={opcion2[usuarios.Estado]}
+                    DefVal={opcion2[usuarios.Estado.value]}
                     tipo="text"
                     user="Estado"
                     name="Estado"
@@ -179,7 +191,7 @@ function GestionUsuarios() {
                     formularioValido = {formularioValido}
                     mensajeBoton = "Creación exitosa"
                     />
-                )};
+                )}
 
            </Formulario>
         </main>
