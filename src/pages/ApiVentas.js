@@ -68,8 +68,8 @@ export const updateVenta = async (idVenta, updateVenta) =>{
                 documento: updateVenta.documento,
                 fecha: updateVenta.fecha,
                 idVendedor: updateVenta.idVendedor,
-                cantidadProducto: updateVenta.cantidadProducto,
-                producto: updateVenta.producto
+                listaCanasta: updateVenta.listaCanasta,
+                estadoBoton: updateVenta.estadoBoton
             },
         })
         return response

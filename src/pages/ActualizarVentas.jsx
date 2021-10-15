@@ -10,19 +10,15 @@ import {faCartPlus, faArrowLeft, faTruckLoading, faTimes, faCheck, faTrashAlt} f
 import { Link, useHistory, useParams } from 'react-router-dom';
 import * as api from './ApiVentas';
 import * as apiProductos from 'Api';
-import { GrupoInput } from 'elements/Formularios';
 import Selects from 'components/Selects';
 
 const ActualizarVentas = () => {
 
   const params = useParams();
   const history = useHistory();
-  const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', listaCanasta:'', producto:'', valor:'', estadoBoton:''};
+  const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', listaCanasta:[], producto:'', valor:'', estadoBoton:''};
   const [usuarios, setUsuarios] = useState(initialState);
-  const [canasta, setCanasta]=useState({item:'', cantidad:''});
   const [listaCanasta, setListaCanasta] = useState([]);
-  
-  
       
   const [nombre, cambiarNombre] = useState({campo:'', valido: null});
   const [apellido, cambiarApellido] = useState({campo:'', valido: null});
@@ -40,8 +36,9 @@ const ActualizarVentas = () => {
     try{
       const res = await api.getVenta(idVenta);
       setUsuarios(res.data);
+      setListaCanasta(res.data.listaCanasta);
     }catch(error){
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -53,7 +50,6 @@ const ActualizarVentas = () => {
       cambiarDocumento({valido:'true'});
       cambiarIdVendedor({valido:'true'});
       cambiarFecha({valido:'true'});
-      cambiarCantidadProducto({valido:'true'});
     }
   }, []);
 
@@ -113,22 +109,26 @@ const ActualizarVentas = () => {
     return {value: producto._id, label: producto.nombre, valor:producto.valor}
   });
   
-  const agregarProducto = ()=>{
-    setListaCanasta([...listaCanasta, canasta]);
-    setUsuarios({...usuarios, listaCanasta:listaCanasta})
-  };
-
-  useEffect(()=>{
-    setCanasta({...canasta, item:usuarios.producto, cantidad:usuarios.cantidadProducto});
-    // eslint-disable-next-line
-  },[producto, cantidadProducto]);
+  const agregarProducto = () =>{
+    var item = {
+      'cantidad':usuarios.cantidadProducto,
+      'producto': usuarios.producto,
+      'valor': usuarios.producto.valor
+      };
+      setListaCanasta([...listaCanasta, item]);
+  }
 
   useEffect(() => {
     setUsuarios({...usuarios, cantidadProducto:'', producto:{"value":"","label":""}})
     cambiarCantidadProducto({valido:''});
-    setProducto({valido:''})
+    setProducto({valido:''});
+    setUsuarios({...usuarios,  listaCanasta:listaCanasta});
+      // eslint-disable-next-line
   },[listaCanasta]);
   
+  useEffect(() => {
+  },[usuarios]);
+
   const deleteItem =(i)=>{
     var index = i;
     listaCanasta.splice(index, 1);
@@ -137,17 +137,23 @@ const ActualizarVentas = () => {
 
   useEffect(()=>{
     for (let i of listaCanasta){
-      setMulti(parseInt(multi + (i.item.valor * i.cantidad)));
+      setMulti(parseInt(multi + (i.producto.valor * i.cantidad)));
       console.log(multi);
     }
   },[listaCanasta]);
 
   const cambioRadioButton=e=>{
     setEstadoRadioButton(e.target.value);
-    setUsuarios({...usuarios, estadoBoton:estadoRadioButton});
-    console.log(estadoRadioButton);
-  }
+  };
 
+  useEffect(()=>{
+    setUsuarios({...usuarios, estadoBoton:estadoRadioButton});
+  },[estadoRadioButton]);
+  
+  useEffect(()=>{
+    console.log(usuarios.estadoBoton);
+  },[usuarios.estadoBoton]);
+  
   return (
       <main>
         <button className="botonVolver">
@@ -274,9 +280,9 @@ const ActualizarVentas = () => {
               {listaCanasta.map((listado, i) => {
                 return (
                 <tr key = {i} >
-                  <TableData key={i + 'td1'}>{listado.item.label}</TableData>
+                  <TableData key={i + 'td1'}>{listado.producto.label}</TableData>
                   <TableData key={i + 'td2'}>{listado.cantidad}</TableData>
-                  <TableData key={i + 'td3'}>{'$ ' + listado.item.valor}</TableData>
+                  <TableData key={i + 'td3'}>{'$ ' + listado.producto.valor}</TableData>
                   <TableData>
                     <button type="button" className="iconSide" onClick={()=>deleteItem(i)}>
                       <FontAwesomeIcon icon={faTrashAlt}/>
@@ -292,12 +298,12 @@ const ActualizarVentas = () => {
             <ContenedorEstado>
               <Etiqueta>Estado de la venta: </Etiqueta>
               <RadioButton>
-                <ContentRButton>
+                <ContentRButton> 
                   <input 
                     type="radio" 
                     value="En proceso" 
                     name="estadoBoton" 
-                    checked={estadoRadioButton === 'En proceso' ? true:false}
+                    checked={usuarios.estadoBoton === 'En proceso' ? true:false}
                     onChange={cambioRadioButton}
                   />
                   <span>
@@ -310,7 +316,7 @@ const ActualizarVentas = () => {
                     type="radio" 
                     value="Cancelado" 
                     name="estadoBoton" 
-                    checked={estadoRadioButton === 'Cancelado' ? true:false}
+                    checked={usuarios.estadoBoton === 'Cancelado' ? true:false}
                     onChange={cambioRadioButton}
                   />
                   <span>
@@ -323,7 +329,7 @@ const ActualizarVentas = () => {
                     type="radio" 
                     value="Entregado" 
                     name="estadoBoton" 
-                    checked={estadoRadioButton === 'Entregado' ? true:false}
+                    checked={usuarios.estadoBoton === 'Entregado' ? true:false} 
                     onChange={cambioRadioButton}
                   />
                   <span>
