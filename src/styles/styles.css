@@ -53,7 +53,9 @@ Aside{
 
 }
 
-
+.contenido{
+  padding-left: 200px;
+}
 
 .tituloUno{
   background-color: #FFC300 ;
@@ -78,7 +80,7 @@ Aside{
   padding: 0;
   width: 200px;
   background-color: #023047;
-  position: fixed;  
+  position:fixed;  
   overflow: auto;
   font-weight: bold;
   display: block;
@@ -127,20 +129,23 @@ div.content {
   height: 100%;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 700px) {
   .sidebar {
   visibility: hidden;
+  }
+  .contenido{
+    padding-left: 0;
   }
 
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 700px) {
   .responsive {
   visibility: hidden;
   }
 
 }
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 700px) {
   .burger {
   visibility: hidden;
   }

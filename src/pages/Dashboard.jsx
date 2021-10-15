@@ -1,10 +1,11 @@
 import React from "react";
+import Cards from "../components/Cards"
 
 const Dashboard = () => {
   return (
     <div>
       <div>
-        <h1>hola</h1>
+        <Cards />
       </div>
     </div>
   );

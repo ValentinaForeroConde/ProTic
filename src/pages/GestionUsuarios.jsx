@@ -179,7 +179,7 @@ function GestionUsuarios() {
                     formularioValido = {formularioValido}
                     mensajeBoton = "Creación exitosa"
                     />
-                )};
+                )}
 
            </Formulario>
         </main>

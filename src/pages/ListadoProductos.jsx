@@ -80,7 +80,7 @@ const ListadoProductos = () => {
                 </button>
               </TableData>
             </TableRow>
-          ))};
+          ))}
         </tbody>
       </Table>
     </main>
