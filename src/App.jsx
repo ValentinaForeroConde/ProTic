@@ -28,11 +28,13 @@ function App() {
               "/gestionUsuarios",
               "/ventas",
               "/CrearProductos",
+              "/CrearVentas",
               "/ActualizarVentas",
               "/Dashboard",
               "/ListadoProductos",
               "/TablaGestionUsuarios",
               "/editarUsuario/:id",
+              "/editarProductos/:id",
             ]}
           >
             <PrivateLayout>
@@ -40,7 +42,10 @@ function App() {
                 <Route path="/CrearProductos">
                   <ActualizarProductos />
                 </Route>
-                <Route path="/ActualizarVentas">
+                <Route path="/ActualizarVentas/:id">
+                  <ActualizarVentas />
+                </Route>
+                <Route path="/CrearVentas">
                   <ActualizarVentas />
                 </Route>
                 <Route path="/gestionUsuarios">
@@ -57,6 +62,9 @@ function App() {
                 </Route>
                 <Route path="/editarUsuario/:id">
                   <GestionUsuarios />
+                </Route>
+                <Route path="/editarProductos/:id">
+                  <ActualizarProductos />
                 </Route>
                 <Route path="/Dashboard">
                   <Dashboard />

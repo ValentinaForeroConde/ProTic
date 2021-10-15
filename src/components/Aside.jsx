@@ -6,8 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUsers, faHome, faCashRegister, faShoppingBag, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useAuth0 } from "@auth0/auth0-react";
 
-
-
 const Aside = () => {
     const { logout } = useAuth0();
     return (        
@@ -41,6 +39,6 @@ const Aside = () => {
             </nav>
         
     )
-}
+};
 
-export default Aside
+export default Aside;

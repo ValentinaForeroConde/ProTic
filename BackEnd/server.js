@@ -6,6 +6,7 @@ import rutasUsuario from './views/usuarios/rutas.js';
 import rutasProductos from './views/productos/rutas.js';
 import jwt from 'express-jwt';//importacion api aut
 import jwks from 'jwks-rsa';//importacion api aut
+import rutasVenta from './views/ventas/rutas.js';
 
 dotenv.config({path: './.env'});
 const app = Express();
@@ -18,6 +19,7 @@ app.use(Cors());
 
 app.use(rutasUsuario);
 app.use(rutasProductos);
+app.use(rutasVenta);
 var jwtCheck = jwt({
     secret: jwks.expressJwtSecret({
         cache: true,
@@ -32,9 +34,10 @@ var jwtCheck = jwt({
 //implementacion api
 app.use(jwtCheck);
 
+
 const main = () => {
     return app.listen(process.env.PORT, () => {
-        console.log('escuchando puerto ${process.env.PORT}');
+        console.log(`escuchando puerto ${process.env.PORT}`);
     });
 };
 

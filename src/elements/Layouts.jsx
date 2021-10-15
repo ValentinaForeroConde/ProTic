@@ -35,7 +35,5 @@ const Boton = styled.button`
     }
 `;
 
-
-
  
 export {Bar,Foot,Boton};

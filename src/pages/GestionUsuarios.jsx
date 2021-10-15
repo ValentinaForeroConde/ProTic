@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from "@material-ui/core";
 import * as server from './server';
-// import axios from 'axios';
 
 
 function GestionUsuarios() {
@@ -21,21 +20,13 @@ function GestionUsuarios() {
     const initialState={_id:'', nombre:'',apellido:'', documento:'', Estado:'', Rol:''}
     const [usuarios, setUsuarios]= useState(initialState);
 
-    const [nombre, cambiarNombre] = useState({valido: ''});
-    const [apellido, cambiarApellido] = useState({valido: ''});
-    const [documento, cambiarDocumento] = useState({valido: ''});
-    const [Rol, cambiarRol] = useState({valido: ''});
-    const [Estado, cambiarEstado] = useState({valido: ''});
+    const [nombre, cambiarNombre] = useState({campo:'',valido: ''});
+    const [apellido, cambiarApellido] = useState({campo:'',valido: ''});
+    const [documento, cambiarDocumento] = useState({campo:'',valido: ''});
+    const [Rol, cambiarRol] = useState({campo:'',valido: ''});
+    const [Estado, cambiarEstado] = useState({campo:'',valido: ''});
     const [formularioValido, cambiarFormularioValido] = useState('');
 
-
-    // useEffect(()=>{
-    //     cambiarNombre({nombre, campo: usuarios.nombre, valido:'true'})
-    //     cambiarApellido({apellido, campo: usuarios.apellido, valido:'true'})
-    //     cambiarDocumento({documento, campo: usuarios.documento, valido:'true'})
-    //     cambiarRol({Rol, campo: usuarios.Rol, valido:'true'})
-    //     cambiarEstado({Estado, campo: usuarios.Estado, valido:'true'})
-    // },[]);
 
     const getUsuario= async(usuarioId)=>{
         try{
@@ -49,30 +40,17 @@ function GestionUsuarios() {
     useEffect(() => {
         if(params.id){
             getUsuario(params.id);
-
+            cambiarNombre({valido: "true"});
+            cambiarApellido({valido: "true"});
+            cambiarDocumento({valido: "true"});
+            cambiarRol({valido: "true"});
+            cambiarEstado({valido: "true"});
         }
         // eslint-disable-next-line
     }, []);
 
     const onSubmitForm = async(e) =>{
         e.preventDefault();
-        try{
-            let res;
-            if(!params.id){
-                res= await server.registerUser(usuarios);
-                console.log(res)
-                if (res ==="OK"){
-                    setUsuarios(initialState);
-            }else{
-                await server.updateUser(params.id, usuarios);
-            }
-                history.push("/TablaGestionUsuarios");
-            }
-
-        }catch(error){
-            console.log(error)
-        }
-
         if (
             nombre.valido === 'true' &&
             apellido.valido === 'true' &&
@@ -80,33 +58,42 @@ function GestionUsuarios() {
             Rol.valido === 'true' &&
             Estado.valido === 'true'
             ){
-                cambiarFormularioValido(true);
-                // cambiarNombre({campo: '', valido:''});
-                // cambiarApellido({campo: '', valido:''});
-                // cambiarDocumento({campo: '', valido:''});
-                // cambiarRol({campo: '', valido:''});
-                // cambiarEstado({campo: '', valido:''});
-
-                // hacer envios a apis base de datos
+            cambiarFormularioValido(true);
+            try{
+                let res;
+                if(!params.id){
+                    res= await server.registerUser(usuarios);
+                    console.log(res)
+                    if (res === 'OK'){
+                        setUsuarios(initialState);
+                    }
+                }else{
+                    await server.updateUser(params.id, usuarios);
+                }
+                history.push("/TablaGestionUsuarios");
+            }catch(error){
+                console.log(error)
+            }
             }else{
                 cambiarFormularioValido(false);
             }
-        }
+        };
+
         const opcion1  = [
             {value:'0', label: 'Administrador'},
             {value:'1', label: 'Vendedor'},
             {value:'2', label: 'Pendiente'}
-        ]
+        ];
+
         const opcion2  = [
             {value:'0', label: 'Pendiente'},
             {value:'1', label: 'Autorizado'},
             {value:'2', label: 'No Autorizado'}
-        ]
-
+        ];
 
     return (
         <main className="guiGestionUsuarios">
-             <h2 className="tituloGestionVentas">Gestion Usuarios</h2>
+            <h2 className="tituloGestionVentas">Gestion Usuarios</h2>
             <Tooltip title="Regresar" arrow >
                 <Link to='/TablaGestionUsuarios'>
                     <FontAwesomeIcon icon={faArrowLeft}/>
@@ -165,7 +152,6 @@ function GestionUsuarios() {
                     usuarios={usuarios}
                     setUsuarios={setUsuarios}
                 />
-
                <Selects
                     estado={Estado}
                     cambiarEstado={cambiarEstado}
@@ -180,26 +166,25 @@ function GestionUsuarios() {
                     setUsuarios={setUsuarios}
                 />
 
-
                 {formularioValido === false  && <AlertaError/> }
                 { params.id?(
                     <BotonCentrado
                     nombreBoton = "Actualizar"
                     formularioValido = {formularioValido}
                     mensajeBoton = "Actualización exitosa"
-                />
+                    />
                 ):(
                     <BotonCentrado
                     nombreBoton = "Crear"
                     formularioValido = {formularioValido}
                     mensajeBoton = "Creación exitosa"
-                />
+                    />
+                )};
 
-                ) }
            </Formulario>
         </main>
     );
-}
+};
 
 
-export default GestionUsuarios
+export default GestionUsuarios;

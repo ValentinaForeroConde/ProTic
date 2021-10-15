@@ -2,17 +2,14 @@ import styled from "styled-components";
 
 const Table = styled.table`
 width: 100%;
-<<<<<<< HEAD
-margin: 0;
-border-spacing: 0;
-
-=======
 margin: 50px;
 overflow-y: scroll;
+grid-column: span 2;
 @media (max-width: 800px){
-    width: 50%
+    width: 50%;
+    grid-column: span 1;
+
 }
->>>>>>> 86c87f2e5f81af4b752d3697600543dec55a3a4a
 `;
 
 const TableHead = styled.thead`
@@ -64,7 +61,15 @@ const Boton = styled.button`
         width: 30%
     }
 `;
+const ContenedorEstado = styled.div`
 
+grid-column: span 2;
+@media (max-width: 800px){
+    width: 50%;
+    grid-column: span 1;
+
+}
+`;
 export{
     Table,
     TableHead,
@@ -72,5 +77,6 @@ export{
     TableRow,
     ContenedorBotonCentrado,
     Boton,
+    ContenedorEstado
 }
 

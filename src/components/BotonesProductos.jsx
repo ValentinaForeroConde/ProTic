@@ -9,6 +9,6 @@ const BotonesProductos = ({nombreBoton, mensajeBoton, formularioValido}) => {
         </ContenedorBotonCentrado>
 
     )
-}
+};
 
-export default BotonesProductos
+export default BotonesProductos;

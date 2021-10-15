@@ -147,10 +147,6 @@ div.content {
 
 }
 
-
-
-
-
 .guiGestionUsuarios{
     max-width: 800px;
     width: 90%;
@@ -214,4 +210,8 @@ input[type=number] { -moz-appearance:textfield; }
   padding: 0px 40px 0px 10px;
   margin-left: 53px;
   transition: .3s ease all;
+}
+.link-boton{
+  text-decoration: none;
+  color: #fff;
 }
