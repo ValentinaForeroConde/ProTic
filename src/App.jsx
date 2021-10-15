@@ -10,9 +10,15 @@ import ActualizarProductos from "pages/ActualizarProductos";
 import ActualizarVentas from "pages/ActualizarVentas";
 import ListadoProductos from "pages/ListadoProductos";
 import TablaGestionUsuarios from "pages/TablaGestionUsuarios";
-
+import { Auth0Provider } from "@auth0/auth0-react";
 function App() {
   return (
+  
+    <Auth0Provider
+    domain="protic.us.auth0.com"
+    clientId="TRzeRVZrK9oTBxYwvXwLGZvFyDp9enSK"
+    redirectUri={window.location.origin}
+  >
     <div className="App">
       <Router>
         <Switch>
@@ -62,9 +68,13 @@ function App() {
               <Index />
             </PublicLayout>
           </Route>
+       
         </Switch>
       </Router>
     </div>
+
+    </Auth0Provider>
+ 
   );
 }
 

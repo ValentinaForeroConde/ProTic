@@ -1,19 +1,20 @@
 import React from 'react'
 import {Bar,Boton} from 'elements/Layouts'
-import { Link } from 'react-router-dom'
-import Googlein from './Googlein'
 import PrivateLayout from 'layouts/PrivateLayout'
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 
 
 const Navbar = () => {
+   
+        const { loginWithRedirect } = useAuth0()
     return (
         <div>
             <Bar>         
                 
-             <Boton><Link to='/Dashboard'>LOG</Link></Boton>
-             <Googlein/>           
+            <Boton onClick={() => loginWithRedirect()}>Log In</Boton>
+                     
             </Bar>
             
         </div>

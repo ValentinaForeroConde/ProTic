@@ -1,14 +1,15 @@
 import React from 'react'
-import {Side, Fila,Boton} from 'elements/Layouts'
 import { Link } from 'react-router-dom'
 import logoPets1 from "assets/logoPets1.png";
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUsers, faHome, faCashRegister, faShoppingBag, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 
 const Aside = () => {
+    const { logout } = useAuth0();
     return (        
             <nav className="sidebar">
                 <div padding='20px'><img   className='bola' src={logoPets1} alt="" /></div>
@@ -32,6 +33,9 @@ const Aside = () => {
                 </NavLink>
                 <Link className="a" to=''>
                     <FontAwesomeIcon className="iconSide" icon={faSignOutAlt}/>
+                    <button onClick={() => logout({ returnTo: window.location.origin })}>
+      Log Out
+    </button>
                     Salir
                 </Link>
             </nav>

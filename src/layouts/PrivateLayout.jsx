@@ -1,11 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Aside from "components/Aside";
 import Footer from "components/Footer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SideResponsive from "components/SideResponsive";
+import PrivateRoute from "components/PrivateRoute"
 
-const PrivateLayout = ({ children }) => {
+
+
+const PrivateLayout = ({ children }) => {    
+  
+ 
+ 
+
+
   return (
+    <PrivateRoute>
     <div className="layout">
       <Aside/>
       <SideResponsive />
@@ -13,6 +21,7 @@ const PrivateLayout = ({ children }) => {
       <div className="contenido"> {children}</div>
       <Footer />
     </div>
+    </PrivateRoute>
   );
 };
 
