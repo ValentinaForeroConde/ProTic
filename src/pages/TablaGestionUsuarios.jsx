@@ -78,8 +78,8 @@ const TablaGestionUsuarios = () => {
                 <TableHead>
                   <tr>
                     <TableData>Nombre</TableData>
+                    <TableData>Apellido</TableData>
                     <TableData>Documento</TableData>
-                    <TableData>Estado</TableData>
                     <TableData>Editar</TableData>
                   </tr>
                 </TableHead>
