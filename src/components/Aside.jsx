@@ -8,6 +8,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Aside = () => {
     const { logout } = useAuth0();
+    const cerrarSesion =()=>{
+        logout({returnTo:'http://localhost:3000'});
+        localStorage.setItem('token', null);
+    }
     return (        
             <nav className="sidebar">
                 <div padding='20px'><img   className='bola' src={logoPets1} alt="" /></div>
@@ -31,7 +35,7 @@ const Aside = () => {
                 </NavLink>
                 <Link className="a" to=''>
                     <FontAwesomeIcon className="iconSide" icon={faSignOutAlt}/>
-                    <button onClick={() => logout({ returnTo: window.location.origin })}>
+                    <button onClick={() => cerrarSesion()}>
       Log Out
     </button>
                     Salir

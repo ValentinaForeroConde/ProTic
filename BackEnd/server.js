@@ -4,9 +4,10 @@ import dotenv from 'dotenv';
 import { conectarBD } from './db/db.js';
 import rutasUsuario from './views/usuarios/rutas.js';
 import rutasProductos from './views/productos/rutas.js';
+import rutasVenta from './views/ventas/rutas.js';
 import jwt from 'express-jwt';//importacion api aut
 import jwks from 'jwks-rsa';//importacion api aut
-import rutasVenta from './views/ventas/rutas.js';
+
 
 dotenv.config({path: './.env'});
 const app = Express();
@@ -17,9 +18,7 @@ app.use(Cors());
 //implementacion de la api aut0
 
 
-app.use(rutasUsuario);
-app.use(rutasProductos);
-app.use(rutasVenta);
+
 var jwtCheck = jwt({
     secret: jwks.expressJwtSecret({
         cache: true,
@@ -33,6 +32,10 @@ var jwtCheck = jwt({
 });
 //implementacion api
 app.use(jwtCheck);
+
+app.use(rutasUsuario);
+app.use(rutasProductos);
+app.use(rutasVenta);
 
 
 const main = () => {

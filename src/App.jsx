@@ -17,8 +17,8 @@ function App() {
     <Auth0Provider
     domain="protic.us.auth0.com"
     clientId="TRzeRVZrK9oTBxYwvXwLGZvFyDp9enSK"
-    redirectUri={window.location.origin}
-    audience='api-autenticacion-petshop'
+    redirectUri={"http://localhost:3000/Dashboard"}
+    audience="api-autenticacion-petshop"
   >
     <div className="App">
       <Router>

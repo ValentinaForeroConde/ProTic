@@ -1,9 +1,13 @@
 import axios from 'axios';
 
 const API_URL = "http://localhost:5000/venta"
+const getToken = ()=>{
+    return `bearer ${localStorage.getItem('token')}`
+}
 
 export const listaVentas = async () => {
-    return await axios.get(API_URL);
+    return await axios.get(API_URL, `headers:{
+        Authorization: ${getToken}}`);
 
   };
 

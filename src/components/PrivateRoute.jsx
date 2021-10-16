@@ -5,19 +5,22 @@ import { useAuth0 } from "@auth0/auth0-react";
 const PrivateRoute = ({children}) => {
     const { user, isAuthenticated,getAccessTokenSilently , isLoading } = useAuth0();
     
-    
+    console.log(isAuthenticated);
+    console.log(isLoading)
     useEffect(() => {
-
-        const fetchAuthToken = async () =>{
-            const  accessToken= await getAccessTokenSilently({
+if (!isAuthenticated){
+        const fetchAuth0Token = async () =>{
+            const accessToken = await getAccessTokenSilently({
                 audience: 'api-autenticacion-petshop',
             });
-            localStorage.setItem("token",accessToken);
+            localStorage.setItem('token', accessToken);
+            console.log("1.  se guarda el token")
+
             console.log(accessToken);
         }
-       if(isAuthenticated){
-        fetchAuthToken()
-       }        
+        
+            fetchAuth0Token();
+    }
       }, [isAuthenticated,getAccessTokenSilently]);
 
     
