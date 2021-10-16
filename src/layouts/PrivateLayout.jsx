@@ -8,7 +8,7 @@ const PrivateLayout = ({ children }) => {
     <div className="layout">
       <Aside/>
       <SideResponsive />
-      <div className="contenido"> {children}</div>
+      <div className="contenido "> {children}</div>
       <Footer />
     </div>
   );
