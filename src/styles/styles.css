@@ -93,7 +93,7 @@ Aside{
   padding: 16px;
   text-decoration: none;
 }
- 
+
 .sidebar .a.active {
   background-color: rgba(0, 68, 170, 0.555);
   color: white;
@@ -119,8 +119,7 @@ div.content {
   margin: 0;
   padding: 0;
   width: 200px;
-  
-  position: fixed;  
+  position: fixed;
   overflow: auto;
   font-weight: bold;
   display: block;
@@ -217,4 +216,36 @@ input[type=number] { -moz-appearance:textfield; }
 }
 .estado-venta p{
   margin-left: 12rem;
+}
+
+.Perfil{
+  display: block;
+  position: absolute;
+  margin: 0px 0px 30px 40px;
+  bottom:0px;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  border: 2px solid white;
+  text-align:center;
+  object-fit:fill;
+  ;}
+
+.sidebar .ButtonSalir{
+  display: block;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  border:none;
+  background-color:#023047;
+  margin: 15px;
+}
+.sidebar .ButtonSalir:hover:not(.active) {
+  background-color:  #0e7a96;
+  color: white;
+  border-radius: 20px;
+  margin: 15px;
+  border:none;
+
 }

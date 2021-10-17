@@ -5,6 +5,7 @@ import {faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 import * as server from './server';
 import Swal from 'sweetalert2';
+import ReactLoading from 'react-loading';
 
 const TablaGestionUsuarios = () => {
 
@@ -12,8 +13,10 @@ const TablaGestionUsuarios = () => {
 
     const listUsuarios = async()=>{
       try{
+        setLoading(true);
         const res = await server.listUsuarios();
         setUsuarios(res.data)
+        setLoading(false);
       }catch(error){
         console.log(error)
       }
@@ -40,8 +43,10 @@ const TablaGestionUsuarios = () => {
       }));
     }, [busqueda, usuarios]);
 
+    const[loading, setLoading] = useState(false);
+
         //Ventana nodal
-        const showAlert =(usuario)=>{
+    const showAlert =(usuario)=>{
           Swal.fire({
             title:'Atención!',
             text:'Deseas eliminar el usuario seleccionado?',
@@ -74,6 +79,9 @@ const TablaGestionUsuarios = () => {
                 onChange={(e) => setBusqueda(e.target.value)}
                 placeholder='Buscar'
             />
+            {loading  ?  (
+                <ReactLoading  type="cylon" color="#023047" height={300} width={300} />
+            ):(
               <Table>
                 <TableHead>
                   <tr>
@@ -106,6 +114,8 @@ const TablaGestionUsuarios = () => {
                   ))}
                 </tbody>
               </Table>
+            )
+            }
             </main>
           );
     }

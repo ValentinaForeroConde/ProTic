@@ -1,5 +1,5 @@
 import Express from 'express';
-import { queryAllUsuarios, crearUsuario, editarUsuario, eliminarUsuario, consultarUsuario} from '../../controllers/usuarios/controller.js';
+import { queryAllUsuarios, crearUsuario, editarUsuario, eliminarUsuario, consultarUsuario, consultarOCrearUsuario} from '../../controllers/usuarios/controller.js';
 
 const rutasUsuario = Express.Router();
 
@@ -16,6 +16,12 @@ rutasUsuario.route('/usuario').get((req,res)=>{
     queryAllUsuarios(genericCallback(res));
 });
 
+rutasUsuario.route('/usuario/self').get((req,res)=>{
+    console.log('alguien hizo get en la ruta /self');
+    consultarOCrearUsuario(req,genericCallback(res));
+    //consultarUsuario(req.params.id, genericCallback(res));
+});
+
 rutasUsuario.route('/usuario/:id').get((req,res)=>{
     console.log('alguien hizo get en la ruta /usuario');
     consultarUsuario(req.params.id, genericCallback(res));
@@ -24,6 +30,10 @@ rutasUsuario.route('/usuario/:id').get((req,res)=>{
 rutasUsuario.route('/usuario').post((req,res)=>{
     crearUsuario(req.body, genericCallback(res));
 });
+
+rutasUsuario.route('/usuario/self').patch((req, res) => {
+    editarUsuario(req.params.id, req.body, genericCallback(res));
+  });
 
 rutasUsuario.route('/usuario/:id').patch((req, res) => {
     editarUsuario(req.params.id, req.body, genericCallback(res));

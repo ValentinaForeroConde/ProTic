@@ -29,6 +29,7 @@ function GestionUsuarios() {
     const [formularioValido, cambiarFormularioValido] = useState('');
 
 
+
     const getUsuario= async(usuarioId)=>{
         try{
             const res = await server.getUsuario(usuarioId);
@@ -83,9 +84,9 @@ function GestionUsuarios() {
         };
 
         const opcion1  = [
-            {value:'0', label: 'Administrador'},
+            {value:'0', label: 'Pendiente'},
             {value:'1', label: 'Vendedor'},
-            {value:'2', label: 'Pendiente'}
+            {value:'2', label: 'Administrador'}
         ];
 
         const opcion2  = [
