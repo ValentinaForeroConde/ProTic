@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Aside from "components/Aside";
 import Footer from "components/Footer";
 import SideResponsive from "components/SideResponsive";
-import PrivateRoute from "components/PrivateRoute";
 import * as server from '../pages/server';
 import { useUser } from 'context/UserContext';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -49,7 +48,6 @@ const PrivateLayout = ({ children }) => {
   }
 
   return (
-<<<<<<< HEAD
       <div className="layout">
         <Aside/>
         <SideResponsive />
@@ -57,14 +55,6 @@ const PrivateLayout = ({ children }) => {
         <Footer />
       </div>
 
-=======
-    <div className="layout">
-      <Aside/>
-      <SideResponsive />
-      <div className="contenido "> {children}</div>
-      <Footer />
-    </div>
->>>>>>> dev-camila-sprint3
   );
 };
 
