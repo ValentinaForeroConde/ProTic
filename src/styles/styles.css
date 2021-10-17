@@ -249,3 +249,7 @@ input[type=number] { -moz-appearance:textfield; }
   border:none;
 
 }
+
+.MensajeNoAutorizado{
+  margin-left: 200px;
+}

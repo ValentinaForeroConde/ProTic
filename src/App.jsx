@@ -12,6 +12,7 @@ import ListadoProductos from "pages/ListadoProductos";
 import TablaGestionUsuarios from "pages/TablaGestionUsuarios";
 import { UserContext } from "context/UserContext";
 import { useState } from "react";
+import PrivateRoute from "components/PrivateRoute";
 
 function App() {
   const [userData, setUserData] = useState({});
@@ -37,7 +38,9 @@ function App() {
               <PrivateLayout>
                 <Switch>
                   <Route path="/CrearProductos">
-                    <ActualizarProductos />
+                    <PrivateRoute roleList={['Administrador']}>
+                      <ActualizarProductos />
+                    </PrivateRoute>
                   </Route>
                   <Route path="/ActualizarVentas/:id">
                     <ActualizarVentas />
@@ -46,13 +49,19 @@ function App() {
                     <ActualizarVentas />
                   </Route>
                   <Route path="/gestionUsuarios">
-                    <GestionUsuarios />
+                    <PrivateRoute roleList={['Administrador']}>
+                      <GestionUsuarios />
+                    </PrivateRoute>
                   </Route>
                   <Route path="/ListadoProductos">
-                    <ListadoProductos />
+                    <PrivateRoute roleList={['Autorizado']}>
+                      <ListadoProductos />
+                    </PrivateRoute>
                   </Route>
                   <Route path="/ventas">
-                    <Ventas />
+                    <PrivateRoute roleList={['Autorizado']}>
+                      <Ventas />
+                    </PrivateRoute>
                   </Route>
                   <Route path="/TablaGestionUsuarios">
                     <TablaGestionUsuarios />

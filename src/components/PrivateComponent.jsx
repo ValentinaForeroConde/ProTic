@@ -9,6 +9,7 @@ const PrivateComponent = ({roleList, children}) => {
             return children;
         }
     }
+    
     return <></>;
 };
 
