@@ -49,6 +49,7 @@ const PrivateLayout = ({ children }) => {
   }
 
   return (
+<<<<<<< HEAD
       <div className="layout">
         <Aside/>
         <SideResponsive />
@@ -56,6 +57,14 @@ const PrivateLayout = ({ children }) => {
         <Footer />
       </div>
 
+=======
+    <div className="layout">
+      <Aside/>
+      <SideResponsive />
+      <div className="contenido "> {children}</div>
+      <Footer />
+    </div>
+>>>>>>> dev-camila-sprint3
   );
 };
 

@@ -1,43 +1,43 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto Mono', monospace;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto Mono', monospace;
 }
 
 html, body, .app {
   height: 100%;
 }
 
-.layout{
-  background-color:whitesmoke;
-  flex-wrap:wrap;
+.layout {
+  background-color: whitesmoke;
+  flex-wrap: wrap;
   height: 100%;
   width: 100%;
-
 }
 
-Aside{
+Aside {
   margin: 0;
- flex-wrap: wrap;
- height: 100%;
- width: 100%;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
 }
 
-.burger{
+.burger {
   position: fixed;
 }
 
-.responsive{
+.responsive {
   background-color: #023047;
 }
+
 .responsive .a {
   display: block;
   color: white;
   padding: 16px;
   text-decoration: none;
 }
- 
+
 .responsive .a.active {
   background-color: rgba(0, 68, 170, 0.555);
   color: white;
@@ -46,46 +46,45 @@ Aside{
 }
 
 .responsive .a:hover:not(.active) {
-  background-color:  #0e7a96;
+  background-color: #0e7a96;
   color: white;
   border-radius: 20px;
   margin: 15px;
-
 }
 
+.contenido {
+  padding-left: 200px;
+}
 
-
-.tituloUno{
-  background-color: #FFC300 ;
+.tituloUno {
+  background-color: #FFC300;
   text-align: center;
   font-style: italic;
 }
 
-.bola{
+.bola {
   display: inline-block;
   margin: 20px 0px 30px 30px;
   height: 120px;
   width: 140px;
   border-radius: 100%;
   border: 2px solid white;
-  text-align:center;
-  object-fit:cover;
-  ;}
+  text-align: center;
+  object-fit: cover;
+  ;
+}
 
- 
 .sidebar {
   margin: 0;
   padding: 0;
   width: 200px;
   background-color: #023047;
-  position: fixed;  
+  position: fixed;
   overflow: auto;
   font-weight: bold;
   display: block;
   height: 100%;
-  
 }
-
 
 .sidebar .a {
   display: block;
@@ -101,12 +100,27 @@ Aside{
   margin: 15px;
 }
 
+.card-img-container {
+  height: 200px;
+  overflow: hidden
+}
+
+.dashboard-cards-container {
+  height: 100vh;
+  display: flex;
+}
+
+.card-img-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
 .sidebar .a:hover:not(.active) {
-  background-color:  #0e7a96;
+  background-color: #0e7a96;
   color: white;
   border-radius: 20px;
   margin: 15px;
-
 }
 
 div.content {
@@ -115,7 +129,7 @@ div.content {
   height: 1000px;
 }
 
-.hola{
+.hola {
   margin: 0;
   padding: 0;
   width: 200px;
@@ -126,82 +140,97 @@ div.content {
   height: 100%;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 700px) {
   .sidebar {
-  visibility: hidden;
+    visibility: hidden;
   }
-
+  .contenido {
+    padding-left: 0;
+  }
+  .dashboard-cards-container {
+    height: max-content;
+  }
+  .mainContainerTable{
+    margin: 0;
+  }
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width:700px){
   .responsive {
-  visibility: hidden;
+    visibility: hidden;
   }
-
-}
-@media screen and (min-width: 800px) {
   .burger {
-  visibility: hidden;
+    visibility: hidden;
   }
-
 }
-
-.guiGestionUsuarios{
-    max-width: 800px;
-    width: 90%;
-    margin: auto;
-    padding: 40px;
-    background-color: whitesmoke;
+.guiGestionUsuarios {
+  max-width: 800px;
+  width: 90%;
+  margin: auto;
+  padding: 40px;
+  background-color: whitesmoke;
 }
 
 /* Sirve para quitar las flechas al tipo number*/
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type=number] { -moz-appearance:textfield; }
 
-.tituloGestionVentas{
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.tituloGestionVentas {
   display: block;
   text-align: center;
   padding: 30px 0px 30px 0px;
 }
 
-.mainContainerTable{
+.mainContainerTable {
   width: 70%;
   margin: auto;
-
 }
-.selectlist{
+
+.mainContainerTable .gypLdv{
+  margin: 0;
+}
+
+.selectlist {
   height: 45px;
   line-height: 30px;
   font-size: 14px;
 }
-.botonVolver{
+
+.botonVolver {
   margin: 50px 0px 0px 300px;
   font-size: 20px;
-
 }
-.iconSide{
+
+.iconSide {
   margin-right: 10px;
 }
-.tituloSide{
+
+.tituloSide {
   font-size: bold;
   display: block;
   color: white;
   text-align: center;
   margin-bottom: 30px;
 }
-.TooltipEditar{
+
+.TooltipEditar {
   display: block;
   text-align: center;
 }
-.GUS{
-  visibility:hidden;
+
+.GUS {
+  visibility: hidden;
 }
-.inputBusqueda{
-  display:row;
+
+.inputBusqueda {
+  display: row;
   background-color: #fff;
   border-radius: 3px;
   height: 45px;
