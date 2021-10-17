@@ -1,20 +1,18 @@
 import React from 'react'
-import GoogleLogin from 'react-google-login';
+import { useAuth0 } from "@auth0/auth0-react";
+import {Boton} from 'elements/Layouts'
 
 
 const Googlein = () => {
-    const responseGoogle = (response) => {
-        console.log(response);}
+    const { loginWithRedirect } = useAuth0();
+
     return (
         <div>
-     
-            <GoogleLogin
-    clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-    buttonText="Login"
-    onSuccess={responseGoogle}
-    onFailure={responseGoogle}
-    cookiePolicy={'single_host_origin'}
-  />
+            <Boton
+                onClick={() => loginWithRedirect()}
+            >
+                Log In
+            </Boton>
         </div>
     )
 }

@@ -10,69 +10,83 @@ import ActualizarProductos from "pages/ActualizarProductos";
 import ActualizarVentas from "pages/ActualizarVentas";
 import ListadoProductos from "pages/ListadoProductos";
 import TablaGestionUsuarios from "pages/TablaGestionUsuarios";
+import { UserContext } from "context/UserContext";
+import { useState } from "react";
+import PrivateRoute from "components/PrivateRoute";
 
 function App() {
+  const [userData, setUserData] = useState({});
   return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route
-            path={[
-              "/gestionUsuarios",
-              "/ventas",
-              "/CrearProductos",
-              "/CrearVentas",
-              "/ActualizarVentas",
-              "/Dashboard",
-              "/ListadoProductos",
-              "/TablaGestionUsuarios",
-              "/editarUsuario/:id",
-              "/editarProductos/:id",
-            ]}
-          >
-            <PrivateLayout>
-              <Switch>
-                <Route path="/CrearProductos">
-                  <ActualizarProductos />
-                </Route>
-                <Route path="/ActualizarVentas/:id">
-                  <ActualizarVentas />
-                </Route>
-                <Route path="/CrearVentas">
-                  <ActualizarVentas />
-                </Route>
-                <Route path="/gestionUsuarios">
-                  <GestionUsuarios />
-                </Route>
-                <Route path="/ListadoProductos">
-                  <ListadoProductos />
-                </Route>
-                <Route path="/ventas">
-                  <Ventas />
-                </Route>
-                <Route path="/TablaGestionUsuarios">
-                  <TablaGestionUsuarios />
-                </Route>
-                <Route path="/editarUsuario/:id">
-                  <GestionUsuarios />
-                </Route>
-                <Route path="/editarProductos/:id">
-                  <ActualizarProductos />
-                </Route>
-                <Route path="/Dashboard">
-                  <Dashboard />
-                </Route>
-              </Switch>
-            </PrivateLayout>
-          </Route>
-          <Route path="/">
-            <PublicLayout>
-              <Index />
-            </PublicLayout>
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+    <UserContext.Provider  value={{ userData, setUserData }}>
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route
+              path={[
+                "/gestionUsuarios",
+                "/ventas",
+                "/CrearProductos",
+                "/CrearVentas",
+                "/ActualizarVentas",
+                "/Dashboard",
+                "/ListadoProductos",
+                "/TablaGestionUsuarios",
+                "/editarUsuario/:id",
+                "/editarProductos/:id",
+              ]}
+            >
+              <PrivateLayout>
+                <Switch>
+                  <Route path="/CrearProductos">
+                    <PrivateRoute roleList={['Administrador']}>
+                      <ActualizarProductos />
+                    </PrivateRoute>
+                  </Route>
+                  <Route path="/ActualizarVentas/:id">
+                    <ActualizarVentas />
+                  </Route>
+                  <Route path="/CrearVentas">
+                    <ActualizarVentas />
+                  </Route>
+                  <Route path="/gestionUsuarios">
+                    <PrivateRoute roleList={['Administrador']}>
+                      <GestionUsuarios />
+                    </PrivateRoute>
+                  </Route>
+                  <Route path="/ListadoProductos">
+                    <PrivateRoute roleList={['Autorizado']}>
+                      <ListadoProductos />
+                    </PrivateRoute>
+                  </Route>
+                  <Route path="/ventas">
+                    <PrivateRoute roleList={['Autorizado']}>
+                      <Ventas />
+                    </PrivateRoute>
+                  </Route>
+                  <Route path="/TablaGestionUsuarios">
+                    <TablaGestionUsuarios />
+                  </Route>
+                  <Route path="/editarUsuario/:id">
+                    <GestionUsuarios />
+                  </Route>
+                  <Route path="/editarProductos/:id">
+                    <ActualizarProductos />
+                  </Route>
+                  <Route path="/Dashboard">
+                    <Dashboard />
+                  </Route>
+                </Switch>
+              </PrivateLayout>
+            </Route>
+            <Route path="/">
+              <PublicLayout>
+                <Index />
+              </PublicLayout>
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </UserContext.Provider>
   );
 }
 

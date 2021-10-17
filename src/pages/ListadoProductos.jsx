@@ -5,6 +5,7 @@ import {faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
 import * as api from 'Api'
 import Swal from 'sweetalert2';
+import PrivateComponent from 'components/PrivateComponent';
 
 
 const ListadoProductos = () => {
@@ -70,9 +71,11 @@ const ListadoProductos = () => {
   return (
     <main className="mainContainerTable">
       <ContenedorBotonCentrado>
-        <Boton>
-          <Link className="link-boton" to="/CrearProductos">Agregar</Link>
-        </Boton>
+        <PrivateComponent roleList={['Administrador']}>
+          <Boton>
+            <Link className="link-boton" to="/CrearProductos">Agregar</Link>
+          </Boton>
+        </PrivateComponent>
       </ContenedorBotonCentrado>
       <h2 className="tituloGestionVentas">Todos los productos</h2>
       <input className = "inputBusqueda"
@@ -86,7 +89,9 @@ const ListadoProductos = () => {
             <TableData>Producto</TableData>
             <TableData>Estado</TableData>
             <TableData>Valor</TableData>
-            <TableData>Actualizar</TableData>
+            <PrivateComponent roleList={['Administrador']}>
+              <TableData>Actualizar</TableData>
+            </PrivateComponent>
           </tr>
         </TableHead>
         <tbody>
@@ -95,19 +100,21 @@ const ListadoProductos = () => {
               <TableData>{productos.nombre}</TableData>
               <TableData>{productos.Estado.label}</TableData>
               <TableData>{productos.valor}</TableData>
-              <TableData>
-                <button className="iconSide" onClick={() => {
-                  history.push(`/editarProductos/${productos._id}`)}}
-                >
-                  <FontAwesomeIcon  icon={faPenAlt}/>
-                </button>
-                <button
-                  className="iconSide"
-                  onClick={()=>{showAlert(productos._id)}}
-                >
-                    <FontAwesomeIcon icon={faTrashAlt}/>
-                </button>
-              </TableData>
+              <PrivateComponent roleList={['Administrador']}>
+                <TableData>
+                  <button className="iconSide" onClick={() => {
+                    history.push(`/editarProductos/${productos._id}`)}}
+                  >
+                    <FontAwesomeIcon  icon={faPenAlt}/>
+                  </button>
+                  <button
+                    className="iconSide"
+                    onClick={()=>{showAlert(productos._id)}}
+                  >
+                      <FontAwesomeIcon icon={faTrashAlt}/>
+                  </button>
+                </TableData>
+              </PrivateComponent>
             </TableRow>
           ))}
         </tbody>

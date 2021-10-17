@@ -1,17 +1,36 @@
 import axios from 'axios';
 
+const getToken= ()=>{
+    return `Bearer ${localStorage.getItem('token')}`;
+}
+
 const API_URL = "http://localhost:5000/producto"
 
 export const listProduct = async () => {
-    return await axios.get(API_URL);
-
-  };
+    try{
+        const response  = await axios({
+            url: API_URL,
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:getToken()
+            },
+        })
+        return response;
+    } catch(e){
+        console.log(e);
+    }
+};
 
 export const registerProducts = async (newProduct) =>{
     try{
         const response  = await axios({
             url:`${API_URL}`,
             method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:getToken()
+            },
             data:{
                 nombre: newProduct.nombre,
                 descripcion: newProduct.descripcion,
@@ -31,6 +50,10 @@ export const getProduct = async (productId) =>{
         const response  = await axios({
             url:`${API_URL}/${productId}`,
             method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:getToken()
+            },
         })
         return response
 
@@ -44,6 +67,10 @@ export const deleteProduct = async (productId) =>{
         const response  = await axios({
             url:`${API_URL}/${productId}`,
             method:'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:getToken()
+            },
             data: { id: productId},
         })
         return response
@@ -58,6 +85,10 @@ export const updateProduct = async (productId, updateProduct) =>{
         const response  = await axios({
             url:`${API_URL}/${productId}`,
             method:'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:getToken()
+            },
             data:{
                 nombre: updateProduct.nombre,
                 descripcion: updateProduct.descripcion,

@@ -1,16 +1,19 @@
 import React from 'react'
-import {Bar,Boton} from 'elements/Layouts'
-import { Link } from 'react-router-dom'
+import {Bar} from 'elements/Layouts'
 import Googlein from './Googlein'
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 const Navbar = () => {
+    const { isLoading } = useAuth0();
+
+    if (isLoading) return <h1>Loading...</h1>
+
     return (
         <div>
-            <Bar>         
-                <Boton><Link to='/Dashboard'>LOG</Link></Boton>
-                <Googlein/>           
+            <Bar>
+                <Googlein/>
             </Bar>
-            
         </div>
     )
 };

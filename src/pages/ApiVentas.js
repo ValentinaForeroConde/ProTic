@@ -1,17 +1,36 @@
 import axios from 'axios';
 
+const getToken= ()=>{
+    return `Bearer ${localStorage.getItem('token')}`;
+}
+
 const API_URL = "http://localhost:5000/venta"
 
 export const listaVentas = async () => {
-    return await axios.get(API_URL);
-
-  };
+    try{
+        const response  = await axios({
+            url: API_URL,
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:getToken()
+            },
+        })
+        return response;
+    } catch(e){
+        console.log(e);
+    }
+};
 
 export const registerVenta = async (newVenta) =>{
     try{
         const response  = await axios({
             url:`${API_URL}`,
             method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:getToken()
+            },
             data:{
                 nombre: newVenta.nombre,
                 apellido: newVenta.apellido,
@@ -33,6 +52,10 @@ export const getVenta = async (idVenta) =>{
     try{
         const response  = await axios({
             url:`${API_URL}/${idVenta}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:getToken()
+            },
             method:'GET',
         })
         return response
@@ -47,6 +70,10 @@ export const deleteVenta = async (idVenta) =>{
         const response  = await axios({
             url:`${API_URL}/${idVenta}`,
             method:'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:getToken()
+            },
             data: { id: idVenta},
         })
         return response
@@ -61,6 +88,10 @@ export const updateVenta = async (idVenta, updateVenta) =>{
         const response  = await axios({
             url:`${API_URL}/${idVenta}`,
             method:'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:getToken()
+            },
             data:{
                 nombre: updateVenta.nombre,
                 apellido: updateVenta.apellido,
