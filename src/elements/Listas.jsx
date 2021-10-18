@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const Table = styled.table`
 width: 100%;
-margin: 50px;
 overflow-y: scroll;
 grid-column: span 2;
 @media (max-width: 800px){

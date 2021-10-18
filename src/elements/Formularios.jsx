@@ -163,7 +163,10 @@ const ContCarrito = styled.div `
 `;
 const Carrito = styled.button`
     height: 30px;
-    margin: 50px 0px 0px 30px  ;
+    margin: 50px 0px 0px 30px;
+    color: #023047;
+    background-color: transparent;
+    border-radius: 5px; 
 `;
 
 const LabelVenta = styled.label`

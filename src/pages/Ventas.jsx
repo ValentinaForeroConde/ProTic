@@ -5,6 +5,7 @@ import { faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
 import * as api from './ApiVentas';
 import Swal from 'sweetalert2';
+import { red } from '@material-ui/core/colors';
 
   const Ventas = () => {
     const [ventas, setVentas] = useState([]);
@@ -76,39 +77,67 @@ import Swal from 'sweetalert2';
           onChange={(e)=> setBusqueda(e.target.value)}
           placeholder="Buscar"
         />
-        <Table>
-          <TableHead>
-            <tr>
-              <TableData>Nombre del cliente</TableData>
-              <TableData>Documento del cliente</TableData>
-              <TableData>Id compra</TableData>
-              <TableData>Actualizar</TableData>
-            </tr>
-          </TableHead>
-          <tbody>
-              {ventasFiltradas.map((ventas) =>(
-                <TableRow key={ventas._id}>
-                  <TableData>{ventas.nombre}</TableData>
-                  <TableData>{ventas.apellido}</TableData>
-                  <TableData>{ventas.documento}</TableData>
-                  <TableData>
-                    <button className="iconSide" 
-                      onClick={()=>{
-                        history.push(`/actualizarVentas/${ventas._id}`)
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faPenAlt}/>
-                    </button>
-                    <button className="iconSide"
-                      onClick={()=>showAlert(ventas._id)}
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt}/>
-                    </button>
-                  </TableData>
-                </TableRow>
-              ))}
-          </tbody>
-        </Table>
+        <div className="cont-tabla">
+          <Table>
+            <TableHead>
+              <tr>
+                <TableData>Nombre del cliente</TableData>
+                <TableData>Documento del cliente</TableData>
+                <TableData>Id compra</TableData>
+                <TableData>Actualizar</TableData>
+              </tr>
+            </TableHead>
+            <tbody>
+                {ventasFiltradas.map((ventas) =>(
+                  <TableRow key={ventas._id}>
+                    <TableData>{ventas.nombre}</TableData>
+                    <TableData>{ventas.apellido}</TableData>
+                    <TableData>{ventas.documento}</TableData>
+                    <TableData>
+                      <button className="iconSide edit" 
+                        onClick={()=>{
+                          history.push(`/actualizarVentas/${ventas._id}`)
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faPenAlt}/>
+                      </button>
+                      <button className="iconSide trash"
+                        onClick={()=>showAlert(ventas._id)}
+                      >
+                        <FontAwesomeIcon icon={faTrashAlt}/>
+                      </button>
+                    </TableData>
+                  </TableRow>
+                ))}
+            </tbody>
+          </Table>
+        </div>
+        <div className="contenedorCard-tabla">
+        {ventasFiltradas.map((ventas)=>{
+          return (
+          <div className="contenido-responsive">
+            <div className="info-card">
+              <span>{ventas.nombre}{" "}{ventas.apellido}</span>
+              <span>{ventas.documento}</span>
+            </div>
+            <div className="actualizar-card">
+              <button className="iconSide edit" 
+                onClick={()=>{
+                  history.push(`/actualizarVentas/${ventas._id}`)
+                }}
+              >
+                <FontAwesomeIcon icon={faPenAlt}/>
+              </button>
+              <button className="iconSide trash"
+                onClick={()=>showAlert(ventas._id)}
+              >
+                <FontAwesomeIcon icon={faTrashAlt}/>
+              </button>
+            </div>
+          </div>
+          );
+        })} 
+        </div>
       </main>
     );
   };

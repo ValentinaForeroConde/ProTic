@@ -83,42 +83,69 @@ const ListadoProductos = () => {
         onChange={(e) => setBusqueda(e.target.value)}
         placeholder='Buscar'
       />
-      <Table>
-        <TableHead>
-          <tr>
-            <TableData>Producto</TableData>
-            <TableData>Estado</TableData>
-            <TableData>Valor</TableData>
-            <PrivateComponent roleList={['Administrador']}>
-              <TableData>Actualizar</TableData>
-            </PrivateComponent>
-          </tr>
-        </TableHead>
-        <tbody>
-          {productosFiltrados.map((productos) =>(
-            <TableRow key={productos._id}>
-              <TableData>{productos.nombre}</TableData>
-              <TableData>{productos.Estado.label}</TableData>
-              <TableData>{productos.valor}</TableData>
+      <div className="cont-tabla">
+        <Table>
+          <TableHead>
+            <tr>
+              <TableData>Producto</TableData>
+              <TableData>Estado</TableData>
+              <TableData>Valor</TableData>
               <PrivateComponent roleList={['Administrador']}>
-                <TableData>
-                  <button className="iconSide" onClick={() => {
-                    history.push(`/editarProductos/${productos._id}`)}}
-                  >
-                    <FontAwesomeIcon  icon={faPenAlt}/>
-                  </button>
-                  <button
-                    className="iconSide"
-                    onClick={()=>{showAlert(productos._id)}}
-                  >
-                      <FontAwesomeIcon icon={faTrashAlt}/>
-                  </button>
-                </TableData>
+                <TableData>Actualizar</TableData>
               </PrivateComponent>
-            </TableRow>
-          ))}
-        </tbody>
-      </Table>
+            </tr>
+          </TableHead>
+          <tbody>
+            {productosFiltrados.map((productos) =>(
+              <TableRow key={productos._id}>
+                <TableData>{productos.nombre}</TableData>
+                <TableData>{productos.Estado.label}</TableData>
+                <TableData>{productos.valor}</TableData>
+                <PrivateComponent roleList={['Administrador']}>
+                  <TableData>
+                    <button className="iconSide edit" onClick={() => {
+                      history.push(`/editarProductos/${productos._id}`)}}
+                    >
+                      <FontAwesomeIcon  icon={faPenAlt}/>
+                    </button>
+                    <button
+                      className="iconSide trash"
+                      onClick={()=>{showAlert(productos._id)}}
+                    >
+                        <FontAwesomeIcon icon={faTrashAlt}/>
+                    </button>
+                  </TableData>
+                </PrivateComponent>
+              </TableRow>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+      <div className="contenedorCard-tabla">
+        {productosFiltrados.map((productos)=>{
+          return (
+          <div className="contenido-responsive">
+            <div className="info-card">
+              <span>{productos.nombre}{" - $"}{productos.valor}</span>
+              <span>{productos.Estado.label}</span>
+            </div>
+            <div className="actualizar-card">
+              <button className="iconSide edit" 
+                onClick={() => {
+                  history.push(`/editarProductos/${productos._id}`)}}
+              >
+                  <FontAwesomeIcon  icon={faPenAlt}/>
+              </button>
+              <button className="iconSide trash"
+                onClick={()=>{showAlert(productos._id)}}
+              >
+                    <FontAwesomeIcon icon={faTrashAlt}/>
+              </button>
+            </div>
+          </div>
+          );
+        })} 
+        </div>
     </main>
   );
 };

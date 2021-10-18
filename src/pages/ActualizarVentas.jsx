@@ -288,32 +288,51 @@ useEffect(() => {
               <FontAwesomeIcon icon={faCartPlus}/>
             </Carrito>
           </ContCarrito>
-          <Table>
-            <TableHead>
-              <tr>
-                <TableData>Producto</TableData>
-                <TableData>Cantidad</TableData>
-                <TableData>Precio unitario</TableData>
-                <TableData>Eliminar</TableData>
-              </tr>
-            </TableHead>
-            <tbody>
-              {listaCanasta.map((listado, i) => {
-                return (
-                <tr key = {i} >
-                  <TableData key={i + 'td1'}>{listado.producto.label}</TableData>
-                  <TableData key={i + 'td2'}>{listado.cantidad}</TableData>
-                  <TableData key={i + 'td3'}>{'$ ' + listado.producto.valor}</TableData>
-                  <TableData>
-                    <button type="button" className="iconSide" onClick={()=>deleteItem(i)}>
-                      <FontAwesomeIcon icon={faTrashAlt}/>
-                    </button>
-                  </TableData>
+          <div className="cont-tabla">
+            <Table>
+              <TableHead>
+                <tr>
+                  <TableData>Producto</TableData>
+                  <TableData>Cantidad</TableData>
+                  <TableData>Precio unitario</TableData>
+                  <TableData>Eliminar</TableData>
                 </tr>
-                );
-              })}
-            </tbody>
-          </Table>
+              </TableHead>
+              <tbody>
+                {listaCanasta.map((listado, i) => {
+                  return (
+                  <tr key = {i} >
+                    <TableData key={i + 'td1'}>{listado.producto.label}</TableData>
+                    <TableData key={i + 'td2'}>{listado.cantidad}</TableData>
+                    <TableData key={i + 'td3'}>{'$ ' + listado.producto.valor}</TableData>
+                    <TableData>
+                      <button type="button" className="iconSide" onClick={()=>deleteItem(i)}>
+                        <FontAwesomeIcon icon={faTrashAlt}/>
+                      </button>
+                    </TableData>
+                  </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          </div>
+          <div className="contenedorCard-tabla">
+            {listaCanasta.map((listado, i)=>{
+              return (
+                <div key = {i} className="contenido-responsive">
+                  <div className="info-card">
+                    <span>{listado.producto.label}{" : "}{listado.cantidad}</span>
+                    <span>{'$ ' + listado.producto.valor}</span>
+                  </div>
+                  <div className="actualizar-card">
+                      <button type="button" className="iconSide trash" onClick={()=>deleteItem(i)}>
+                        <FontAwesomeIcon icon={faTrashAlt}/>
+                      </button>
+                  </div>
+                </div>
+          );
+        })} 
+        </div>
           <Label>Total: $ {multi}</Label>
           {params.id?(
             <ContenedorEstado>
