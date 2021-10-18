@@ -8,7 +8,6 @@ grid-column: span 2;
 @media (max-width: 800px){
     width: 50%;
     grid-column: span 1;
-
 }
 `;
 

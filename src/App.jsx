@@ -49,7 +49,7 @@ function App() {
                     <ActualizarVentas />
                   </Route>
                   <Route path="/gestionUsuarios">
-                    <PrivateRoute roleList={['Administrador']}>
+                    <PrivateRoute roleList={['Autorizado']}>
                       <GestionUsuarios />
                     </PrivateRoute>
                   </Route>
@@ -64,7 +64,9 @@ function App() {
                     </PrivateRoute>
                   </Route>
                   <Route path="/TablaGestionUsuarios">
+                  <PrivateRoute roleList={['Autorizado']}>
                     <TablaGestionUsuarios />
+                  </PrivateRoute>
                   </Route>
                   <Route path="/editarUsuario/:id">
                     <GestionUsuarios />

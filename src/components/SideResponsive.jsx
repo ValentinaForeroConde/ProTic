@@ -7,7 +7,7 @@ const SideResponsive = () => {
     const [mostrarNavegacion, setMostrarNavegacion] = useState(false)
     return (
         <div>
-            <FontAwesomeIcon  className="burger" size="4x" icon={mostrarNavegacion? faWindowClose : faBars} onClick={()=>setMostrarNavegacion(!mostrarNavegacion)} />
+            <FontAwesomeIcon  className="burger" size="2x" icon={mostrarNavegacion? faWindowClose : faBars} onClick={()=>setMostrarNavegacion(!mostrarNavegacion)} />
             <div className="responsive" padding='20px'>
                 {mostrarNavegacion && (  
                 <nav>

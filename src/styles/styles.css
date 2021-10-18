@@ -25,6 +25,7 @@ Aside {
 
 .burger {
   position: fixed;
+  margin: 10px 0 0 10px;
 }
 
 .responsive {
@@ -54,10 +55,20 @@ Aside {
 
 .contenido {
   padding-left: 200px;
+  overflow: auto;  
+  scroll-snap-type: y mandatory;
+}
+.containerIndexPrincipal{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height:100%;
+  width:100%;
+  background-color:#fbcf04;
 }
 
 .tituloUno {
-  background-color: #FFC300;
+  background-color: #fbcf04;
   text-align: center;
   font-style: italic;
 }
@@ -250,10 +261,10 @@ input[type=number] {
 .Perfil{
   display: block;
   position: absolute;
-  margin: 0px 0px 30px 40px;
+  margin: 0px 0px 30px 70px;
   bottom:0px;
-  height: 100px;
-  width: 100px;
+  height: 3rem;
+  width: 3rem;
   border-radius: 100%;
   border: 2px solid white;
   text-align:center;
