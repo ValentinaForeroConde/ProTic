@@ -40,10 +40,10 @@ const ActualizarProductos = () => {
     useEffect(() => {
         if(params.id){
             getProducto(params.id);
-            cambiarNombre({valido: "true"});
-            cambiarDescripcion({valido: "true"});
-            cambiarvalor({valido: "true"});
-            cambiarEstado({valido: "true"});
+            cambiarNombre({...nombre, campo:"Correcto", valido: "true"});
+            cambiarDescripcion({...descripcion, campo:"Correcto", valido: "true"});
+            cambiarvalor({...valor, campo:"123456", valido: "true"});
+            cambiarEstado({...Estado, campo:{value:"0", label:"Pendiente"}, valido: "true"});
         }
         // eslint-disable-next-line
     }, []);

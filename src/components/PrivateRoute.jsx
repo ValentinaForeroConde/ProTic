@@ -3,7 +3,6 @@ import { useUser } from 'context/UserContext';
 
 const PrivateRoute = ({roleList, children}) => {
   const {userData}= useUser();
-  console.log("User data en el prive component", userData);
   if(userData.Rol !== undefined){
       if(roleList.includes(userData.Rol.label)|| roleList.includes(userData.Estado.label)){
           return children;

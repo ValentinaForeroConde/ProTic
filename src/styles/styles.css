@@ -164,8 +164,7 @@ div.content {
   }
 }
 .guiGestionUsuarios {
-  max-width: 800px;
-  width: 90%;
+  width: 100%;
   margin: auto;
   padding: 40px;
   background-color: whitesmoke;

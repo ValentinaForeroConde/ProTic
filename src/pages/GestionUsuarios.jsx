@@ -42,11 +42,11 @@ function GestionUsuarios() {
     useEffect(() => {
         if(params.id){
             getUsuario(params.id);
-            cambiarNombre({valido: "true"});
-            cambiarApellido({valido: "true"});
-            cambiarDocumento({valido: "true"});
-            cambiarRol({valido: "true"});
-            cambiarEstado({valido: "true"});
+            cambiarNombre({...nombre, campo:"Correcto",valido: "true"});
+            cambiarApellido({...apellido, campo:"Correcto",valido: "true"});
+            cambiarDocumento({...documento, campo:"12345678",valido: "true"});
+            cambiarRol({...Rol, campo:{value:"0", label:"Pendiente"}, valido: "true"});
+            cambiarEstado({...Estado, campo:{value:"0", label:"Pendiente"}, valido: "true"});
         }
         // eslint-disable-next-line
     }, []);
@@ -104,7 +104,7 @@ function GestionUsuarios() {
               })
           }
 
-    return (
+    return ( 
         <main className="guiGestionUsuarios">
             <h2 className="tituloGestionVentas">Gestion Usuarios</h2>
             <Tooltip title="Regresar" arrow >
