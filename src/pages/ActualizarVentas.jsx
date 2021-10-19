@@ -4,7 +4,7 @@ import {Formulario, Etiqueta, ContCarrito, Carrito, Label, LabelVenta, RadioButt
 import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError';
-import {Table, TableHead, TableData, ContenedorEstado} from 'elements/Listas';
+import {Table, TableHead, TableData, ContenedorEstado, ContenedorCardTabla, ContenidoResponsive, InfoCard, ActualizarCard} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faCartPlus, faArrowLeft, faTruckLoading, faTimes, faCheck, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory, useParams } from 'react-router-dom';
@@ -14,7 +14,7 @@ import Selects from 'components/Selects';
 import Swal from 'sweetalert2';
 
 const ActualizarVentas = () => {
-
+  //
   const params = useParams();
   const history = useHistory();
   const initialState = {_id:'', nombre:'', apellido:'', documento:'', fecha:'', idVendedor:'', cantidadProducto:'', listaCanasta:[], producto:'', valor:'', estadoBoton:''};
@@ -288,33 +288,50 @@ useEffect(() => {
               <FontAwesomeIcon icon={faCartPlus}/>
             </Carrito>
           </ContCarrito>
-          <Table>
-            <TableHead>
-              <tr>
-                <TableData>Producto</TableData>
-                <TableData>Cantidad</TableData>
-                <TableData>Precio unitario</TableData>
-                <TableData>Eliminar</TableData>
-              </tr>
-            </TableHead>
-            <tbody>
-              {listaCanasta.map((listado, i) => {
-                return (
-                <tr key = {i} >
-                  <TableData key={i + 'td1'}>{listado.producto.label}</TableData>
-                  <TableData key={i + 'td2'}>{listado.cantidad}</TableData>
-                  <TableData key={i + 'td3'}>{'$ ' + listado.producto.valor}</TableData>
-                  <TableData>
-                    <button type="button" className="iconSide" onClick={()=>deleteItem(i)}>
-                      <FontAwesomeIcon icon={faTrashAlt}/>
-                    </button>
-                  </TableData>
+            <Table>
+              <TableHead>
+                <tr>
+                  <TableData>Producto</TableData>
+                  <TableData>Cantidad</TableData>
+                  <TableData>Precio unitario</TableData>
+                  <TableData>Eliminar</TableData>
                 </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-          <Label>Total: $ {multi}</Label>
+              </TableHead>
+              <tbody>
+                {listaCanasta.map((listado, i) => {
+                  return (
+                  <tr key = {i} >
+                    <TableData key={i + 'td1'}>{listado.producto.label}</TableData>
+                    <TableData key={i + 'td2'}>{listado.cantidad}</TableData>
+                    <TableData key={i + 'td3'}>{'$ ' + listado.producto.valor}</TableData>
+                    <TableData>
+                      <button type="button" className="iconSide" onClick={()=>deleteItem(i)}>
+                        <FontAwesomeIcon icon={faTrashAlt}/>
+                      </button>
+                    </TableData>
+                  </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          <ContenedorCardTabla>
+            {listaCanasta.map((listado, i)=>{
+              return (
+                <ContenidoResponsive key = {i}>
+                  <InfoCard>
+                    <span>{listado.producto.label}{" : "}{listado.cantidad}</span>
+                    <span>{'$ ' + listado.producto.valor}</span>
+                  </InfoCard>
+                  <ActualizarCard >
+                      <button type="button" className="iconSide trash" onClick={()=>deleteItem(i)}>
+                        <FontAwesomeIcon icon={faTrashAlt}/>
+                      </button>
+                  </ActualizarCard>
+                </ContenidoResponsive>
+          );
+        })} 
+        </ContenedorCardTabla>
+        <Etiqueta>Total: $ {multi}</Etiqueta>
           {params.id?(
             <ContenedorEstado>
               <Etiqueta>Estado de la venta: </Etiqueta>

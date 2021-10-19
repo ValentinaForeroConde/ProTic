@@ -51,7 +51,7 @@ const PrivateLayout = ({ children }) => {
       <div className="layout">
         <Aside/>
         <SideResponsive />
-        <div className="contenido"> {children}</div>
+        <main className="contenido"> {children}</main>
         <Footer />
       </div>
 

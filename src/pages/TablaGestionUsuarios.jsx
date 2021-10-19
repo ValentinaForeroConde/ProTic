@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Table, TableHead, TableData, TableRow} from 'elements/Listas';
+import {Table, TableHead, TableData, TableRow, ContenedorCardTabla, ContenidoResponsive, InfoCard, ActualizarCard} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
@@ -82,38 +82,65 @@ const TablaGestionUsuarios = () => {
             {loading  ?  (
                 <ReactLoading  type="cylon" color="#023047" height={300} width={300} />
             ):(
-              <Table>
-                <TableHead>
-                  <tr>
-                    <TableData>Nombre</TableData>
-                    <TableData>Apellido</TableData>
-                    <TableData>Documento</TableData>
-                    <TableData>Editar</TableData>
-                  </tr>
-                </TableHead>
-                <tbody>
-                  {usuariosFiltrados.map((usuario) => (
-                      <TableRow key={usuario._id}>
-                        <TableData>{usuario.nombre}</TableData>
-                        <TableData>{usuario.apellido}</TableData>
-                        <TableData>{usuario.documento}</TableData>
-                        <TableData>
-                          <button className="iconSide"
-                            onClick={() => {
-                              history.push(`/editarUsuario/${usuario._id}`)}}
+              <div>
+                <Table>
+                  <TableHead>
+                    <tr>
+                      <TableData>Nombre</TableData>
+                      <TableData>Apellido</TableData>
+                      <TableData>Documento</TableData>
+                      <TableData>Editar</TableData>
+                    </tr>
+                  </TableHead>
+                  <tbody>
+                    {usuariosFiltrados.map((usuario) => (
+                        <TableRow key={usuario._id}>
+                          <TableData>{usuario.nombre}</TableData>
+                          <TableData>{usuario.apellido}</TableData>
+                          <TableData>{usuario.documento}</TableData>
+                          <TableData>
+                            <button className="iconSide edit"
+                              onClick={() => {
+                                history.push(`/editarUsuario/${usuario._id}`)}}
+                              >
+                              <FontAwesomeIcon  icon={faPenAlt}/>
+                            </button>
+                            <button className="iconSide trash"
+                                onClick={()=>{showAlert(usuario._id)}}
                             >
-                            <FontAwesomeIcon  icon={faPenAlt}/>
-                          </button>
-                          <button className="iconSide"
-                              onClick={()=>{showAlert(usuario._id)}}
-                          >
-                            <FontAwesomeIcon icon={faTrashAlt}/>
-                          </button>
-                        </TableData>
-                      </TableRow>
-                  ))}
-                </tbody>
-              </Table>
+                              <FontAwesomeIcon icon={faTrashAlt}/>
+                            </button>
+                          </TableData>
+                        </TableRow>
+                    ))}
+                  </tbody>
+                </Table>
+                <ContenedorCardTabla>
+                {usuariosFiltrados.map((usuario)=>{
+                  return (
+                  <ContenidoResponsive>
+                    <InfoCard>
+                      <span>{usuario.nombre}{" "}{usuario.apellido}</span>
+                      <span>{usuario.documento}</span>
+                    </InfoCard>
+                    <ActualizarCard>
+                      <button className="iconSide edit" 
+                         onClick={() => {
+                          history.push(`/editarUsuario/${usuario._id}`)}}
+                      >
+                        <FontAwesomeIcon  icon={faPenAlt}/>
+                      </button>
+                      <button className="iconSide trash"
+                        onClick={()=>{showAlert(usuario._id)}}
+                      >
+                          <FontAwesomeIcon icon={faTrashAlt}/>
+                      </button>
+                    </ActualizarCard>
+                  </ContenidoResponsive>
+                  );
+                })} 
+                </ContenedorCardTabla>
+              </div>
             )
             }
             </main>

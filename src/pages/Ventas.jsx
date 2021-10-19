@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow} from 'elements/Listas';
+import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow, ContenedorCardTabla, ContenidoResponsive, InfoCard, ActualizarCard} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
@@ -76,39 +76,65 @@ import Swal from 'sweetalert2';
           onChange={(e)=> setBusqueda(e.target.value)}
           placeholder="Buscar"
         />
-        <Table>
-          <TableHead>
-            <tr>
-              <TableData>Nombre del cliente</TableData>
-              <TableData>Documento del cliente</TableData>
-              <TableData>Id compra</TableData>
-              <TableData>Actualizar</TableData>
-            </tr>
-          </TableHead>
-          <tbody>
-              {ventasFiltradas.map((ventas) =>(
-                <TableRow key={ventas._id}>
-                  <TableData>{ventas.nombre}</TableData>
-                  <TableData>{ventas.apellido}</TableData>
-                  <TableData>{ventas.documento}</TableData>
-                  <TableData>
-                    <button className="iconSide" 
-                      onClick={()=>{
-                        history.push(`/actualizarVentas/${ventas._id}`)
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faPenAlt}/>
-                    </button>
-                    <button className="iconSide"
-                      onClick={()=>showAlert(ventas._id)}
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt}/>
-                    </button>
-                  </TableData>
-                </TableRow>
-              ))}
-          </tbody>
-        </Table>
+          <Table>
+            <TableHead>
+              <tr>
+                <TableData>Nombre del cliente</TableData>
+                <TableData>Documento del cliente</TableData>
+                <TableData>Id compra</TableData>
+                <TableData>Actualizar</TableData>
+              </tr>
+            </TableHead>
+            <tbody>
+                {ventasFiltradas.map((ventas) =>(
+                  <TableRow key={ventas._id}>
+                    <TableData>{ventas.nombre}</TableData>
+                    <TableData>{ventas.apellido}</TableData>
+                    <TableData>{ventas.documento}</TableData>
+                    <TableData>
+                      <button className="iconSide edit" 
+                        onClick={()=>{
+                          history.push(`/actualizarVentas/${ventas._id}`)
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faPenAlt}/>
+                      </button>
+                      <button className="iconSide trash"
+                        onClick={()=>showAlert(ventas._id)}
+                      >
+                        <FontAwesomeIcon icon={faTrashAlt}/>
+                      </button>
+                    </TableData>
+                  </TableRow>
+                ))}
+            </tbody>
+          </Table>
+        <ContenedorCardTabla>
+        {ventasFiltradas.map((ventas)=>{
+          return (
+          <ContenidoResponsive>
+            <InfoCard>
+              <span>{ventas.nombre}{" "}{ventas.apellido}</span>
+              <span>{ventas.documento}</span>
+            </InfoCard>
+            <ActualizarCard>
+              <button className="iconSide edit" 
+                onClick={()=>{
+                  history.push(`/actualizarVentas/${ventas._id}`)
+                }}
+              >
+                <FontAwesomeIcon icon={faPenAlt}/>
+              </button>
+              <button className="iconSide trash"
+                onClick={()=>showAlert(ventas._id)}
+              >
+                <FontAwesomeIcon icon={faTrashAlt}/>
+              </button>
+            </ActualizarCard>
+          </ContenidoResponsive>
+          );
+        })} 
+        </ContenedorCardTabla>
       </main>
     );
   };

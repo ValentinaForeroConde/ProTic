@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow} from 'elements/Listas';
+import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow, ContenedorEstado, ContenedorCardTabla, ContenidoResponsive, InfoCard, ActualizarCard} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
@@ -83,42 +83,67 @@ const ListadoProductos = () => {
         onChange={(e) => setBusqueda(e.target.value)}
         placeholder='Buscar'
       />
-      <Table>
-        <TableHead>
-          <tr>
-            <TableData>Producto</TableData>
-            <TableData>Estado</TableData>
-            <TableData>Valor</TableData>
-            <PrivateComponent roleList={['Administrador']}>
-              <TableData>Actualizar</TableData>
-            </PrivateComponent>
-          </tr>
-        </TableHead>
-        <tbody>
-          {productosFiltrados.map((productos) =>(
-            <TableRow key={productos._id}>
-              <TableData>{productos.nombre}</TableData>
-              <TableData>{productos.Estado.label}</TableData>
-              <TableData>{productos.valor}</TableData>
+        <Table>
+          <TableHead>
+            <tr>
+              <TableData>Producto</TableData>
+              <TableData>Estado</TableData>
+              <TableData>Valor</TableData>
               <PrivateComponent roleList={['Administrador']}>
-                <TableData>
-                  <button className="iconSide" onClick={() => {
-                    history.push(`/editarProductos/${productos._id}`)}}
-                  >
-                    <FontAwesomeIcon  icon={faPenAlt}/>
-                  </button>
-                  <button
-                    className="iconSide"
-                    onClick={()=>{showAlert(productos._id)}}
-                  >
-                      <FontAwesomeIcon icon={faTrashAlt}/>
-                  </button>
-                </TableData>
+                <TableData>Actualizar</TableData>
               </PrivateComponent>
-            </TableRow>
-          ))}
-        </tbody>
-      </Table>
+            </tr>
+          </TableHead>
+          <tbody>
+            {productosFiltrados.map((productos) =>(
+              <TableRow key={productos._id}>
+                <TableData>{productos.nombre}</TableData>
+                <TableData>{productos.Estado.label}</TableData>
+                <TableData>{productos.valor}</TableData>
+                <PrivateComponent roleList={['Administrador']}>
+                  <TableData>
+                    <button className="iconSide edit" onClick={() => {
+                      history.push(`/editarProductos/${productos._id}`)}}
+                    >
+                      <FontAwesomeIcon  icon={faPenAlt}/>
+                    </button>
+                    <button
+                      className="iconSide trash"
+                      onClick={()=>{showAlert(productos._id)}}
+                    >
+                        <FontAwesomeIcon icon={faTrashAlt}/>
+                    </button>
+                  </TableData>
+                </PrivateComponent>
+              </TableRow>
+            ))}
+          </tbody>
+        </Table>
+      <ContenedorCardTabla>
+        {productosFiltrados.map((productos)=>{
+          return (
+          <ContenidoResponsive>
+            <InfoCard>
+              <span>{productos.nombre}{" - $"}{productos.valor}</span>
+              <span>{productos.Estado.label}</span>
+            </InfoCard>
+            <ActualizarCard>
+              <button className="iconSide edit" 
+                onClick={() => {
+                  history.push(`/editarProductos/${productos._id}`)}}
+              >
+                  <FontAwesomeIcon  icon={faPenAlt}/>
+              </button>
+              <button className="iconSide trash"
+                onClick={()=>{showAlert(productos._id)}}
+              >
+                    <FontAwesomeIcon icon={faTrashAlt}/>
+              </button>
+            </ActualizarCard>
+          </ContenidoResponsive>
+          );
+        })} 
+        </ContenedorCardTabla>
     </main>
   );
 };
