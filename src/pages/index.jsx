@@ -6,7 +6,7 @@ const index = () => {
     <div className="containerIndexPrincipal">
       <h1 className='tituloUno'>Pet Shop</h1>
       <h1 className='tituloUno'>El hogar de las mascotas felices</h1>
-      <img width='100%' height='100%' src={logoPets1} alt="" />
+      <img className='imagenPagPrincipal' src={logoPets1} alt="" />
     </div>
   );
 };

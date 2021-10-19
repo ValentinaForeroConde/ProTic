@@ -4,9 +4,9 @@ import React from 'react'
 
 const PublicLayout = ({ children }) => {
     return (
-        <div>
+        <div className="contenedor-main-layout">
             <NavBar/>
-            <main>{ children }</main>
+            <main className="main-layout">{ children }</main>
             <Footer/>
         </div>
     )

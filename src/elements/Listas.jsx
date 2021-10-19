@@ -4,9 +4,8 @@ const Table = styled.table`
 width: 100%;
 overflow-y: scroll;
 grid-column: span 2;
-@media (max-width: 800px){
-    width: 50%;
-    grid-column: span 1;
+@media (max-width:800px){
+      display: none;
 }
 `;
 
@@ -68,6 +67,51 @@ grid-column: span 2;
 
 }
 `;
+const ContenedorCardTabla = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-y: scroll;
+    &:hover { 
+    background-color: rgb(132, 132, 138);
+    cursor: pointer;
+    border-radius: 15px;
+    }
+    @media (min-width:800px){
+        display: none;
+        grid-column: span 1;
+    }
+}  
+`;
+const ContenidoResponsive = styled.div`
+    background-color: rgb(187, 186, 186);
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    padding: 3px;
+    border-radius: 15px;
+    width: 90%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+}  
+`;
+const InfoCard = styled.div`
+    width: 100%;
+    span{
+        display: flex;
+        flex-direction: row;
+    }
+    &:ntn:child(1){
+        font-size: 22px;
+        color: #fff;
+    }
+}  
+`;
+const ActualizarCard = styled.div`
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}  
+`;
 export{
     Table,
     TableHead,
@@ -75,6 +119,10 @@ export{
     TableRow,
     ContenedorBotonCentrado,
     Boton,
-    ContenedorEstado
+    ContenedorEstado,
+    ContenedorCardTabla,
+    ContenidoResponsive,
+    InfoCard,
+    ActualizarCard
 }
 

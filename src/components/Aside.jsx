@@ -54,6 +54,7 @@ const Aside = () => {
                     Salir
                 </button>
                 <Profile/>
+                
             </nav>
     )
 };

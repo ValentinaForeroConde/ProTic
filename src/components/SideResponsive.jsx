@@ -2,9 +2,19 @@ import React, {useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink, Link } from 'react-router-dom';
 import {faUsers, faHome, faCashRegister, faShoppingBag, faSignOutAlt, faBars, faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 const SideResponsive = () => {
     const [mostrarNavegacion, setMostrarNavegacion] = useState(false)
+    const cerrarSesion = ()=>{
+        logout({ returnTo: window.location.origin });
+        localStorage.setItem('token', null);
+    }
+
+    const { isLoading, logout } = useAuth0();
+
+    if (isLoading) return <h1>Loading...</h1>
     return (
         <div>
             <FontAwesomeIcon  className="burger" size="2x" icon={mostrarNavegacion? faWindowClose : faBars} onClick={()=>setMostrarNavegacion(!mostrarNavegacion)} />
@@ -28,10 +38,12 @@ const SideResponsive = () => {
                         <FontAwesomeIcon className="iconSide" icon={faUsers}/>
                         Usuarios
                     </NavLink>
-                    <Link className="a" to=''>
+                    <button
+                        className= "ButtonSalir"
+                        onClick={() => cerrarSesion()}>
                         <FontAwesomeIcon className="iconSide" icon={faSignOutAlt}/>
                         Salir
-                    </Link>
+                    </button>
                 </nav>
                 )}
             </div>

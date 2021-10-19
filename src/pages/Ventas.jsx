@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow} from 'elements/Listas';
+import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow, ContenedorCardTabla, ContenidoResponsive, InfoCard, ActualizarCard} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
 import * as api from './ApiVentas';
 import Swal from 'sweetalert2';
-import { red } from '@material-ui/core/colors';
 
   const Ventas = () => {
     const [ventas, setVentas] = useState([]);
@@ -77,7 +76,6 @@ import { red } from '@material-ui/core/colors';
           onChange={(e)=> setBusqueda(e.target.value)}
           placeholder="Buscar"
         />
-        <div className="cont-tabla">
           <Table>
             <TableHead>
               <tr>
@@ -111,16 +109,15 @@ import { red } from '@material-ui/core/colors';
                 ))}
             </tbody>
           </Table>
-        </div>
-        <div className="contenedorCard-tabla">
+        <ContenedorCardTabla>
         {ventasFiltradas.map((ventas)=>{
           return (
-          <div className="contenido-responsive">
-            <div className="info-card">
+          <ContenidoResponsive>
+            <InfoCard>
               <span>{ventas.nombre}{" "}{ventas.apellido}</span>
               <span>{ventas.documento}</span>
-            </div>
-            <div className="actualizar-card">
+            </InfoCard>
+            <ActualizarCard>
               <button className="iconSide edit" 
                 onClick={()=>{
                   history.push(`/actualizarVentas/${ventas._id}`)
@@ -133,11 +130,11 @@ import { red } from '@material-ui/core/colors';
               >
                 <FontAwesomeIcon icon={faTrashAlt}/>
               </button>
-            </div>
-          </div>
+            </ActualizarCard>
+          </ContenidoResponsive>
           );
         })} 
-        </div>
+        </ContenedorCardTabla>
       </main>
     );
   };

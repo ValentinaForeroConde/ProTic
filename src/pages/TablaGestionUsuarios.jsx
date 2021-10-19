@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Table, TableHead, TableData, TableRow} from 'elements/Listas';
+import {Table, TableHead, TableData, TableRow, ContenedorCardTabla, ContenidoResponsive, InfoCard, ActualizarCard} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
@@ -83,7 +83,6 @@ const TablaGestionUsuarios = () => {
                 <ReactLoading  type="cylon" color="#023047" height={300} width={300} />
             ):(
               <div>
-                <div className="cont-tabla">
                 <Table>
                   <TableHead>
                     <tr>
@@ -116,16 +115,15 @@ const TablaGestionUsuarios = () => {
                     ))}
                   </tbody>
                 </Table>
-                </div>
-                <div className="contenedorCard-tabla">
+                <ContenedorCardTabla>
                 {usuariosFiltrados.map((usuario)=>{
                   return (
-                  <div className="contenido-responsive">
-                    <div className="info-card">
+                  <ContenidoResponsive>
+                    <InfoCard>
                       <span>{usuario.nombre}{" "}{usuario.apellido}</span>
                       <span>{usuario.documento}</span>
-                    </div>
-                    <div className="actualizar-card">
+                    </InfoCard>
+                    <ActualizarCard>
                       <button className="iconSide edit" 
                          onClick={() => {
                           history.push(`/editarUsuario/${usuario._id}`)}}
@@ -137,11 +135,11 @@ const TablaGestionUsuarios = () => {
                       >
                           <FontAwesomeIcon icon={faTrashAlt}/>
                       </button>
-                    </div>
-                  </div>
+                    </ActualizarCard>
+                  </ContenidoResponsive>
                   );
                 })} 
-                </div>
+                </ContenedorCardTabla>
               </div>
             )
             }

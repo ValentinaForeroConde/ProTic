@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow} from 'elements/Listas';
+import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow, ContenedorEstado, ContenedorCardTabla, ContenidoResponsive, InfoCard, ActualizarCard} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
@@ -83,7 +83,6 @@ const ListadoProductos = () => {
         onChange={(e) => setBusqueda(e.target.value)}
         placeholder='Buscar'
       />
-      <div className="cont-tabla">
         <Table>
           <TableHead>
             <tr>
@@ -120,16 +119,15 @@ const ListadoProductos = () => {
             ))}
           </tbody>
         </Table>
-      </div>
-      <div className="contenedorCard-tabla">
+      <ContenedorCardTabla>
         {productosFiltrados.map((productos)=>{
           return (
-          <div className="contenido-responsive">
-            <div className="info-card">
+          <ContenidoResponsive>
+            <InfoCard>
               <span>{productos.nombre}{" - $"}{productos.valor}</span>
               <span>{productos.Estado.label}</span>
-            </div>
-            <div className="actualizar-card">
+            </InfoCard>
+            <ActualizarCard>
               <button className="iconSide edit" 
                 onClick={() => {
                   history.push(`/editarProductos/${productos._id}`)}}
@@ -141,11 +139,11 @@ const ListadoProductos = () => {
               >
                     <FontAwesomeIcon icon={faTrashAlt}/>
               </button>
-            </div>
-          </div>
+            </ActualizarCard>
+          </ContenidoResponsive>
           );
         })} 
-        </div>
+        </ContenedorCardTabla>
     </main>
   );
 };
