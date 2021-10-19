@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Input from 'components/Input';
-import {Formulario, Etiqueta, ContCarrito, Carrito, Label, LabelVenta, RadioButton, ContentRButton} from 'elements/Formularios';
+import {Formulario, Etiqueta, ContCarrito, Carrito, LabelVenta, RadioButton, ContentRButton} from 'elements/Formularios';
 import Expresiones from 'components/Expresiones';
 import BotonCentrado from 'components/BotonCentrado';
 import AlertaError from 'components/AlertaError';

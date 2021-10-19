@@ -161,13 +161,14 @@ div.content {
   }
   .contenido {
     padding-left: 0;
+    margin: 50px 20px 0px 28px;
+    padding-bottom: 50px;
   }
   .dashboard-cards-container {
     height: max-content;
   }
   .mainContainerTable{
     margin: 0;
-    
   }
 }
 

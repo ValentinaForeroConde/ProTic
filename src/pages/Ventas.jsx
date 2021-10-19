@@ -82,7 +82,7 @@ import Swal from 'sweetalert2';
                 <TableData>Nombre del cliente</TableData>
                 <TableData>Documento del cliente</TableData>
                 <TableData>Id compra</TableData>
-                <TableData>Actualizar</TableData>
+                <TableData>Editar</TableData>
               </tr>
             </TableHead>
             <tbody>

@@ -72,6 +72,7 @@ const ContenedorCardTabla = styled.div`
     flex-direction: column;
     width: 100%;
     overflow-y: scroll;
+    padding-bottom: 50px;
     &:hover { 
     background-color: rgb(132, 132, 138);
     cursor: pointer;
@@ -81,7 +82,7 @@ const ContenedorCardTabla = styled.div`
         display: none;
         grid-column: span 1;
     }
-}  
+}
 `;
 const ContenidoResponsive = styled.div`
     background-color: rgb(187, 186, 186);

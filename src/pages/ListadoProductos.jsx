@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow, ContenedorEstado, ContenedorCardTabla, ContenidoResponsive, InfoCard, ActualizarCard} from 'elements/Listas';
+import {Table, TableHead, TableData, Boton, ContenedorBotonCentrado, TableRow, ContenedorCardTabla, ContenidoResponsive, InfoCard, ActualizarCard} from 'elements/Listas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faPenAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import { Link, useHistory } from 'react-router-dom';
@@ -90,7 +90,7 @@ const ListadoProductos = () => {
               <TableData>Estado</TableData>
               <TableData>Valor</TableData>
               <PrivateComponent roleList={['Administrador']}>
-                <TableData>Actualizar</TableData>
+                <TableData>Editar</TableData>
               </PrivateComponent>
             </tr>
           </TableHead>
@@ -99,7 +99,7 @@ const ListadoProductos = () => {
               <TableRow key={productos._id}>
                 <TableData>{productos.nombre}</TableData>
                 <TableData>{productos.Estado.label}</TableData>
-                <TableData>{productos.valor}</TableData>
+                <TableData>{'$ ' + productos.valor}</TableData>
                 <PrivateComponent roleList={['Administrador']}>
                   <TableData>
                     <button className="iconSide edit" onClick={() => {
