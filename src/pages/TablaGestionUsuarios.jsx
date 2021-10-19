@@ -118,13 +118,13 @@ const TablaGestionUsuarios = () => {
                 <ContenedorCardTabla>
                 {usuariosFiltrados.map((usuario)=>{
                   return (
-                  <ContenidoResponsive>
+                  <ContenidoResponsive key={usuario._id}>
                     <InfoCard>
                       <span>{usuario.nombre}{" "}{usuario.apellido}</span>
                       <span>{usuario.documento}</span>
                     </InfoCard>
                     <ActualizarCard>
-                      <button className="iconSide edit" 
+                      <button className="iconSide edit"
                          onClick={() => {
                           history.push(`/editarUsuario/${usuario._id}`)}}
                       >
