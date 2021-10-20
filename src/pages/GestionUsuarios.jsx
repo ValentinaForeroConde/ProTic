@@ -164,6 +164,7 @@ function GestionUsuarios() {
                     opciones={opcion1}
                     usuarios={usuarios}
                     setUsuarios={setUsuarios}
+                    z-index={2}
                 />
                <Selects
                     estado={Estado}
@@ -177,6 +178,7 @@ function GestionUsuarios() {
                     opciones={opcion2}
                     usuarios={usuarios}
                     setUsuarios={setUsuarios}
+                    z-index={1}
                 />
 
                 {formularioValido === false  && <AlertaError/> }

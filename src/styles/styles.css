@@ -318,3 +318,8 @@ input[type=number] {
 .contenedor-main-layout{
   background-color: #fbcf04;
 }
+
+.side-responsive{
+  position: relative;
+  z-index: 2;
+}
