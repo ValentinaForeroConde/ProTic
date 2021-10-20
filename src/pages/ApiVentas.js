@@ -4,7 +4,7 @@ const getToken= ()=>{
     return `Bearer ${localStorage.getItem('token')}`;
 }
 
-const API_URL = "http://localhost:5000/venta"
+const API_URL = "https://enigmatic-meadow-61941.herokuapp.com/venta"
 
 export const listaVentas = async () => {
     try{
