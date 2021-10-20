@@ -6,8 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from "@auth0/auth0-react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const domain = process.env.REACT_APP_AUTH0_DOMAIN
-const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID
+const domain = "dev-1k7j1s3x.us.auth0.com"
+const clientId = "OZRfcM2n4eucThyEVcFlgmwmaIdWlGsd"
 
 
 ReactDOM.render(
@@ -15,7 +15,7 @@ ReactDOM.render(
     <Auth0Provider
     domain={domain}
     clientId = {clientId}
-    redirectUri="http://localhost:3000/Dashboard"
+    redirectUri="https://polar-earth-54202.herokuapp.com/Dashboard"
     audience='api-autentificacion-protic'
     >
       <App />
