@@ -41,6 +41,8 @@ const Selects = ({user, tipo, lenyenda, expresionRegular, name, estado, cambiarE
                     valido={estado.valido}
                     options={opciones}
                     className="selectlist"
+                    menuPortalTarget={document.body}
+                    styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
                 />
                 <IconoValidacion
                 icon={estado.valido === 'true' ? faCheckCircle : faTimesCircle}
