@@ -22,19 +22,19 @@ const SideResponsive = () => {
                 {mostrarNavegacion && (  
                 <nav>
                     <span className="tituloSide">Pet Shop</span>
-                    <NavLink className="a" activeClassName='active' to='Dashboard'>
+                    <NavLink className="a" activeClassName='active' to='/Dashboard'>
                         <FontAwesomeIcon className="iconSide" icon={faHome}/>
                         Inicio
                     </NavLink>
-                    <NavLink className="a" activeClassName='active' to='ventas'>
+                    <NavLink className="a" activeClassName='active' to='/ventas'>
                         <FontAwesomeIcon className="iconSide" icon={faCashRegister}/>
                         Ventas
                     </NavLink>
-                    <NavLink className="a" activeClassName='active' to='ListadoProductos'>
+                    <NavLink className="a" activeClassName='active' to='/ListadoProductos'>
                         <FontAwesomeIcon className="iconSide" icon={faShoppingBag}/>
                         Productos
                     </NavLink>
-                    <NavLink className="a" activeClassName='active' to='tablaGestionUsuarios'>
+                    <NavLink className="a" activeClassName='active' to='/tablaGestionUsuarios'>
                         <FontAwesomeIcon className="iconSide" icon={faUsers}/>
                         Usuarios
                     </NavLink>

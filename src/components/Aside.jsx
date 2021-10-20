@@ -25,24 +25,24 @@ const Aside = () => {
                 <div padding='20px'><img   className='bola' src={logoPets1} alt="" /></div>
                 <span className="tituloSide">Pet Shop</span>
 
-                <NavLink className="a" activeClassName='active' to='Dashboard'>
+                <NavLink className="a" activeClassName='active' to='/Dashboard'>
                     <FontAwesomeIcon className="iconSide" icon={faHome}/>
                     Inicio
                 </NavLink>
                 <PrivateComponent roleList={['Administrador','Vendedor']}>
-                    <NavLink className="a" activeClassName='active' to='ventas'>
+                    <NavLink className="a" activeClassName='active' to='/ventas'>
                         <FontAwesomeIcon className="iconSide" icon={faCashRegister}/>
                         Ventas
                     </NavLink>
                 </PrivateComponent>
                 <PrivateComponent roleList={['Administrador','Vendedor']}>
-                    <NavLink className="a" activeClassName='active' to='ListadoProductos'>
+                    <NavLink className="a" activeClassName='active' to='/ListadoProductos'>
                         <FontAwesomeIcon className="iconSide" icon={faShoppingBag}/>
                         Productos
                     </NavLink>
                 </PrivateComponent>
                 <PrivateComponent roleList={['Administrador']}>
-                    <NavLink className="a" activeClassName='active' to='tablaGestionUsuarios'>
+                    <NavLink className="a" activeClassName='active' to='/tablaGestionUsuarios'>
                         <FontAwesomeIcon className="iconSide" icon={faUsers}/>
                         Usuarios
                     </NavLink>
