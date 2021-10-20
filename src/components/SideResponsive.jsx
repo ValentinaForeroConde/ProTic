@@ -16,9 +16,9 @@ const SideResponsive = () => {
 
     if (isLoading) return <h1>Loading...</h1>
     return (
-        <div className="side-responsive">
+        <div className="responsive">
             <FontAwesomeIcon  className="burger" size="2x" icon={mostrarNavegacion? faWindowClose : faBars} onClick={()=>setMostrarNavegacion(!mostrarNavegacion)} />
-            <div className="responsive" padding='20px'>
+            <div>
                 {mostrarNavegacion && (  
                 <nav>
                     <span className="tituloSide">Pet Shop</span>

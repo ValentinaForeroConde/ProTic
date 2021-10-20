@@ -17,6 +17,7 @@ position: fixed;
   background-color: #023047;
   color: white;
   text-align: center;
+  z-index: 100;
 `;
 
 const Boton = styled.button`
