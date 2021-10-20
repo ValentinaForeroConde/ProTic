@@ -114,8 +114,8 @@ import Swal from 'sweetalert2';
           return (
           <ContenidoResponsive>
             <InfoCard>
-              <span>{ventas.nombre}{" "}{ventas.apellido}</span>
-              <span>{ventas.documento}</span>
+              <span>{"Nombre: "}{ventas.nombre}{" "}{ventas.apellido}</span>
+              <span>{"Documento: "}{ventas.documento}</span>
             </InfoCard>
             <ActualizarCard>
               <button className="iconSide edit" 

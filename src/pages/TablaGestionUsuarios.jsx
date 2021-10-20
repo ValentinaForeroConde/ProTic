@@ -120,8 +120,8 @@ const TablaGestionUsuarios = () => {
                   return (
                   <ContenidoResponsive key={usuario._id}>
                     <InfoCard>
-                      <span>{usuario.nombre}{" "}{usuario.apellido}</span>
-                      <span>{usuario.documento}</span>
+                      <span>{"Nombre: "}{usuario.nombre}{" "}{usuario.apellido}</span>
+                      <span>{"Documento: "}{usuario.documento}</span>
                     </InfoCard>
                     <ActualizarCard>
                       <button className="iconSide edit"

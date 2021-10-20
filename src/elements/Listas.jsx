@@ -71,13 +71,7 @@ const ContenedorCardTabla = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    overflow-y: scroll;
     padding-bottom: 50px;
-    &:hover { 
-    background-color: rgb(132, 132, 138);
-    cursor: pointer;
-    border-radius: 15px;
-    }
     @media (min-width:800px){
         display: none;
         grid-column: span 1;
@@ -91,8 +85,13 @@ const ContenidoResponsive = styled.div`
     flex-direction: row;
     padding: 3px;
     border-radius: 15px;
-    width: 90%;
+    width: 100%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    &:hover { 
+        background-color: rgb(132, 132, 138);
+        cursor: pointer;
+        border-radius: 15px;
+        }
 }  
 `;
 const InfoCard = styled.div`
@@ -100,10 +99,6 @@ const InfoCard = styled.div`
     span{
         display: flex;
         flex-direction: row;
-    }
-    &:ntn:child(1){
-        font-size: 22px;
-        color: #fff;
     }
 }  
 `;

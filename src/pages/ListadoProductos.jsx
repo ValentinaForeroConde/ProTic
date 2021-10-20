@@ -122,11 +122,13 @@ const ListadoProductos = () => {
       <ContenedorCardTabla>
         {productosFiltrados.map((productos)=>{
           return (
-          <ContenidoResponsive>
+          <ContenidoResponsive key={productos._id}>
             <InfoCard>
-              <span>{productos.nombre}{" - $"}{productos.valor}</span>
+              <span>{"Nombre: "}{productos.nombre}</span>
+              <span>{"Precio: $ "}{productos.valor}</span>
               <span>{productos.Estado.label}</span>
             </InfoCard>
+            <PrivateComponent roleList={['Administrador']}>
             <ActualizarCard>
               <button className="iconSide edit" 
                 onClick={() => {
@@ -140,6 +142,7 @@ const ListadoProductos = () => {
                     <FontAwesomeIcon icon={faTrashAlt}/>
               </button>
             </ActualizarCard>
+            </PrivateComponent>
           </ContenidoResponsive>
           );
         })} 

@@ -26,18 +26,24 @@ const SideResponsive = () => {
                         <FontAwesomeIcon className="iconSide" icon={faHome}/>
                         Inicio
                     </NavLink>
+                    <PrivateComponent roleList={['Administrador','Vendedor']}>
                     <NavLink className="a" activeClassName='active' to='/ventas'>
                         <FontAwesomeIcon className="iconSide" icon={faCashRegister}/>
                         Ventas
                     </NavLink>
+                </PrivateComponent>
+                <PrivateComponent roleList={['Administrador','Vendedor']}>
                     <NavLink className="a" activeClassName='active' to='/ListadoProductos'>
                         <FontAwesomeIcon className="iconSide" icon={faShoppingBag}/>
                         Productos
                     </NavLink>
+                </PrivateComponent>
+                <PrivateComponent roleList={['Administrador']}>
                     <NavLink className="a" activeClassName='active' to='/tablaGestionUsuarios'>
                         <FontAwesomeIcon className="iconSide" icon={faUsers}/>
                         Usuarios
                     </NavLink>
+                </PrivateComponent>
                     <button
                         className= "ButtonSalir"
                         onClick={() => cerrarSesion()}>
