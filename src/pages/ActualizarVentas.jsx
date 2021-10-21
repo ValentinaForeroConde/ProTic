@@ -45,6 +45,7 @@ const ActualizarVentas = () => {
       console.log(error);
     }
   };
+  
   //se activa si existe un params.id
   useEffect(() => {
     if(params.id){
@@ -173,7 +174,7 @@ const ActualizarVentas = () => {
     console.log(usuarios.estadoBoton);
   },[usuarios.estadoBoton]);
 
-    //modal para decir que al crear o evitar venta fue exitosa
+    //modal para decir que al crear o editar venta fue exitosa
   const showAlert =(comentario)=>{
     Swal.fire({
         icon: 'success',

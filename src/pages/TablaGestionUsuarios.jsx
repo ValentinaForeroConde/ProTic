@@ -10,7 +10,9 @@ import ReactLoading from 'react-loading';
 const TablaGestionUsuarios = () => {
 
     const [usuarios, setUsuarios]= useState([]);
+    const history = useHistory();
 
+    // conexion con el api para listar usuarios (GET-ALL)
     const listUsuarios = async()=>{
       try{
         setLoading(true);
@@ -22,20 +24,24 @@ const TablaGestionUsuarios = () => {
       }
     };
 
+    //actualiza la primera vez lista usuairos
     useEffect(()=>{
       listUsuarios();
     },[]);
 
-    const history = useHistory();
+    
 
+    //funcion para borrar que depende del id (DELETE)
     const handleDelete= async (usuarioId)=>{
       await server.deleteUser(usuarioId);
       listUsuarios();
     };
 
+    //constantes para filtrar usuarios
     const [busqueda, setBusqueda] = useState('');
     const [usuariosFiltrados, setUsuariosFiltrados] = useState(usuarios);
 
+    //permite actualizar lo que se escribe en el input de filtrar
     useEffect(() => {
       setUsuariosFiltrados(
       usuarios.filter((elemento) => {
@@ -43,9 +49,10 @@ const TablaGestionUsuarios = () => {
       }));
     }, [busqueda, usuarios]);
 
+    //variable loading inicializada en falso
     const[loading, setLoading] = useState(false);
 
-        //Ventana nodal
+    //Ventana modal
     const showAlert =(usuario)=>{
           Swal.fire({
             title:'Atención!',

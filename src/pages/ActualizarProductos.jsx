@@ -13,21 +13,21 @@ import Swal from 'sweetalert2';
 
 
 const ActualizarProductos = () => {
-
+    //params es lo que recibe del history.push de productos, en el boton de editar
     const params=useParams();
     const history=useHistory();
-
+    //Estado inicial que se debe recibir de la BD (es vacio para poder crear producto)
     const initialState={_id:'', nombre:'', descripcion:'', valor:'', Estado:'' };
+    //lo que se trae o envia al backend
     const [usuarios,setUsuarios]= useState(initialState);
-
-
+    //constantes para hacer validaciones del formulario
     const [nombre, cambiarNombre] = useState({campo:'',valido: ''});
     const [descripcion, cambiarDescripcion] = useState({campo:'',valido: ''});
     const [valor, cambiarvalor] = useState({campo:'',valido: ''});
-    //const [idVendedor, cambiarIdVendedor] = useState({valido: ''});
     const [Estado, cambiarEstado] = useState({campo:'',valido: ''});
     const [formularioValido, cambiarFormularioValido] = useState('');
 
+    //funcion que trae la informacion del back, si existe(params)
     const getProducto= async(productId)=>{
         try{
             const res = await api.getProduct(productId);
@@ -37,6 +37,7 @@ const ActualizarProductos = () => {
         }
     }
 
+    //se activa si existe un params.id
     useEffect(() => {
         if(params.id){
             getProducto(params.id);
@@ -48,7 +49,7 @@ const ActualizarProductos = () => {
         // eslint-disable-next-line
     }, []);
 
-
+    //lo que permite enviar la informacion del formulario
     const onSubmitForm = async(e) =>{
         e.preventDefault();
         if (
@@ -61,6 +62,7 @@ const ActualizarProductos = () => {
                 try{
                     let res;
                     if(!params.id){
+                        //permite crear un producto (POST) se envia a la BD
                         res= await api.registerProducts(usuarios);
                         console.log(res)
                         showAlert("Creado con exito");
@@ -68,6 +70,7 @@ const ActualizarProductos = () => {
                             setUsuarios(initialState);
                             }
                     }else{
+                        //permite editar si existe un params.id (PATCH)
                         await api.updateProduct(params.id, usuarios);
                         showAlert("Actualizado con exito");
                     }
@@ -80,10 +83,13 @@ const ActualizarProductos = () => {
             }
         }
 
+    //opciones del select de Disponibilidad del producto
     const productoDisponible = [
         {value:'0', label: 'Disponible'},
         {value:'1', label: 'No disponible'},
         ];
+
+    //ventana modal    
     const showAlert =(comentario)=>{
         Swal.fire({
             icon: 'success',
@@ -92,7 +98,6 @@ const ActualizarProductos = () => {
             timer: 1500
         })
     }
-
 
     return (
         <main>
@@ -142,18 +147,6 @@ const ActualizarProductos = () => {
                     usuarios={usuarios}
                     setUsuarios={setUsuarios}
                     />
-
-                   {/* <Input
-                    user = "Id-Producto"
-                    placeholdercont = "Id-Producto"
-                    tipo = "number"
-                    lenyenda = "El Id solo admite números"
-                    expresionRegular = {Expresiones.telefono}
-                    name = "idVendedor"
-                    estado = {idVendedor}
-                    cambiarEstado = {cambiarIdVendedor}
-                    />
-                     */}
                     <Selects
                     user = "Estado"
                     placeholdercont = "Selecciona el estado"

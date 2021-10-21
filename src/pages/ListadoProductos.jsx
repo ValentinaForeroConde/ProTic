@@ -7,12 +7,12 @@ import * as api from 'Api'
 import Swal from 'sweetalert2';
 import PrivateComponent from 'components/PrivateComponent';
 
-
 const ListadoProductos = () => {
 
   const [productos, setProductos] = useState([]);
   const history = useHistory();
 
+  // conexion con el api para listar productos (GET-ALL)
   const listProductos = async()=>{
     try{
       const res = await api.listProduct();
@@ -23,18 +23,22 @@ const ListadoProductos = () => {
     }
   };
 
+  //actualiza la primera vez lista productos
   useEffect(()=>{
     listProductos();
   },[]);
 
+  //funcion para borrar que depende del id (DELETE)
   const handleDelete= async (productId)=>{
     await api.deleteProduct(productId);
     listProductos();
   };
 
+  //constantes para filtrar ventas
   const [busqueda, setBusqueda] = useState('');
   const [productosFiltrados, setproductosFiltrados] = useState(productos);
 
+  //permite actualizar lo que se escribe en el input de filtrar
   useEffect(() => {
     setproductosFiltrados(
       productos.filter((elemento) => {
@@ -43,6 +47,7 @@ const ListadoProductos = () => {
     );
   }, [busqueda, productos]);
 
+  //libreria de los mensajes emergentes (modales)
   const showAlert =(producto)=>{
     Swal.fire({
       title:'Atención!',

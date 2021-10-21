@@ -14,13 +14,14 @@ import Swal from 'sweetalert2';
 
 
 function GestionUsuarios() {
-
+    //params es lo que recibe del history.push de ventas, en el boton de editar
     const params = useParams();
     const history =useHistory();
-
+  //Estado inicial que se debe recibir de la BD (es vacio para poder crear venta)
     const initialState={_id:'', nombre:'',apellido:'', documento:'', Estado:'', Rol:''}
+    //lo que se trae o envia al backend
     const [usuarios, setUsuarios]= useState(initialState);
-
+  //constantes para hacer validaciones del formulario
     const [nombre, cambiarNombre] = useState({campo:'',valido: ''});
     const [apellido, cambiarApellido] = useState({campo:'',valido: ''});
     const [documento, cambiarDocumento] = useState({campo:'',valido: ''});
@@ -29,7 +30,7 @@ function GestionUsuarios() {
     const [formularioValido, cambiarFormularioValido] = useState('');
 
 
-
+  //funcion que trae la informacion del back, si existe(params)
     const getUsuario= async(usuarioId)=>{
         try{
             const res = await server.getUsuario(usuarioId);
@@ -38,7 +39,7 @@ function GestionUsuarios() {
             console.log(error)
         }
     }
-
+    //se activa si existe un params.id
     useEffect(() => {
         if(params.id){
             getUsuario(params.id);
@@ -51,6 +52,7 @@ function GestionUsuarios() {
         // eslint-disable-next-line
     }, []);
 
+    //lo que permite enviar la informacion del formulario
     const onSubmitForm = async(e) =>{
         e.preventDefault();
         if (
@@ -64,6 +66,7 @@ function GestionUsuarios() {
                 try{
                     let res;
                     if(!params.id){
+                        //permite crear un usuario (POST) se envia a la BD
                         res= await server.registerUser(usuarios);
                         console.log(res)
                         showAlert("Creado con exito");
@@ -71,6 +74,7 @@ function GestionUsuarios() {
                             setUsuarios(initialState);
                             }
                     }else{
+                        //permite editar si existe un params.id (PATCH)
                         await server.updateUser(params.id, usuarios);
                         showAlert("Actualizado con exito");
                     }
@@ -83,18 +87,21 @@ function GestionUsuarios() {
             }
         };
 
+        //opciones del select ROL
         const opcion1  = [
             {value:'0', label: 'Pendiente'},
             {value:'1', label: 'Vendedor'},
             {value:'2', label: 'Administrador'}
         ];
 
+        //opciones del select Autorizado
         const opcion2  = [
             {value:'0', label: 'Pendiente'},
             {value:'1', label: 'Autorizado'},
             {value:'2', label: 'No Autorizado'}
         ];
 
+        //modal para decir que al crear o editar venta fue exitosa
         const showAlert =(comentario)=>{
             Swal.fire({
                 icon: 'success',
