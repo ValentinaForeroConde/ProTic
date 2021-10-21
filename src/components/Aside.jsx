@@ -1,5 +1,5 @@
 import React from 'react'
-import logoPets1 from "assets/logoPets1.png";
+import logoPets1 from "assets/logoPets1.svg";
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUsers, faHome, faCashRegister, faShoppingBag, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';

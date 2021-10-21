@@ -1,5 +1,5 @@
 import React from "react";
-import logoPets1 from "assets/logoPets1.png";
+import logoPets1 from "assets/logoPets1.svg";
 
 const index = () => {
   return (
