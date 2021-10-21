@@ -9,7 +9,8 @@ import Swal from 'sweetalert2';
   const Ventas = () => {
     const [ventas, setVentas] = useState([]);
     const history = useHistory();
-
+    
+    // conexion con el api para listar ventas (GET-ALL)
     const listaVentas = async()=> {
       try{
         const res = await api.listaVentas();
@@ -19,18 +20,22 @@ import Swal from 'sweetalert2';
       }
     };
 
+    //actualiza la primera vez lista ventas
     useEffect(() => {
       listaVentas();
     }, []);
 
+    //funcion para borrar que depende del id (DELETE)
     const handleDelete = async (idVenta)=>{
       await api.deleteVenta(idVenta);
       listaVentas();
     };
 
+    //constantes para filtrar ventas
     const [busqueda, setBusqueda] = useState('');
     const [ventasFiltradas, setVentasFiltradas] = useState(ventas);
 
+    //permite actualizar lo que se escribe en el input de filtrar
     useEffect(() => {
       setVentasFiltradas(
         ventas.filter((elemento) =>{
@@ -39,6 +44,7 @@ import Swal from 'sweetalert2';
       );
     }, [busqueda, ventas]);
 
+    //libreria de los mensajes emergentes (modales)
     const showAlert =(venta)=>{
       Swal.fire({
         title:'Atención!',
@@ -63,7 +69,10 @@ import Swal from 'sweetalert2';
         }
       })
     }
+
+    //conponente de retorna
     return(
+      //tabla-card que muestra ventas
       <main className="mainContainerTable">
         <ContenedorBotonCentrado>
           <Boton>
@@ -138,5 +147,4 @@ import Swal from 'sweetalert2';
       </main>
     );
   };
-
 export default Ventas;
